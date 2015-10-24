@@ -1,66 +1,87 @@
 /**
  * Class for run calculator. Set input parameters by running arguments.
  * Needs 3 parameters - first integer number, mathematical operation and second integer number.
+ * Input strings for operation: +, -, x(multiplication), /, e(exponentiation)
  */
 public class ArgRunner {
 
-	/** Instance of Calculator for calculation */
 	private Calculator calc = new Calculator();
-	
-	/** Arguments for calculation */
-	private int[] arguments = new int[2];
-	
-	/** Mathematical operation for calculation */
-	private MathOperation operation;
+	private Integer[] arguments = {null, null};
+	private MathOperation operation = null;
 	
 	
-	/**
-	 * Check and set arguments of calculation
-	 * @param first First string number to convert into integer
-	 * @param second Second string number to convert into integer
-	 * @return True if string numbers are correct
-	 */
-	private boolean setArguments(String first, String second) {
-		boolean correctNumbers = false;
+	public static void main(String[] args) {
+		ArgRunner ar = new ArgRunner();
+		ar.showResult(args);
+	}	
+	
+	
+	public void showResult(String[] args) {
 		try {
-			arguments[0] = Integer.parseInt(first);
-			arguments[1] = Integer.parseInt(second);
-			correctNumbers = true;
-		} catch (NumberFormatException nfe) {
-			System.out.println("Incorrect integer number!");
-	    }
-		return correctNumbers;
+			int calcResult = getResult(args);
+			printToConsole("Result: " + calcResult);
+		} catch (Exception e) {
+			printToConsole(e.getMessage());
+		}
 	}
 	
 	
-	/**
-	 * Check and set operation of calculation
-	 * @param operationString String operation of calculation
-	 * @return True if operationString is correct
-	 */
-	private boolean setOperation(String operationString) {
-		boolean correctOperation = false;
-		try {
-    		this.operation = MathOperation.getOperationBySymbol(convertOperationStringToChar(operationString));
-    		correctOperation = true;
-    	} catch (IllegalArgumentException iae) {
-    		System.out.println("Incorrect mathematical operation!");
-    		System.out.println(
-    				"Please, use correct mathematical operation: (+, -, x(multiplication), /, e(exponentiation)");
-    	}
+	public int getResult(String[] args) {
+		if (isCorrectInputArgsQuantity(args)) {
+			setCalculationParameters(args);
+			calculate();
+		} else {
+			throw new IllegalArgumentException(incorrectInputArgsQuantityMessage());
+		}
+		return calc.getResult();
+	}
+
+	
+	private boolean isCorrectInputArgsQuantity(String[] args) {
+		final int CORRECT_ARGS_QUANTITY = 3;
+		boolean isCorrectQuantity = true;
 		
-		return correctOperation;
-	}
+		if (args.length != CORRECT_ARGS_QUANTITY)
+			isCorrectQuantity = false;
+			
+		return isCorrectQuantity;
+	}	
 	
 	
-	/**
-	 * Convert operation from string to char. 
-	 * Because of the problem of running arguments "*" and "^".
-	 * @param operation String of operation
-	 * @return Char symbol of operation
-	 */
+	private void setCalculationParameters(String[] args) {
+		setTwoArguments(args[0], args[2]);
+		setOperation(args[1]);
+	}	
+	
+	
+	private void setTwoArguments(String firstNumber, String secondNumber) {
+		try {
+			arguments[0] = Integer.parseInt(firstNumber);
+			arguments[1] = Integer.parseInt(secondNumber);
+		} catch (NumberFormatException nfe) {
+			throw new IllegalArgumentException(incorrectIntegerNumberOfArgumentMessage());
+	    }
+	}	
+	
+	
+	private String incorrectIntegerNumberOfArgumentMessage() {
+		return "Incorrect integer number!";
+	}	
+	
+
+	private void setOperation(String operationsString) {
+   		try {
+   			char operationsSymbol = convertOperationStringToChar(operationsString);
+   			operation = getOperationBySymbol(operationsSymbol); 
+   		} catch (UnsupportedOperationException uoe) {
+   			throw new UnsupportedOperationException(incorrectMathematicalOperationMessage());
+   		}
+	}	
+	
+	
 	private char convertOperationStringToChar(String operation) {
 		char symbol = ' ';
+		
 		if ("x".equals(operation)) {			// Because of the problem with "*" as running argument
 			symbol = '*';
 		} else if ("e".equals(operation)) {		// Because of the problem with "^" as running argument
@@ -70,61 +91,50 @@ public class ArgRunner {
 		}
 			
 		return symbol;
+	}	
+	
+	
+	private MathOperation getOperationBySymbol(char operationsSymbol) {
+		return MathOperation.getOperationBySymbol(operationsSymbol);
 	}
 	
-	
-	/**
-	 * Check input arguments quantity
-	 * @param args Input arguments
-	 * @return True if quantity of input arguments is three
-	 */
-	private boolean checkInputArgsQuantity(String[] args) {
-		boolean correctQuantity = false;
-		if (args.length != 3) {
-			System.out.println("Please, use three parameters. Example: -5 / 7");
-			System.out.println("And correct mathematical operation: (+, -, x(multiplication), /, e(exponentiation)");
-		} else {
-			correctQuantity = true;
-		}
-			
-		return correctQuantity;
-	}
-	
-	
-	/**
-	 * Check and set all arguments for calculation
-	 * @param args Input arguments
-	 * @return True if all arguments are correct
-	 */
-	public boolean setCalculationParameters(String[] args) {
-		return (this.checkInputArgsQuantity(args) && 
-				this.setArguments(args[0], args[2]) &&
-				this.setOperation(args[1]));
-	}
-	
-	
-	/**
-	 * Calculate and show result to console
-	 */
-	public void showCalculationResult() {
-		try {
-			System.out.println("Calculate...");
-			this.calc.calculate(this.arguments[0], this.operation, this.arguments[1]);
-			System.out.println("Result: " + this.calc.getResult());
-		} catch (ArithmeticException ae) {
-			System.out.println("!!! Problems during calculation !!!");
-			System.out.println(ae.getMessage());
-		}
-	}
-	
-		
-	public static void main(String[] args) {
 
-		ArgRunner argRunner = new ArgRunner();
-		if (argRunner.setCalculationParameters(args)) {
-			argRunner.showCalculationResult();
+	private String incorrectMathematicalOperationMessage() {
+		String message = "Incorrect mathematical operation!" + System.lineSeparator() + 
+				"Please, use correct mathematical operation: " + System.lineSeparator() +
+   				"(+, -, x(multiplication), /, e(exponentiation)";
+		return message;
+	}	
+	
+	
+	private void calculate() {
+		try {
+			printToConsole("Calculation...");
+			calc.calculate(arguments[0], operation, arguments[1]);
+		} catch (ArithmeticException ae) {
+			throw new ArithmeticException(arithmeticCalculationProblemMessage(ae.getMessage()));
 		}
-		
+	}	
+	
+	
+	private void printToConsole(String message) {
+		System.out.println(message);
+	}	
+
+	
+	private String arithmeticCalculationProblemMessage(String exceptionMessage) {
+		String message = "!!! Problems during calculation !!!" +
+				System.lineSeparator() + exceptionMessage;
+		return message;
+	}	
+	
+	
+	private String incorrectInputArgsQuantityMessage() {
+		String message = "Please, use three parameters." + System.lineSeparator() +
+				"Example: -5 / 7" + System.lineSeparator() + 
+				"And correct mathematical operation:" + System.lineSeparator() +
+				"(+, -, x(multiplication), /, e(exponentiation)";
+		return message;
 	}
 	
 }

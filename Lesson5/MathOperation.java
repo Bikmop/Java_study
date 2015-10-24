@@ -20,7 +20,7 @@ public enum MathOperation {
             case '*': return MULTIPLY;
             case '/': return DIVIDE;
             case '^': return EXPONENTIATION;
-            default: throw new IllegalArgumentException();
+            default: throw new UnsupportedOperationException(String.valueOf(symbol));
         }
     }
 }
