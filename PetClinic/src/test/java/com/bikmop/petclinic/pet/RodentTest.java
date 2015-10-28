@@ -5,8 +5,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class RodentTest {
+
     @Test
-    public void testCreation() throws Exception {
+    public void testGetPetType() throws Exception {
         Rodent rodent = new Rodent("Mousy");
+        assertEquals("Rodent", rodent.getPetType());
     }
 }

@@ -7,7 +7,9 @@ import static org.junit.Assert.*;
 public class CatTest {
 
     @Test
-    public void testCreation() throws Exception {
+    public void testGetPetType() throws Exception {
         Cat cat = new Cat("Kitty");
+        assertEquals("Cat", cat.getPetType());
     }
+
 }

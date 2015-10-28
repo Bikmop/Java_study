@@ -22,4 +22,6 @@ public abstract class Pet {
     private boolean hasInString(String mainString, String searchString) {
         return mainString.toLowerCase().contains(searchString.toLowerCase());
     }
+
+    public abstract String getPetType();
 }

@@ -5,8 +5,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ReptileTest {
+
     @Test
-    public void testCreation() throws Exception {
+    public void testGetPetType() throws Exception {
         Reptile reptile = new Reptile("Snaky");
+        assertEquals("Reptile", reptile.getPetType());
     }
+
 }

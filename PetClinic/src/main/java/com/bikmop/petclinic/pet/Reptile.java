@@ -5,4 +5,9 @@ public class Reptile extends Pet {
     public Reptile(String name) {
         super(name);
     }
+
+    @Override
+    public String getPetType() {
+        return "Reptile";
+    }
 }
