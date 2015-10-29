@@ -7,9 +7,15 @@ import java.util.List;
 
 public class Client {
 
+    private static final String NO_PETS = "no pets";
+    private static final String PETS_SEPARATOR = ",  ";
+    private static final String PETS_FORMAT = "%s    Id: %s    Pets: %s";
+
     private String fullName;
     private final String id;
     private List<Pet> pets;
+    private Pet currentPet = null;
+
 
     public Client(String fullName, String id, List<Pet> pets) {
         this.fullName = fullName;
@@ -28,16 +34,13 @@ public class Client {
         this("", id, null);
     }
 
+
     public boolean hasInId(String searchId) {
         return hasInString(this.id, searchId);
     }
 
     public boolean hasInName(String searchName) {
         return hasInString(this.fullName, searchName);
-    }
-
-    private boolean hasInString(String mainString, String searchString) {
-        return mainString.toLowerCase().contains(searchString.toLowerCase());
     }
 
     public void setFullName(String fullName) {
@@ -84,7 +87,7 @@ public class Client {
         List<Pet> found = new ArrayList<Pet>();
 
         for (Pet pet : this.pets)
-            if (isPetFullName(pet, fullName))
+            if (hasPetFullName(pet, fullName))
                 found.add(pet);
 
         return found;
@@ -94,41 +97,11 @@ public class Client {
         List<Pet> found = new ArrayList<Pet>();
 
         for (Pet pet : this.pets)
-            if (isPetPartName(pet, partOfName))
+            if (hasPetPartName(pet, partOfName))
                 found.add(pet);
 
         return found;
     }
-
-    private boolean isPetPartName(Pet pet, String checkedName) {
-        return (pet.getName().toLowerCase()).contains(checkedName.toLowerCase());
-    }
-
-    private Pet getPetByName(String petsFullName) {
-        Pet searched = null;
-
-        for (Pet pet : this.pets) {
-            if (isPetFullName(pet, petsFullName)) {
-                searched = pet;
-                break;
-            }
-        }
-
-        return searched;
-    }
-
-    private boolean isPetFullName(Pet pet, String checkedName) {
-        return pet.getName().equals(checkedName);
-    }
-
-    private void removePet(Pet pet) {
-        this.pets.remove(pet);
-    }
-
-    private void setPetsName(Pet pet, String name) {
-        pet.setName(name);
-    }
-
 
     public boolean hasPetWithName(String searchName) {
         boolean result = false;
@@ -142,6 +115,133 @@ public class Client {
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        String petsString = getPetsString();
+        return String.format(PETS_FORMAT, fullName, id, petsString);
+    }
+
+    public enum SearchType{
+        ID_PART,
+        ID_FULL,
+        NAME_PART,
+        NAME_FULL,
+        PETS_NAME
+    }
+
+    public boolean hasIn(SearchType type, String toSearch) {
+        boolean result = false;
+
+        switch (type) {
+            case ID_PART:
+                result = hasInId(toSearch);
+                break;
+            case ID_FULL:
+                result = this.id.equals(toSearch);
+                break;
+            case NAME_PART:
+                result = hasInName(toSearch);
+                break;
+            case NAME_FULL:
+                result = this.fullName.equals(toSearch);
+                break;
+            case PETS_NAME:
+                result = hasPetWithName(toSearch);
+                break;
+        }
+
+        return result;
+    }
+
+
+    private String getPetsString(){
+        String petsString;
+        if (pets.isEmpty())
+            petsString = NO_PETS;
+        else {
+            petsString = getPetsInOneLine();
+        }
+        return petsString;
+    }
+
+    private String getPetsInOneLine() {
+        StringBuilder petsBuilder = new StringBuilder();
+        boolean firstTime = true;
+
+        for (Pet pet : pets) {
+            if (!firstTime)
+                petsBuilder.append(PETS_SEPARATOR);
+            else
+                firstTime = false;
+
+            petsBuilder.append(pet.toString());
+        }
+        return petsBuilder.toString();
+    }
+
+    private boolean hasInString(String mainString, String searchString) {
+        return searchString != null && mainString.toLowerCase().contains(searchString.toLowerCase());
+    }
+
+    private boolean hasPetPartName(Pet pet, String checkedName) {
+        return (pet.getName().toLowerCase()).contains(checkedName.toLowerCase());
+    }
+
+    private Pet getPetByName(String petsFullName) {
+        Pet searched = null;
+
+        for (Pet pet : this.pets) {
+            if (hasPetFullName(pet, petsFullName)) {
+                searched = pet;
+                break;
+            }
+        }
+
+        return searched;
+    }
+
+    private boolean hasPetFullName(Pet pet, String checkedName) {
+        return pet.getName().equals(checkedName);
+    }
+
+    private void removePet(Pet pet) {
+        this.pets.remove(pet);
+    }
+
+    private void setPetsName(Pet pet, String name) {
+        pet.setName(name);
+    }
+
+    public Pet getCurrentPet() {
+        return this.currentPet;
+    }
+
+    public void selectPetByFullName(String name) {
+        for (Pet pet : this.pets)
+            if (hasPetFullName(pet, name)) {
+                this.currentPet = pet;
+                break;
+            }
+    }
+
+    private void selectCurrentPet(Pet pet) {
+        this.currentPet = pet;
+    }
+
+    public void removeCurrentPet() {
+        if (this.currentPet != null) {
+            this.pets.remove(this.currentPet);
+            this.currentPet = null;
+        }
+    }
+
+    public void renameCurrentPet(String newName) {
+        if (this.currentPet != null)
+            this.currentPet.setName(newName);
+    }
+
+
 
 
 }
