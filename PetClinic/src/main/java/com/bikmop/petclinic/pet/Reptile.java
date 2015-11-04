@@ -7,7 +7,7 @@ public class Reptile extends Pet {
     }
 
     @Override
-    public String getPetType() {
+    public String getStringPetType() {
         return "Reptile";
     }
 }

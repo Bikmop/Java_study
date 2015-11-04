@@ -10,28 +10,25 @@ public class Client {
     private static final String NO_PETS = "no pets";
     private static final String PETS_SEPARATOR = ",  ";
     private static final String PETS_FORMAT = "%s    Id: %s    Pets: %s";
+    private static final String HAS_PET = "The client already has this pet!";
 
     private String fullName;
     private final String id;
-    private List<Pet> pets;
+    private List<Pet> pets = new ArrayList<Pet>();
     private Pet currentPet = null;
 
 
-    public Client(String fullName, String id, List<Pet> pets) {
+    public Client(String fullName, String id) {
         this.fullName = fullName;
         this.id = id;
-        if (pets != null)
-            this.pets = pets;
-        else
-            this.pets = new ArrayList<Pet>();
     }
 
-    public Client(String id, List<Pet> pets) {
-        this("", id, pets);
-    }
+//    public Client(String id, List<Pet> pets) {
+//        this("", id, pets);
+//    }
 
     public Client(String id) {
-        this("", id, null);
+        this("", id);
     }
 
 
@@ -64,7 +61,20 @@ public class Client {
     }
 
     public void addPet(Pet pet) {
-        this.pets.add(pet);
+        if (!hasPetWithName(pet.getName()))
+            this.pets.add(pet);
+        else {
+            boolean samePet = false;
+            for (Pet petTmp : this.pets) {
+                if (petTmp.getName().equals(pet.getName()) && petTmp.getClass().equals(pet.getClass()))
+                    samePet = true;
+            }
+
+            if (samePet)
+                throw new IllegalArgumentException(HAS_PET);
+            else
+                this.pets.add(pet);
+        }
     }
 
     public void removePetByName(String petsName) {
@@ -107,7 +117,7 @@ public class Client {
         boolean result = false;
 
         for (Pet pet : this.pets) {
-            if (pet.hasInName(searchName)) {
+            if (pet.isName(searchName)) {
                 result = true;
                 break;
             }

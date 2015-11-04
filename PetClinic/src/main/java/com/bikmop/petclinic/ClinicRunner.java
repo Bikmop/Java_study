@@ -25,6 +25,12 @@ public class ClinicRunner {
         clinic.getCurrentClient().removeCurrentPet();
         ConsoleWorker.showCurrentClient(clinic);
         ConsoleWorker.showAllClients(clinic);
+        clinic.selectClient(NAME_FULL, "Ivan Petrov");
+        ConsoleWorker.showCurrentClient(clinic);
+        clinic.getCurrentClient().addPet(new Cat("Kotofey"));
+        ConsoleWorker.showAllClients(clinic);
+        ConsoleWorker.addClientDialog(clinic);
+        ConsoleWorker.showAllClients(clinic);
 
 //        clinic.addClient(0, new Client("Brown", new Cat("Digy")));
 //        clinic.addClient(1, new Client("Nick", new Dog(new Animal("Sparky"))));
@@ -38,13 +44,13 @@ public class ClinicRunner {
     }
 
     private static Client createAnna() {
-        List<Pet> annaPets = new ArrayList<Pet>();
-        annaPets.add(new Bird("Kesha"));
-        annaPets.add(new Rodent("Mickey"));
-        annaPets.add(new Reptile("Python"));
-        annaPets.add(new SomePet("Snail"));
+        Client anna = new Client("Anna Ivanova", "XX 33335789");
+        anna.addPet(new Bird("Kesha"));
+        anna.addPet(new Rodent("Mickey"));
+        anna.addPet(new Reptile("Python"));
+        anna.addPet(new SomePet("Snail"));
 
-        return new Client("Anna Ivanova", "XX 33335789", annaPets);
+        return anna;
     }
 
     private static Client createIvan() {

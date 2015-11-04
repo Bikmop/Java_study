@@ -13,6 +13,6 @@ public class SomePetTest {
     @Test
     public void testGetPetType() throws Exception {
         SomePet giraffe = new SomePet("Giraffe");
-        assertEquals("Pet", giraffe.getPetType());
+        assertEquals("Pet", giraffe.getStringPetType());
     }
 }

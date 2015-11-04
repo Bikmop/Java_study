@@ -16,18 +16,22 @@ public abstract class Pet {
         this.name = name;
     }
 
-    public boolean hasInName(String searchName) {
-        return hasInString(this.name, searchName);
+    public boolean hasInName(String searchPartName) {
+        return hasInString(this.name, searchPartName);
     }
 
     private boolean hasInString(String mainString, String searchString) {
         return searchString != null && mainString.toLowerCase().contains(searchString.toLowerCase());
     }
 
-    public abstract String getPetType();
+    public abstract String getStringPetType();
 
     @Override
     public String toString() {
-        return String.format(PET_FORMAT, getPetType(), this.name);
+        return String.format(PET_FORMAT, getStringPetType(), this.name);
+    }
+
+    public boolean isName(String searchName) {
+        return this.name.equals(searchName);
     }
 }

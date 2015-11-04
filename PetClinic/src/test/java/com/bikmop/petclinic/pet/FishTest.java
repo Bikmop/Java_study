@@ -9,7 +9,7 @@ public class FishTest {
     @Test
     public void testGetPetType() throws Exception {
         Fish fish = new Fish("Fishy");
-        assertEquals("Fish", fish.getPetType());
+        assertEquals("Fish", fish.getStringPetType());
     }
 
 }

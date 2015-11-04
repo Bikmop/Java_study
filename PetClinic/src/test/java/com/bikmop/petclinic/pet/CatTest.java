@@ -9,7 +9,7 @@ public class CatTest {
     @Test
     public void testGetPetType() throws Exception {
         Cat cat = new Cat("Kitty");
-        assertEquals("Cat", cat.getPetType());
+        assertEquals("Cat", cat.getStringPetType());
     }
 
 }
