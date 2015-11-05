@@ -14,7 +14,7 @@ public class Client {
 
     private String fullName;
     private final String id;
-    private List<Pet> pets = new ArrayList<Pet>();
+    private List<Pet> pets = new ArrayList<>();
     private Pet currentPet = null;
 
 
@@ -23,14 +23,9 @@ public class Client {
         this.id = id;
     }
 
-//    public Client(String id, List<Pet> pets) {
-//        this("", id, pets);
-//    }
-
     public Client(String id) {
         this("", id);
     }
-
 
     public boolean hasInId(String searchId) {
         return hasInString(this.id, searchId);
@@ -61,20 +56,35 @@ public class Client {
     }
 
     public void addPet(Pet pet) {
-        if (!hasPetWithName(pet.getName()))
+        if (hasSamePet(pet))
+            throw new IllegalArgumentException(HAS_PET);
+        else
             this.pets.add(pet);
-        else {
-            boolean samePet = false;
-            for (Pet petTmp : this.pets) {
-                if (petTmp.getName().equals(pet.getName()) && petTmp.getClass().equals(pet.getClass()))
-                    samePet = true;
+    }
+
+    private boolean hasSamePet(Pet pet) {
+        boolean samePet = false;
+
+        for (Pet petTmp : this.pets)
+            if (isPetsNamesAndClassesEquals(pet, petTmp)) {
+                samePet = true;
+                break;
             }
 
-            if (samePet)
-                throw new IllegalArgumentException(HAS_PET);
-            else
-                this.pets.add(pet);
-        }
+        return samePet;
+    }
+
+    private boolean isPetsNamesAndClassesEquals(Pet pet, Pet petTmp) {
+        return isPetsNamesEquals(pet, petTmp) && isClassesEquals(pet, petTmp);
+    }
+
+
+    private boolean isPetsNamesEquals(Pet pet, Pet petTmp) {
+        return petTmp.getName().equals(pet.getName());
+    }
+
+    private boolean isClassesEquals(Object obj1, Object obj2) {
+        return obj1.getClass().equals(obj2.getClass());
     }
 
     public void removePetByName(String petsName) {
@@ -94,7 +104,7 @@ public class Client {
     }
 
     public List<Pet> findPetsByFullName(String fullName) {
-        List<Pet> found = new ArrayList<Pet>();
+        List<Pet> found = new ArrayList<>();
 
         for (Pet pet : this.pets)
             if (hasPetFullName(pet, fullName))
@@ -104,7 +114,7 @@ public class Client {
     }
 
     public List<Pet> findPetsByPartName(String partOfName) {
-        List<Pet> found = new ArrayList<Pet>();
+        List<Pet> found = new ArrayList<>();
 
         for (Pet pet : this.pets)
             if (hasPetPartName(pet, partOfName))
@@ -137,7 +147,18 @@ public class Client {
         ID_FULL,
         NAME_PART,
         NAME_FULL,
-        PETS_NAME
+        PETS_NAME;
+
+        public static SearchType getSearchTypeByString(String operationString) {
+            switch (operationString) {
+                case "1": return ID_PART;
+                case "2": return ID_FULL;
+                case "3": return NAME_PART;
+                case "4": return NAME_FULL;
+                case "5": return PETS_NAME;
+                default: throw new IllegalArgumentException("Unknown search type");
+            }
+        }
     }
 
     public boolean hasIn(SearchType type, String toSearch) {

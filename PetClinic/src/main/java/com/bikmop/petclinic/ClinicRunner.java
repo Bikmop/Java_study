@@ -13,6 +13,10 @@ public class ClinicRunner {
     public static void main(String[] args) {
         final Clinic clinic = new Clinic(10);
         initialClinicFilling(clinic);
+
+        ConsoleWorker.mainDialog(clinic);
+//        ConsoleWorker.mainDialog();
+/*
         ConsoleWorker.showAllClients(clinic);
         clinic.selectClient(PETS_NAME, "Snail");
         ConsoleWorker.showCurrentClient(clinic);
@@ -31,10 +35,8 @@ public class ClinicRunner {
         ConsoleWorker.showAllClients(clinic);
         ConsoleWorker.addClientDialog(clinic);
         ConsoleWorker.showAllClients(clinic);
+*/
 
-//        clinic.addClient(0, new Client("Brown", new Cat("Digy")));
-//        clinic.addClient(1, new Client("Nick", new Dog(new Animal("Sparky"))));
-//        clinic.addClient(2, new Client("Ann", new CatDog(new Cat("Tom"), new Dog(new Animal("Piccy")))));
     }
 
     public static void initialClinicFilling(Clinic clinic) {
