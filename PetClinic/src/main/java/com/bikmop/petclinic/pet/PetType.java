@@ -10,14 +10,21 @@ public enum PetType {
     RODENT,
     SOME_PET;
 
-    public static PetType getPetTypeByNumber(int typeNumber) {
-        switch (typeNumber) {
-            case 1: return CAT;
-            case 2: return DOG;
-            case 3: return FISH;
-            case 4: return BIRD;
-            case 5: return REPTILE;
-            case 6: return RODENT;
+    private static final String STRING_FOR_CAT = "1";
+    private static final String STRING_FOR_DOG = "2";
+    private static final String STRING_FOR_FISH = "3";
+    private static final String STRING_FOR_BIRD = "4";
+    private static final String STRING_FOR_REPTILE = "5";
+    private static final String STRING_FOR_RODENT = "6";
+
+    public static PetType getPetTypeByString(String petType) {
+        switch (petType) {
+            case STRING_FOR_CAT: return CAT;
+            case STRING_FOR_DOG: return DOG;
+            case STRING_FOR_FISH: return FISH;
+            case STRING_FOR_BIRD: return BIRD;
+            case STRING_FOR_REPTILE: return REPTILE;
+            case STRING_FOR_RODENT: return RODENT;
             default: return SOME_PET;
         }
     }

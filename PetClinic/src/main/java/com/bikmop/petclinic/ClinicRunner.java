@@ -3,11 +3,6 @@ package com.bikmop.petclinic;
 import com.bikmop.petclinic.client.Client;
 import com.bikmop.petclinic.pet.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.bikmop.petclinic.client.Client.SearchType.*;
-
 public class ClinicRunner {
 
     public static void main(String[] args) {
@@ -15,31 +10,11 @@ public class ClinicRunner {
         initialClinicFilling(clinic);
 
         ConsoleWorker.mainDialog(clinic);
-//        ConsoleWorker.mainDialog();
-/*
-        ConsoleWorker.showAllClients(clinic);
-        clinic.selectFirstMatchingClient(PETS_NAME, "Snail");
-        ConsoleWorker.showCurrentClient(clinic);
-        clinic.renameCurrentClient("Anna Sidorova");
-        ConsoleWorker.showAllClients(clinic);
-        clinic.getCurrentClient().selectPetByFullName("Kesha");
-        clinic.getCurrentClient().renameCurrentPet("Popka durak");
-        ConsoleWorker.showCurrentClient(clinic);
-        clinic.getCurrentClient().selectPetByFullName("Python");
-        clinic.getCurrentClient().removeCurrentPet();
-        ConsoleWorker.showCurrentClient(clinic);
-        ConsoleWorker.showAllClients(clinic);
-        clinic.selectFirstMatchingClient(NAME_FULL, "Ivan Petrov");
-        ConsoleWorker.showCurrentClient(clinic);
-        clinic.getCurrentClient().addPet(new Cat("Kotofey"));
-        ConsoleWorker.showAllClients(clinic);
-        ConsoleWorker.addClientDialog(clinic);
-        ConsoleWorker.showAllClients(clinic);
-*/
 
     }
 
-    public static void initialClinicFilling(Clinic clinic) {
+
+    private static void initialClinicFilling(Clinic clinic) {
         clinic.addClient(createAnna());
         clinic.addClient(createIvan());
         clinic.addClient(createPetr());

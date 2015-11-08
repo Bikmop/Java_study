@@ -5,15 +5,11 @@ import com.bikmop.petclinic.pet.Pet;
 import com.bikmop.petclinic.pet.PetFactory;
 import com.bikmop.petclinic.pet.PetType;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleWorker {
     private static final String CLINICS_CLIENTS = "OUR CLIENTS:";
     private static final String CLIENTS_NOT_FOUND = "No clients found!";
-    private static final String CLIENT_NOT_SELECTED = "Client is not selected!";
-    private static final String SELECTED_CLIENT = "Selected client:";
     private static final String BLANK_LINE = "";
     private static final String ADD_CLIENT = "Adding a client...";
     private static final String ENTER_CLIENT_ID = "Please, enter a unique ID(not blank) of the client: ";
@@ -42,100 +38,100 @@ public class ConsoleWorker {
     private static final String SEARCH_RESULT = "Search result:";
     private static final String EDIT_CLIENT = "Edit client...";
     private static final String ASK_ANOTHER_EDIT = "Another editing? (y for Yes, another for No): ";
+    private static final String SELECT_EDITING_OPERATION = "Please, select editing operation";
+    private static final String CHANGES_AFTER_EDITING = "Changes:";
+    private static final String CLIENT_DELETED = "Client deleted.";
+    private static final String CLIENT_NOT_FOUND = " not found!";
+    private static final String ENTER_NEW_NAME = "Enter new name: ";
+    private static final String CLIENT_FOR_EDIT = "Client for edit is";
+    private static final String EDITING_TYPES = "(1 - rename client,  2 - delete client,  3 - rename pet," +
+            "  4 - add pet,  5 - delete pet): ";
+    private static final String MAIN_OPERATION_STRING_FOR_SHOW_ALL_CLIENTS = "1";
+    private static final String MAIN_OPERATION_STRING_FOR_FIND = "2";
+    private static final String MAIN_OPERATION_STRING_FOR_ADD = "3";
+    private static final String MAIN_OPERATION_STRING_FOR_EDIT = "4";
+    private static final String MAIN_OPERATION_STRING_FOR_QUIT = "5";
+    private static final String EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_CLIENT = "1";
+    private static final String EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_CLIENT = "2";
+    private static final String EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_PET = "3";
+    private static final String EDIT_CLIENT_OPERATION_STRING_FOR_ADD_PET = "4";
+    private static final String EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_PET = "5";
+    private static final String ENTER_NEW_PET_NAME = "Enter NEW name of the pet: ";
+    private static final String ENTER_OLD_PET_NAME = "Enter OLD name of the pet: ";
+    private static final String ENTER_PET_NAME_TO_DELETE = "Enter the name of the pet to delete:";
+    private static final String COLON = ":";
 
-
-    private static Scanner reader = new Scanner(System.in);
-
-
-    public static String readString() {
-        return reader.nextLine();
-    }
 
     public static void mainDialog(Clinic clinic) {
         writeMessageLn(WELCOME);
-        MainOperation operation = MainOperation.WRONG_OPERATION;
-
-        while (operation != MainOperation.QUIT) {
-            operation = MainOperation.WRONG_OPERATION;
-
-            writeMessageLn(BLANK_LINE);
-            writeMessageLn(SELECT_MAIN_OPERATION);
-            writeMessage(MAIN_OPERATIONS_LIST);
-            while (operation == MainOperation.WRONG_OPERATION) {
-                String opString = askString();
-                operation = MainOperation.getMainOperationByString(opString);
-                if (operation == MainOperation.WRONG_OPERATION)
-                    writeMessage(SELECT_CORRECT_OPERATION);
-            }
-            writeMessageLn(BLANK_LINE);
-
-            switch (operation) {
-                case SHOW_ALL_CLIENTS:
-                    showAllClients(clinic);
-                    break;
-                case FIND:
-                    showFoundClientsDialog(clinic);
-                    break;
-                case ADD:
-                    addClientDialog(clinic);
-                    break;
-                case EDIT:
-                    editClientDialog(clinic);
-                    break;
-            }
-
-        }
-
+        dialogWithUserTillQuit(clinic);
         writeMessageLn(BLANK_LINE);
         writeMessage(GOOD_BYE);
 
     }
 
-    public static void editClientDialog(Clinic clinic) {
-        String askNewEdit = ANSWER_YES;
+    private static void dialogWithUserTillQuit(Clinic clinic) {
+        boolean isQuit = false;
+        while (!isQuit) {
+            MainOperation operation = askMainOperation();
+            if (operation == MainOperation.QUIT)
+                isQuit = true;
+            else
+                processUserRequest(clinic, operation);
+        }
+    }
 
+    private static void processUserRequest(Clinic clinic, MainOperation operation) {
+        switch (operation) {
+            case SHOW_ALL_CLIENTS:
+                showAllClients(clinic);
+                break;
+            case FIND:
+                showFoundClientsDialog(clinic);
+                break;
+            case ADD:
+                addClientDialog(clinic);
+                break;
+            case EDIT:
+                editClientDialog(clinic);
+                break;
+        }
+    }
+
+    private static MainOperation askMainOperation() {
+        writeMessageLn(BLANK_LINE);
+        writeMessageLn(SELECT_MAIN_OPERATION);
+        writeMessage(MAIN_OPERATIONS_LIST);
+        MainOperation operation = askCorrectMainOperation();
+        writeMessageLn(BLANK_LINE);
+        return operation;
+    }
+
+    private static MainOperation askCorrectMainOperation() {
+        MainOperation operation = null;
+        boolean isCorrect = false;
+
+        while (!isCorrect) {
+            String typeString = askString();
+            try {
+                operation = MainOperation.getMainOperationByString(typeString);
+                isCorrect = true;
+            } catch (UnsupportedOperationException uoe) {
+                writeMessage(SELECT_CORRECT_OPERATION);
+            }
+        }
+
+        return operation;
+    }
+
+    private static void editClientDialog(Clinic clinic) {
+        String askNewEdit = ANSWER_YES;
         writeMessageLn(EDIT_CLIENT);
 
         while (isYes(askNewEdit)) {
-
-            Client.SearchType searchType = askSearchType();
-            String searchString = askStringForSearch();
-            clinic.selectFirstMatchingClient(searchType, searchString);
-            writeMessageLn(BLANK_LINE);
-            writeMessage("Client for edit is");
-            if (clinic.getCurrentClient() != null) {
-                writeMessageLn(":");
-                writeMessageLn(clinic.getCurrentClient().toString());
-
-                writeMessageLn(BLANK_LINE);
-                writeMessageLn("Please, select editing operation");
-                writeMessage("(1 - rename client,  2 - delete client,  3 - rename pet,  4 - add pet,  5 - delete pet): ");
-                EditClientOperation operation = askCorrectEditingOperation();
-                switch (operation) {
-                    case RENAME_CLIENT:
-                        writeMessage("Enter new name: ");
-                        String newName = askString();
-                        clinic.renameCurrentClient(newName);
-                        writeMessageLn("Changes:");
-                        writeMessageLn(clinic.getCurrentClient().toString());
-                        break;
-                    case DELETE_CLIENT:
-                        clinic.removeCurrentClient();
-                        writeMessageLn("Client deleted.");
-                        break;
-                    case RENAME_PET:
-                        petRenamingDialog(clinic.getCurrentClient());
-                        break;
-                    case ADD_PET:
-                        petAddingDialog(clinic.getCurrentClient());
-                        break;
-                    case DELETE_PET:
-                        petRemovingDialog(clinic.getCurrentClient());
-                        break;
-                }
-
-            } else {
-                writeMessageLn(" not found!");
+            askClientForEdit(clinic);
+            if (isClientFound(clinic)) {
+                editClient(clinic);
             }
 
             askNewEdit = askAnother(ASK_ANOTHER_EDIT);
@@ -145,49 +141,115 @@ public class ConsoleWorker {
         writeMessageLn(BLANK_LINE);
     }
 
-    private static void petAddingDialog(Client client) {
-        writeMessageLn(BLANK_LINE);
-        Pet pet = askOnePet();
-        tryAddPetForClient(client, pet);
-
-        writeMessageLn(BLANK_LINE);
-        writeMessageLn("Changes:");
-        writeMessageLn(client.toString());
+    private static void editClient(Clinic clinic) {
+        EditClientOperation operation = askEditingOperation();
+        switch (operation) {
+            case RENAME_CLIENT:
+                clientRenamingDialog(clinic);
+                break;
+            case DELETE_CLIENT:
+                clientRemovingDialog(clinic);
+                break;
+            case RENAME_PET:
+                petRenamingDialog(clinic);
+                break;
+            case ADD_PET:
+                petAddingDialog(clinic);
+                break;
+            case DELETE_PET:
+                petRemovingDialog(clinic);
+                break;
+        }
     }
 
-    private static void petRemovingDialog(Client client) {
-        writeMessage(BLANK_LINE);
-        writeMessage("Enter the name of the pet to delete:");
+    private static EditClientOperation askEditingOperation() {
+        writeMessageLn(BLANK_LINE);
+        writeMessageLn(SELECT_EDITING_OPERATION);
+        writeMessage(EDITING_TYPES);
+        EditClientOperation operation = askCorrectEditingOperation();
+        writeMessageLn(BLANK_LINE);
+        return operation;
+    }
+
+    private static void clientRenamingDialog(Clinic clinic) {
+        writeMessage(ENTER_NEW_NAME);
+        String newName = askString();
+        clinic.renameCurrentClient(newName);
+        showClientChangesAfterEditing(clinic.getCurrentClient());
+    }
+
+    private static void clientRemovingDialog(Clinic clinic) {
+        clinic.removeCurrentClient();
+        writeMessageLn(CLIENT_DELETED);
+    }
+
+    private static boolean isClientFound(Clinic clinic) {
+        return clinic.getCurrentClient() != null;
+    }
+
+    private static void askClientForEdit(Clinic clinic) {
+        Client.SearchType searchType = askSearchType();
+        String searchString = askStringForSearch();
+        clinic.selectFirstMatchingClient(searchType, searchString);
+        showFoundClient(clinic);
+    }
+
+    private static void showFoundClient(Clinic clinic) {
+        Client client = clinic.getCurrentClient();
+        writeMessageLn(BLANK_LINE);
+        writeMessage(CLIENT_FOR_EDIT);
+        if (isClientFound(clinic)) {
+            writeMessageLn(COLON);
+            writeMessageLn(client.toString());
+        } else {
+            writeMessageLn(CLIENT_NOT_FOUND);
+        }
+    }
+
+    private static void petAddingDialog(Clinic clinic) {
+        Pet pet = askOnePet();
+        Client client = clinic.getCurrentClient();
+        tryAddPetForClient(client, pet);
+        writeMessageLn(BLANK_LINE);
+
+        showClientChangesAfterEditing(client);
+    }
+
+    private static void petRemovingDialog(Clinic clinic) {
+        writeMessage(ENTER_PET_NAME_TO_DELETE);
         String petName = askNotBlankString();
+        Client client = clinic.getCurrentClient();
         client.removePetByName(petName);
 
-        writeMessageLn("Changes:");
-        writeMessageLn(client.toString());
+        showClientChangesAfterEditing(client);
     }
 
-    private static void petRenamingDialog(Client client) {
-
-
-        writeMessage(BLANK_LINE);
-        writeMessage("Enter OLD name of the pet: ");
+    private static void petRenamingDialog(Clinic clinic) {
+        writeMessage(ENTER_OLD_PET_NAME);
         String petOldName = askNotBlankString();
-        writeMessage("Enter NEW name of the pet: ");
+        writeMessage(ENTER_NEW_PET_NAME);
         String petNewName = askNotBlankString();
 
+        Client client = clinic.getCurrentClient();
         client.renamePet(petOldName, petNewName);
-        writeMessageLn("Changes:");
+
+        showClientChangesAfterEditing(client);
+    }
+
+    private static void showClientChangesAfterEditing(Client client) {
+        writeMessageLn(CHANGES_AFTER_EDITING);
         writeMessageLn(client.toString());
     }
 
     private static EditClientOperation askCorrectEditingOperation() {
         EditClientOperation operation = null;
-        boolean isCorrectType = false;
+        boolean isCorrect = false;
 
-        while (!isCorrectType) {
+        while (!isCorrect) {
             String typeString = askString();
             try {
                 operation = EditClientOperation.getEditClientOperationByString(typeString);
-                isCorrectType = true;
+                isCorrect = true;
             } catch (UnsupportedOperationException uoe) {
                 writeMessage(SELECT_CORRECT_OPERATION);
             }
@@ -205,27 +267,34 @@ public class ConsoleWorker {
 
         private static EditClientOperation getEditClientOperationByString(String numberString) {
             switch (numberString) {
-                case "1": return RENAME_CLIENT;
-                case "2": return DELETE_CLIENT;
-                case "3": return RENAME_PET;
-                case "4": return ADD_PET;
-                case "5": return DELETE_PET;
+                case EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_CLIENT:
+                    return RENAME_CLIENT;
+                case EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_CLIENT:
+                    return DELETE_CLIENT;
+                case EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_PET:
+                    return RENAME_PET;
+                case EDIT_CLIENT_OPERATION_STRING_FOR_ADD_PET:
+                    return ADD_PET;
+                case EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_PET:
+                    return DELETE_PET;
                 default: throw new UnsupportedOperationException();
             }
         }
-    }
 
-    public static void showFoundClientsDialog(Clinic clinic) {
-        String askNewSearch = ANSWER_YES;
+    }
+    private static void showFoundClientsDialog(Clinic clinic) {
+        String isAnotherSearch = ANSWER_YES;
 
         writeMessageLn(SEARCH_CLIENT);
 
-        while (isYes(askNewSearch)) {
+        while (isYes(isAnotherSearch)) {
             Client.SearchType searchType = askSearchType();
             String searchString = askStringForSearch();
             Client[] clients = clinic.findClients(searchType, searchString);
+
             showSearchResult(clients);
-            askNewSearch = askAnother(ASK_ANOTHER_SEARCH);
+
+            isAnotherSearch = askAnother(ASK_ANOTHER_SEARCH);
         }
 
         writeMessageLn(BLANK_LINE);
@@ -275,28 +344,33 @@ public class ConsoleWorker {
         FIND,
         ADD,
         EDIT,
-        QUIT,
-        WRONG_OPERATION;
+        QUIT;
 
-        private static MainOperation getMainOperationByString(String numberString) {
-            switch (numberString) {
-                case "1": return SHOW_ALL_CLIENTS;
-                case "2": return FIND;
-                case "3": return ADD;
-                case "4": return EDIT;
-                case "5": return QUIT;
-                default: return WRONG_OPERATION;
+        private static MainOperation getMainOperationByString(String operationString) {
+            switch (operationString) {
+                case MAIN_OPERATION_STRING_FOR_SHOW_ALL_CLIENTS:
+                    return SHOW_ALL_CLIENTS;
+                case MAIN_OPERATION_STRING_FOR_FIND:
+                    return FIND;
+                case MAIN_OPERATION_STRING_FOR_ADD:
+                    return ADD;
+                case MAIN_OPERATION_STRING_FOR_EDIT:
+                    return EDIT;
+                case MAIN_OPERATION_STRING_FOR_QUIT:
+                    return QUIT;
+                default: throw new UnsupportedOperationException();
             }
         }
+
     }
 
-    public static void showAllClients(Clinic clinic) {
+    private static void showAllClients(Clinic clinic) {
         writeMessageLn(CLINICS_CLIENTS);
         showClients(clinic.getClients());
         writeMessageLn(BLANK_LINE);
     }
 
-    public static void showClients(Client[] clients) {
+    private static void showClients(Client[] clients) {
         boolean hasClients = false;
 
         for (Client client : clients)
@@ -309,52 +383,37 @@ public class ConsoleWorker {
             writeMessageLn(CLIENTS_NOT_FOUND);
     }
 
-    public static void showCurrentClient(Clinic clinic) {
-        if (clinic.getCurrentClient() == null)
-            writeMessageLn(CLIENT_NOT_SELECTED);
-        else {
-            writeMessageLn(SELECTED_CLIENT);
-            showClient(clinic.getCurrentClient());
-        }
-        writeMessageLn(BLANK_LINE);
-    }
-
     private static void showClient(Client client) {
         writeMessageLn(client.toString());
     }
 
-    private static void showPet(Pet pet) {
-        writeMessage(pet.toString());
-    }
-
-    public static void writeMessageLn(String message) {
+    private static void writeMessageLn(String message) {
         System.out.println(message);
     }
 
-    public static void writeMessage(String message) {
+    private static void writeMessage(String message) {
         System.out.print(message);
     }
 
-    public static void addClientDialog(Clinic clinic) {
+    private static void addClientDialog(Clinic clinic) {
         writeMessageLn(ADD_CLIENT);
 
         String id = askUniqueClientId(clinic);
         String fullName = askClientFullName();
         Client client = new Client(fullName, id);
-        askClientPets(client);
+        askAddPets(client);
 
         clinic.addClient(client);
     }
 
-    private static void askClientPets(Client client) {
-        List<Pet> pets = new ArrayList<>();
-
+    private static void askAddPets(Client client) {
         writeMessage(ASK_ADD_PET);
         String askAddPetOrNot = askString();
 
         while (isYes(askAddPetOrNot)) {
             Pet pet = askOnePet();
             tryAddPetForClient(client, pet);
+
             askAddPetOrNot = askAnother(ASK_ADD_ANOTHER_PET);
         }
     }
@@ -382,24 +441,13 @@ public class ConsoleWorker {
     private static PetType askPetType() {
         writeMessageLn(SELECT_PET_TYPE);
         writeMessage(PET_TYPES);
-
-        return getPetTypeByString(askString());
-    }
-
-    private static PetType getPetTypeByString(String petTypeStr) {
-        PetType petType;
-        try {
-            int typeNumber = Integer.parseInt(petTypeStr);
-            petType = PetType.getPetTypeByNumber(typeNumber);
-        } catch (NumberFormatException nfe) {
-            petType = PetType.SOME_PET;
-        }
-        return petType;
+        return PetType.getPetTypeByString(askString());
     }
 
     private static boolean isYes(String yesOrNo) {
         return yesOrNo.toLowerCase().trim().equals(ANSWER_YES);
     }
+
 
     private static String askClientFullName() {
         writeMessage(ENTER_CLIENT_NAME);
@@ -433,6 +481,13 @@ public class ConsoleWorker {
 
     private static String askString() {
         return readString();
+    }
+
+    private static Scanner reader = new Scanner(System.in);
+
+
+    private static String readString() {
+        return reader.nextLine();
     }
 
 }

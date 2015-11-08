@@ -11,11 +11,16 @@ public class Client {
     private static final String PETS_SEPARATOR = ",  ";
     private static final String PETS_FORMAT = "%s    Id: %s    Pets: %s";
     private static final String HAS_PET = "The client already has this pet!";
+    private static final String UNKNOWN_SEARCH_TYPE = "Unknown search type";
+    private static final String STRING_FOR_ID_PART = "1";
+    private static final String STRING_FOR_ID_FULL = "2";
+    private static final String STRING_FOR_NAME_PART = "3";
+    private static final String STRING_FOR_NAME_FULL = "4";
+    private static final String STRING_FOR_PETS_NAME = "5";
 
     private String fullName;
     private final String id;
     private List<Pet> pets = new ArrayList<>();
-    private Pet currentPet = null;
 
 
     public Client(String fullName, String id) {
@@ -151,12 +156,18 @@ public class Client {
 
         public static SearchType getSearchTypeByString(String operationString) {
             switch (operationString) {
-                case "1": return ID_PART;
-                case "2": return ID_FULL;
-                case "3": return NAME_PART;
-                case "4": return NAME_FULL;
-                case "5": return PETS_NAME;
-                default: throw new IllegalArgumentException("Unknown search type");
+                case STRING_FOR_ID_PART:
+                    return ID_PART;
+                case STRING_FOR_ID_FULL:
+                    return ID_FULL;
+                case STRING_FOR_NAME_PART:
+                    return NAME_PART;
+                case STRING_FOR_NAME_FULL:
+                    return NAME_FULL;
+                case STRING_FOR_PETS_NAME:
+                    return PETS_NAME;
+                default:
+                    throw new IllegalArgumentException(UNKNOWN_SEARCH_TYPE);
             }
         }
     }
@@ -243,36 +254,5 @@ public class Client {
     private void setPetsName(Pet pet, String name) {
         pet.setName(name);
     }
-
-    public Pet getCurrentPet() {
-        return this.currentPet;
-    }
-
-    public void selectPetByFullName(String name) {
-        for (Pet pet : this.pets)
-            if (hasPetFullName(pet, name)) {
-                this.currentPet = pet;
-                break;
-            }
-    }
-
-    private void selectCurrentPet(Pet pet) {
-        this.currentPet = pet;
-    }
-
-    public void removeCurrentPet() {
-        if (this.currentPet != null) {
-            this.pets.remove(this.currentPet);
-            this.currentPet = null;
-        }
-    }
-
-    public void renameCurrentPet(String newName) {
-        if (this.currentPet != null)
-            this.currentPet.setName(newName);
-    }
-
-
-
 
 }
