@@ -18,7 +18,7 @@ public class ClinicRunner {
 //        ConsoleWorker.mainDialog();
 /*
         ConsoleWorker.showAllClients(clinic);
-        clinic.selectClient(PETS_NAME, "Snail");
+        clinic.selectFirstMatchingClient(PETS_NAME, "Snail");
         ConsoleWorker.showCurrentClient(clinic);
         clinic.renameCurrentClient("Anna Sidorova");
         ConsoleWorker.showAllClients(clinic);
@@ -29,7 +29,7 @@ public class ClinicRunner {
         clinic.getCurrentClient().removeCurrentPet();
         ConsoleWorker.showCurrentClient(clinic);
         ConsoleWorker.showAllClients(clinic);
-        clinic.selectClient(NAME_FULL, "Ivan Petrov");
+        clinic.selectFirstMatchingClient(NAME_FULL, "Ivan Petrov");
         ConsoleWorker.showCurrentClient(clinic);
         clinic.getCurrentClient().addPet(new Cat("Kotofey"));
         ConsoleWorker.showAllClients(clinic);

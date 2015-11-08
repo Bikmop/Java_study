@@ -18,10 +18,18 @@ public class Clinic {
         addClient(findFreePlaceInClientsArray(), client);
     }
 
-    public void selectClient(Client.SearchType type, String selectString) {
+    public void selectFirstMatchingClient(Client.SearchType type, String selectString) {
+        boolean found = false;
+
         for (Client client : this.clients)
-            if (client != null && client.hasIn(type, selectString))
+            if (client != null && client.hasIn(type, selectString)) {
                 selectCurrentClient(client);
+                found = true;
+                break;
+            }
+
+        if (!found)
+            selectCurrentClient(null);
     }
 
     public Client getCurrentClient() {
@@ -31,6 +39,7 @@ public class Clinic {
     private void selectCurrentClient(Client client) {
         this.currentClient = client;
     }
+
 
     public void removeCurrentClient() {
         if (this.currentClient != null)
@@ -76,6 +85,18 @@ public class Clinic {
                 found[i++] = client;
 
         return found;
+    }
+
+    public boolean isUniqueClientId(String clientId) {
+        boolean uniqueId = true;
+
+        for (Client client : this.clients)
+            if (client != null && client.getId().equals(clientId)) {
+                uniqueId = false;
+                break;
+            }
+
+        return uniqueId;
     }
 
 }

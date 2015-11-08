@@ -23,7 +23,7 @@ public class ConsoleWorker {
     private static final String ANSWER_YES = "y";
     private static final String SELECT_PET_TYPE = "Please, select the type of pet";
     private static final String PET_TYPES = "(1 - cat,  2 - dog,  3 - fish,  4 - bird,  5 - reptile,  6 - rodent,  "
-            + "another - pet not from list):";
+            + "another - pet not from list): ";
     private static final String ENTER_PET_NAME = "Please, enter the name of the pet: ";
     private static final String ID_PRESENT = "Id is already present!";
     private static final String WELCOME = "********************  WELCOME TO PET CLINIC  ********************";
@@ -40,6 +40,8 @@ public class ConsoleWorker {
     private static final String ENTER_SEARCH = "Enter a search: ";
     private static final String ASK_ANOTHER_SEARCH = "Another search? (y for Yes, another for No): ";
     private static final String SEARCH_RESULT = "Search result:";
+    private static final String EDIT_CLIENT = "Edit client...";
+    private static final String ASK_ANOTHER_EDIT = "Another editing? (y for Yes, another for No): ";
 
 
     private static Scanner reader = new Scanner(System.in);
@@ -78,6 +80,7 @@ public class ConsoleWorker {
                     addClientDialog(clinic);
                     break;
                 case EDIT:
+                    editClientDialog(clinic);
                     break;
             }
 
@@ -88,40 +91,183 @@ public class ConsoleWorker {
 
     }
 
+    public static void editClientDialog(Clinic clinic) {
+        String askNewEdit = ANSWER_YES;
+
+        writeMessageLn(EDIT_CLIENT);
+
+        while (isYes(askNewEdit)) {
+
+            Client.SearchType searchType = askSearchType();
+            String searchString = askStringForSearch();
+            clinic.selectFirstMatchingClient(searchType, searchString);
+            writeMessageLn(BLANK_LINE);
+            writeMessage("Client for edit is");
+            if (clinic.getCurrentClient() != null) {
+                writeMessageLn(":");
+                writeMessageLn(clinic.getCurrentClient().toString());
+
+                writeMessageLn(BLANK_LINE);
+                writeMessageLn("Please, select editing operation");
+                writeMessage("(1 - rename client,  2 - delete client,  3 - rename pet,  4 - add pet,  5 - delete pet): ");
+                EditClientOperation operation = askCorrectEditingOperation();
+                switch (operation) {
+                    case RENAME_CLIENT:
+                        writeMessage("Enter new name: ");
+                        String newName = askString();
+                        clinic.renameCurrentClient(newName);
+                        writeMessageLn("Changes:");
+                        writeMessageLn(clinic.getCurrentClient().toString());
+                        break;
+                    case DELETE_CLIENT:
+                        clinic.removeCurrentClient();
+                        writeMessageLn("Client deleted.");
+                        break;
+                    case RENAME_PET:
+                        petRenamingDialog(clinic.getCurrentClient());
+                        break;
+                    case ADD_PET:
+                        petAddingDialog(clinic.getCurrentClient());
+                        break;
+                    case DELETE_PET:
+                        petRemovingDialog(clinic.getCurrentClient());
+                        break;
+                }
+
+            } else {
+                writeMessageLn(" not found!");
+            }
+
+            askNewEdit = askAnother(ASK_ANOTHER_EDIT);
+            writeMessageLn(BLANK_LINE);
+        }
+
+        writeMessageLn(BLANK_LINE);
+    }
+
+    private static void petAddingDialog(Client client) {
+        writeMessageLn(BLANK_LINE);
+        Pet pet = askOnePet();
+        tryAddPetForClient(client, pet);
+
+        writeMessageLn(BLANK_LINE);
+        writeMessageLn("Changes:");
+        writeMessageLn(client.toString());
+    }
+
+    private static void petRemovingDialog(Client client) {
+        writeMessage(BLANK_LINE);
+        writeMessage("Enter the name of the pet to delete:");
+        String petName = askNotBlankString();
+        client.removePetByName(petName);
+
+        writeMessageLn("Changes:");
+        writeMessageLn(client.toString());
+    }
+
+    private static void petRenamingDialog(Client client) {
+
+
+        writeMessage(BLANK_LINE);
+        writeMessage("Enter OLD name of the pet: ");
+        String petOldName = askNotBlankString();
+        writeMessage("Enter NEW name of the pet: ");
+        String petNewName = askNotBlankString();
+
+        client.renamePet(petOldName, petNewName);
+        writeMessageLn("Changes:");
+        writeMessageLn(client.toString());
+    }
+
+    private static EditClientOperation askCorrectEditingOperation() {
+        EditClientOperation operation = null;
+        boolean isCorrectType = false;
+
+        while (!isCorrectType) {
+            String typeString = askString();
+            try {
+                operation = EditClientOperation.getEditClientOperationByString(typeString);
+                isCorrectType = true;
+            } catch (UnsupportedOperationException uoe) {
+                writeMessage(SELECT_CORRECT_OPERATION);
+            }
+        }
+
+        return operation;
+    }
+
+    private enum EditClientOperation {
+        RENAME_CLIENT,
+        DELETE_CLIENT,
+        RENAME_PET,
+        ADD_PET,
+        DELETE_PET;
+
+        private static EditClientOperation getEditClientOperationByString(String numberString) {
+            switch (numberString) {
+                case "1": return RENAME_CLIENT;
+                case "2": return DELETE_CLIENT;
+                case "3": return RENAME_PET;
+                case "4": return ADD_PET;
+                case "5": return DELETE_PET;
+                default: throw new UnsupportedOperationException();
+            }
+        }
+    }
+
     public static void showFoundClientsDialog(Clinic clinic) {
-        Client.SearchType searchType = null;
         String askNewSearch = ANSWER_YES;
 
         writeMessageLn(SEARCH_CLIENT);
 
         while (isYes(askNewSearch)) {
-            boolean isCorrectType = false;
-            writeMessageLn(SELECT_SEARCH_TYPE);
-            writeMessage(SEARCH_TYPES_LIST);
-
-            while (!isCorrectType) {
-                String typeString = askString();
-                try {
-                    searchType = Client.SearchType.getSearchTypeByString(typeString);
-                    isCorrectType = true;
-                } catch (IllegalArgumentException iae) {
-                    writeMessage(SELECT_CORRECT_SEARCH_TYPE);
-                }
-            }
-
-            writeMessage(ENTER_SEARCH);
-            String searchString = askNotBlankString();
-
+            Client.SearchType searchType = askSearchType();
+            String searchString = askStringForSearch();
             Client[] clients = clinic.findClients(searchType, searchString);
-            writeMessageLn(SEARCH_RESULT);
-            showClients(clients);
-
-            writeMessageLn(BLANK_LINE);
-            writeMessage(ASK_ANOTHER_SEARCH);
-            askNewSearch = askString();
+            showSearchResult(clients);
+            askNewSearch = askAnother(ASK_ANOTHER_SEARCH);
         }
 
         writeMessageLn(BLANK_LINE);
+    }
+
+    private static String askAnother(String askMessage) {
+        writeMessageLn(BLANK_LINE);
+        writeMessage(askMessage);
+        return askString();
+    }
+
+    private static void showSearchResult(Client[] clients) {
+        writeMessageLn(SEARCH_RESULT);
+        showClients(clients);
+    }
+
+    private static String askStringForSearch() {
+        writeMessage(ENTER_SEARCH);
+        return askNotBlankString();
+    }
+
+    private static Client.SearchType askSearchType() {
+        writeMessageLn(SELECT_SEARCH_TYPE);
+        writeMessage(SEARCH_TYPES_LIST);
+        return askCorrectSearchType();
+    }
+
+    private static Client.SearchType askCorrectSearchType() {
+        Client.SearchType searchType = null;
+        boolean isCorrectType = false;
+
+        while (!isCorrectType) {
+            String typeString = askString();
+            try {
+                searchType = Client.SearchType.getSearchTypeByString(typeString);
+                isCorrectType = true;
+            } catch (IllegalArgumentException iae) {
+                writeMessage(SELECT_CORRECT_SEARCH_TYPE);
+            }
+        }
+
+        return searchType;
     }
 
     private enum MainOperation {
@@ -209,10 +355,7 @@ public class ConsoleWorker {
         while (isYes(askAddPetOrNot)) {
             Pet pet = askOnePet();
             tryAddPetForClient(client, pet);
-
-            writeMessageLn(BLANK_LINE);
-            writeMessage(ASK_ADD_ANOTHER_PET);
-            askAddPetOrNot = askString();
+            askAddPetOrNot = askAnother(ASK_ADD_ANOTHER_PET);
         }
     }
 
@@ -233,12 +376,12 @@ public class ConsoleWorker {
 
     private static String askPetName() {
         writeMessage(ENTER_PET_NAME);
-        return askString();
+        return askNotBlankString();
     }
 
     private static PetType askPetType() {
         writeMessageLn(SELECT_PET_TYPE);
-        writeMessageLn(PET_TYPES);
+        writeMessage(PET_TYPES);
 
         return getPetTypeByString(askString());
     }
@@ -270,24 +413,12 @@ public class ConsoleWorker {
         while (!uniqueId) {
             writeMessage(ENTER_CLIENT_ID);
             clientId = askNotBlankString();
-            uniqueId = isUniqueClientId(clinic, clientId);
+            uniqueId = clinic.isUniqueClientId(clientId);
             if (!uniqueId)
                 writeMessageLn(ID_PRESENT);
         }
 
         return clientId;
-    }
-
-    private static boolean isUniqueClientId(Clinic clinic, String clientId) {
-        boolean uniqueId = true;
-
-        for (Client client : clinic.getClients())
-            if (client != null && client.getId().equals(clientId)) {
-                uniqueId = false;
-                break;
-            }
-
-        return uniqueId;
     }
 
     private static String askNotBlankString() {
