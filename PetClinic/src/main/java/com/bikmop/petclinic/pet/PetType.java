@@ -19,13 +19,20 @@ public enum PetType {
 
     public static PetType getPetTypeByString(String petType) {
         switch (petType) {
-            case STRING_FOR_CAT: return CAT;
-            case STRING_FOR_DOG: return DOG;
-            case STRING_FOR_FISH: return FISH;
-            case STRING_FOR_BIRD: return BIRD;
-            case STRING_FOR_REPTILE: return REPTILE;
-            case STRING_FOR_RODENT: return RODENT;
-            default: return SOME_PET;
+            case STRING_FOR_CAT:
+                return CAT;
+            case STRING_FOR_DOG:
+                return DOG;
+            case STRING_FOR_FISH:
+                return FISH;
+            case STRING_FOR_BIRD:
+                return BIRD;
+            case STRING_FOR_REPTILE:
+                return REPTILE;
+            case STRING_FOR_RODENT:
+                return RODENT;
+            default:
+                return SOME_PET;
         }
     }
 }

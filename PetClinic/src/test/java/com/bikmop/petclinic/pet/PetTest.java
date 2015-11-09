@@ -20,11 +20,24 @@ public class PetTest {
     }
 
     @Test
-    public void testhasInName() throws Exception {
+    public void testHasInName() throws Exception {
         Pet pet = new Cat("Kitty");
         assertTrue(pet.hasInName("KITTY"));
         assertFalse(pet.hasInName("Katty"));
     }
 
 
+    @Test
+    public void testToString() throws Exception {
+        Pet pet = new Reptile("Snaky"); //"%s '%s'"
+        assertEquals("Reptile 'Snaky'", pet.toString());
+
+    }
+
+    @Test
+    public void testIsNameEquals() throws Exception {
+        Pet pet = new Bird("Birdie");
+        assertTrue(pet.isNameEquals("Birdie"));
+        assertFalse(pet.isNameEquals("Birdy"));
+    }
 }

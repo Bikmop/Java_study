@@ -8,9 +8,7 @@ public class ClinicRunner {
     public static void main(String[] args) {
         final Clinic clinic = new Clinic(10);
         initialClinicFilling(clinic);
-
         ConsoleWorker.mainDialog(clinic);
-
     }
 
 

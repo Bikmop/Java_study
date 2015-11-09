@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 
 public class ClientTest {
+/*
     private Client client;
 
     // Additional methods for tests
@@ -117,6 +118,7 @@ public class ClientTest {
 
 
     //hasPetWithName
+*/
 /*    @Test
     public void testHasPetWithNameTrue01() throws Exception {
         List<Pet> pets = createTestPetList01();       // "Kitty", "Doggy", "Mouse", "Birdie"
@@ -143,7 +145,8 @@ public class ClientTest {
         List<Pet> pets = createTestPetList01();       // "Kitty", "Doggy", "Mouse", "Birdie"
         createClient("XX", pets);
         assertFalse(client.hasPetWithName("Reptile"));
-    }*/
+    }*//*
+
 
 
     // Set/GetPets
@@ -194,6 +197,7 @@ public class ClientTest {
 
 
     // AddPet
+*/
 /*    @Test
     public void testAddPetNotEmptyList() throws Exception {
         final int SIZE_BEFORE = 4;
@@ -206,7 +210,8 @@ public class ClientTest {
         addPet(new Reptile("Snaky"));
         assertTrue(client.hasPetWithName("Snaky"));
         assertEquals(SIZE_AFTER, client.getPets().size());
-    }*/
+    }*//*
+
 
     @Test
     public void testAddPetEmptyList() throws Exception {
@@ -227,6 +232,7 @@ public class ClientTest {
 
 
     // RemovePetByName
+*/
 /*    @Test
     public void testRemovePetByName() throws Exception {
         final int SIZE_BEFORE = 4;
@@ -240,8 +246,10 @@ public class ClientTest {
         assertFalse(client.hasPetWithName("Doggy"));
         assertEquals(SIZE_AFTER, client.getPets().size());
 
-    }*/
+    }*//*
 
+
+*/
 /*    @Test
     public void testRemovePetByNameRemoveAll() throws Exception {
         final int SIZE_BEFORE = 4;
@@ -264,17 +272,21 @@ public class ClientTest {
         assertFalse(client.hasPetWithName("Birdie"));
         assertEquals(SIZE_AFTER, client.getPets().size());
 
-    }*/
+    }*//*
 
+
+*/
 /*    @Test
     public void testRemovePetByNameWrongNameWithoutException() throws Exception {
         List<Pet> pets = createTestPetList01();       // "Kitty", "Doggy", "Mouse", "Birdie"
         createClient("XX", pets);
         removePetByName("Kit");
-    }*/
+    }*//*
+
 
 
     //RenamePet
+*/
 /*    @Test
     public void testRenamePet() throws Exception {
         List<Pet> pets = createTestPetList01();       // "Kitty", "Doggy", "Mouse", "Birdie"
@@ -284,7 +296,8 @@ public class ClientTest {
         renamePet("Kitty", "Cat");
         assertFalse(client.hasPetWithName("Kitty"));
         assertTrue(client.hasPetWithName("Cat"));
-    }*/
+    }*//*
+
 
     @Test
     public void testRenamePetEmptyList() throws Exception {
@@ -306,14 +319,17 @@ public class ClientTest {
     }
 
     //FindPetsByFullName
+*/
 /*    @Test
     public void testFindPetsByFullName01() throws Exception {
         List<Pet> pets = createTestPetList02();       // "Petty", "Petty", "Petunia", "Peter"
         createClient("XX", pets);
         List<Pet> foundPets = findPetsByFullName("Petty");
         assertEquals(2, foundPets.size());
-    }*/
+    }*//*
 
+
+*/
 /*
     @Test
     public void testFindPetsByFullName02() throws Exception {
@@ -360,8 +376,10 @@ public class ClientTest {
         foundPets = findPetsByPartName("tun");
         assertEquals(2, foundPets.size());
     }
-*/
+*//*
 
+
+*/
 
 
 }

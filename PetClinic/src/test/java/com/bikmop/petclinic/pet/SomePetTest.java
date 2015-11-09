@@ -5,10 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SomePetTest {
-    @Test
-    public void testCreation() throws Exception {
-
-    }
 
     @Test
     public void testGetPetType() throws Exception {

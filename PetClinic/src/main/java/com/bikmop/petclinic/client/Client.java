@@ -7,21 +7,14 @@ import java.util.List;
 
 public class Client {
 
-    private static final String NO_PETS = "no pets";
-    private static final String PETS_SEPARATOR = ",  ";
-    private static final String PETS_FORMAT = "%s    Id: %s    Pets: %s";
-    private static final String HAS_PET = "The client already has this pet!";
-    private static final String UNKNOWN_SEARCH_TYPE = "Unknown search type";
-    private static final String STRING_FOR_ID_PART = "1";
-    private static final String STRING_FOR_ID_FULL = "2";
-    private static final String STRING_FOR_NAME_PART = "3";
-    private static final String STRING_FOR_NAME_FULL = "4";
-    private static final String STRING_FOR_PETS_NAME = "5";
-
     private String fullName;
     private final String id;
     private List<Pet> pets = new ArrayList<>();
 
+    private static final String NO_PETS = "no pets";
+    private static final String PETS_SEPARATOR = ",  ";
+    private static final String PETS_FORMAT = "%s    Id: %s    Pets: %s";
+    private static final String HAS_PET = "The client already has this pet!";
 
     public Client(String fullName, String id) {
         this.fullName = fullName;
@@ -32,32 +25,13 @@ public class Client {
         this("", id);
     }
 
-    public boolean hasInId(String searchId) {
-        return hasInString(this.id, searchId);
-    }
-
-    public boolean hasInName(String searchName) {
-        return hasInString(this.fullName, searchName);
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
 
     public String getId() {
         return id;
     }
 
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
-    }
-
-    public List<Pet> getPets() {
-        return pets;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void addPet(Pet pet) {
@@ -67,78 +41,12 @@ public class Client {
             this.pets.add(pet);
     }
 
-    private boolean hasSamePet(Pet pet) {
-        boolean samePet = false;
-
-        for (Pet petTmp : this.pets)
-            if (isPetsNamesAndClassesEquals(pet, petTmp)) {
-                samePet = true;
-                break;
-            }
-
-        return samePet;
+    public boolean hasInId(String searchId) {
+        return hasInString(this.id, searchId);
     }
 
-    private boolean isPetsNamesAndClassesEquals(Pet pet, Pet petTmp) {
-        return isPetsNamesEquals(pet, petTmp) && isClassesEquals(pet, petTmp);
-    }
-
-
-    private boolean isPetsNamesEquals(Pet pet, Pet petTmp) {
-        return petTmp.getName().equals(pet.getName());
-    }
-
-    private boolean isClassesEquals(Object obj1, Object obj2) {
-        return obj1.getClass().equals(obj2.getClass());
-    }
-
-    public void removePetByName(String petsName) {
-        Pet searched = getPetByName(petsName);
-        if (searched != null)
-            removePet(searched);
-    }
-
-    public void renamePet(String oldName, String newName) {
-        Pet searched = getPetByName(oldName);
-        renamePet(searched, newName);
-    }
-
-    public void renamePet(Pet pet, String newName) {
-        if (pet != null)
-            setPetsName(pet, newName);
-    }
-
-    public List<Pet> findPetsByFullName(String fullName) {
-        List<Pet> found = new ArrayList<>();
-
-        for (Pet pet : this.pets)
-            if (hasPetFullName(pet, fullName))
-                found.add(pet);
-
-        return found;
-    }
-
-    public List<Pet> findPetsByPartName(String partOfName) {
-        List<Pet> found = new ArrayList<>();
-
-        for (Pet pet : this.pets)
-            if (hasPetPartName(pet, partOfName))
-                found.add(pet);
-
-        return found;
-    }
-
-    public boolean hasPetWithName(String searchName) {
-        boolean result = false;
-
-        for (Pet pet : this.pets) {
-            if (pet.isName(searchName)) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
+    public boolean hasInName(String searchName) {
+        return hasInString(this.fullName, searchName);
     }
 
     @Override
@@ -153,6 +61,13 @@ public class Client {
         NAME_PART,
         NAME_FULL,
         PETS_NAME;
+
+        private static final String STRING_FOR_ID_PART = "1";
+        private static final String STRING_FOR_ID_FULL = "2";
+        private static final String STRING_FOR_NAME_PART = "3";
+        private static final String STRING_FOR_NAME_FULL = "4";
+        private static final String STRING_FOR_PETS_NAME = "5";
+        private static final String UNKNOWN_SEARCH_TYPE = "Unknown search type";
 
         public static SearchType getSearchTypeByString(String operationString) {
             switch (operationString) {
@@ -170,6 +85,20 @@ public class Client {
                     throw new IllegalArgumentException(UNKNOWN_SEARCH_TYPE);
             }
         }
+
+    }
+
+    public boolean hasPetWithName(String searchName) {
+        boolean result = false;
+
+        for (Pet pet : this.pets) {
+            if (pet.isNameEquals(searchName)) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 
     public boolean hasIn(SearchType type, String toSearch) {
@@ -196,6 +125,67 @@ public class Client {
         return result;
     }
 
+    public void renamePet(String oldName, String newName) {
+        Pet searched = getPetByName(oldName);
+        renamePet(searched, newName);
+    }
+
+    public void renamePet(Pet pet, String newName) {
+        if (pet != null)
+            setPetsName(pet, newName);
+    }
+
+    public void removePetByName(String petsName) {
+        Pet searched = getPetByName(petsName);
+        if (searched != null)
+            removePet(searched);
+    }
+
+
+    private boolean hasSamePet(Pet pet) {
+        boolean samePet = false;
+
+        for (Pet petTmp : this.pets)
+            if (isPetsNamesAndClassesEquals(pet, petTmp)) {
+                samePet = true;
+                break;
+            }
+
+        return samePet;
+    }
+
+    private boolean isPetsNamesAndClassesEquals(Pet pet, Pet petTmp) {
+        return isPetsNamesEquals(pet, petTmp) && isClassesEquals(pet, petTmp);
+    }
+
+    private boolean isPetsNamesEquals(Pet pet, Pet petTmp) {
+        return petTmp.getName().equals(pet.getName());
+    }
+
+    private boolean isClassesEquals(Object obj1, Object obj2) {
+        return obj1.getClass().equals(obj2.getClass());
+    }
+
+    private Pet getPetByName(String petsFullName) {
+        Pet searched = null;
+
+        for (Pet pet : this.pets) {
+            if (hasPetFullName(pet, petsFullName)) {
+                searched = pet;
+                break;
+            }
+        }
+
+        return searched;
+    }
+
+    private boolean hasPetFullName(Pet pet, String checkedName) {
+        return pet.getName().equals(checkedName);
+    }
+
+    private boolean hasInString(String mainString, String searchString) {
+        return searchString != null && mainString.toLowerCase().contains(searchString.toLowerCase());
+    }
 
     private String getPetsString(){
         String petsString;
@@ -222,37 +212,12 @@ public class Client {
         return petsBuilder.toString();
     }
 
-    private boolean hasInString(String mainString, String searchString) {
-        return searchString != null && mainString.toLowerCase().contains(searchString.toLowerCase());
-    }
-
-    private boolean hasPetPartName(Pet pet, String checkedName) {
-        return (pet.getName().toLowerCase()).contains(checkedName.toLowerCase());
-    }
-
-    private Pet getPetByName(String petsFullName) {
-        Pet searched = null;
-
-        for (Pet pet : this.pets) {
-            if (hasPetFullName(pet, petsFullName)) {
-                searched = pet;
-                break;
-            }
-        }
-
-        return searched;
-    }
-
-    private boolean hasPetFullName(Pet pet, String checkedName) {
-        return pet.getName().equals(checkedName);
+    private void setPetsName(Pet pet, String name) {
+        pet.setName(name);
     }
 
     private void removePet(Pet pet) {
         this.pets.remove(pet);
-    }
-
-    private void setPetsName(Pet pet, String name) {
-        pet.setName(name);
     }
 
 }

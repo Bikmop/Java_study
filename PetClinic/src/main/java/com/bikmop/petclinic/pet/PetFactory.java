@@ -16,8 +16,6 @@ public class PetFactory {
                 return new Reptile(name);
             case RODENT:
                 return new Rodent(name);
-            case SOME_PET:
-                return new SomePet(name);
             default:
                 return new SomePet(name);
         }

@@ -2,12 +2,14 @@ package com.bikmop.petclinic.pet;
 
 public class Rodent extends Pet {
 
+    private final static String STRING_TYPE_OF_PET = "Rodent";
+
     public Rodent(String name) {
         super(name);
     }
 
     @Override
     public String getStringPetType() {
-        return "Rodent";
+        return STRING_TYPE_OF_PET;
     }
 }
