@@ -34,6 +34,14 @@ public class Client {
         this.fullName = fullName;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
     public void addPet(Pet pet) {
         if (hasSamePet(pet))
             throw new IllegalArgumentException(HAS_PET);
@@ -130,11 +138,6 @@ public class Client {
         renamePet(searched, newName);
     }
 
-    public void renamePet(Pet pet, String newName) {
-        if (pet != null)
-            setPetsName(pet, newName);
-    }
-
     public void removePetByName(String petsName) {
         Pet searched = getPetByName(petsName);
         if (searched != null)
@@ -164,6 +167,11 @@ public class Client {
 
     private boolean isClassesEquals(Object obj1, Object obj2) {
         return obj1.getClass().equals(obj2.getClass());
+    }
+
+    private void renamePet(Pet pet, String newName) {
+        if (pet != null)
+            setPetsName(pet, newName);
     }
 
     private Pet getPetByName(String petsFullName) {
