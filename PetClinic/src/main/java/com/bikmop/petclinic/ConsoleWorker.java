@@ -7,9 +7,18 @@ import com.bikmop.petclinic.pet.PetType;
 
 import java.util.Scanner;
 
+/**
+ * Класс для работы с клиникой домашних животных из консоли
+ */
 public class ConsoleWorker {
+    /**
+     * Ридер для получения данных из консоли
+     */
     private static Scanner reader = new Scanner(System.in);
 
+    /**
+     * Строковые константы вывода в консоль
+     */
     private static final String WELCOME = "********************  WELCOME TO PET CLINIC  ********************";
     private static final String SELECT_MAIN_OPERATION = "Please, select operation.";
     private static final String MAIN_OPERATIONS_LIST = "(1 - Show all clients,  2 - Find,  3 - Add," +
@@ -50,7 +59,7 @@ public class ConsoleWorker {
     private static final String ENTER_NEW_PET_NAME = "Enter NEW name of the pet: ";
     private static final String ENTER_OLD_PET_NAME = "Enter OLD name of the pet: ";
     private static final String ENTER_NEW_NAME = "Enter new name: ";
-    private static final String ENTER_PET_NAME_TO_DELETE = "Enter the name of the pet to delete:";
+    private static final String ENTER_PET_NAME_TO_DELETE = "Enter the name of the pet to delete: ";
     private static final String ASK_ANOTHER_EDIT = "Another editing?" + YES_OR_NO;
     private static final String GOOD_BYE = "Good bye.";
     private static final String ANSWER_YES = "y";
@@ -58,6 +67,10 @@ public class ConsoleWorker {
     private static final String COLON = ":";
 
 
+    /**
+     * Главный диалог с пользователем
+     * @param clinic Клиника
+     */
     public static void mainDialog(Clinic clinic) {
         writeMessageLn(WELCOME);
         dialogWithUserTillQuit(clinic);
@@ -67,14 +80,26 @@ public class ConsoleWorker {
     }
 
 
+    /**
+     * Вывести сообщение в консоль с переходом на новую строку
+     * @param message Сообщение
+     */
     private static void writeMessageLn(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Вывести сообщение в консоль без перехода на новую строку
+     * @param message Сообщение
+     */
     private static void writeMessage(String message) {
         System.out.print(message);
     }
 
+    /**
+     * Консольный диалог с пользователем до выхода из программы
+     * @param clinic Клиника
+     */
     private static void dialogWithUserTillQuit(Clinic clinic) {
         boolean isQuit = false;
         while (!isQuit) {
@@ -86,31 +111,46 @@ public class ConsoleWorker {
         }
     }
 
+    /**
+     * Список основных операций пользователя
+     */
     private enum MainOperation {
+        /** Показать всех клиентов */
         SHOW_ALL_CLIENTS,
+        /** Поиск */
         FIND,
+        /** Добавление */
         ADD,
+        /** Редактирование */
         EDIT,
+        /** Выход из программы */
         QUIT;
-        private static final String MAIN_OPERATION_STRING_FOR_SHOW_ALL_CLIENTS = "1";
-        private static final String MAIN_OPERATION_STRING_FOR_FIND = "2";
-        private static final String MAIN_OPERATION_STRING_FOR_ADD = "3";
 
-        private static final String MAIN_OPERATION_STRING_FOR_EDIT = "4";
+        /**
+         * Строковые константы для основных операций
+         */
+        private static final String STRING_FOR_SHOW_ALL_CLIENTS = "1";
+        private static final String STRING_FOR_FIND = "2";
+        private static final String STRING_FOR_ADD = "3";
+        private static final String STRING_FOR_EDIT = "4";
+        private static final String STRING_FOR_QUIT = "5";
 
-        private static final String MAIN_OPERATION_STRING_FOR_QUIT = "5";
-
+        /**
+         * Получить основную операцию по строке
+         * @param operationString Строка операции
+         * @return Основная операция
+         */
         private static MainOperation getMainOperationByString(String operationString) {
             switch (operationString) {
-                case MAIN_OPERATION_STRING_FOR_SHOW_ALL_CLIENTS:
+                case STRING_FOR_SHOW_ALL_CLIENTS:
                     return SHOW_ALL_CLIENTS;
-                case MAIN_OPERATION_STRING_FOR_FIND:
+                case STRING_FOR_FIND:
                     return FIND;
-                case MAIN_OPERATION_STRING_FOR_ADD:
+                case STRING_FOR_ADD:
                     return ADD;
-                case MAIN_OPERATION_STRING_FOR_EDIT:
+                case STRING_FOR_EDIT:
                     return EDIT;
-                case MAIN_OPERATION_STRING_FOR_QUIT:
+                case STRING_FOR_QUIT:
                     return QUIT;
                 default: throw new UnsupportedOperationException();
             }
@@ -118,6 +158,10 @@ public class ConsoleWorker {
 
     }
 
+    /**
+     * Диалог выбора основной операции пользователем
+     * @return Основная операция
+     */
     private static MainOperation askMainOperation() {
         writeMessageLn(BLANK_LINE);
         writeMessageLn(SELECT_MAIN_OPERATION);
@@ -127,6 +171,11 @@ public class ConsoleWorker {
         return operation;
     }
 
+    /**
+     * Диалог выбора корректной основной операции пользователем
+     * Повторение в цикле до выбора корректной операции
+     * @return Основная операция
+     */
     private static MainOperation askCorrectMainOperation() {
         MainOperation operation = null;
         boolean isCorrect = false;
@@ -144,14 +193,27 @@ public class ConsoleWorker {
         return operation;
     }
 
+    /**
+     * Диалог ввода любой строки пользователем
+     * @return Строка
+     */
     private static String askString() {
         return readString();
     }
 
+    /**
+     * Считать строку из консоли
+     * @return Строка
+     */
     private static String readString() {
         return reader.nextLine();
     }
 
+    /**
+     * Обработать запрос пользователя
+     * @param clinic Клиника
+     * @param operation Основная операция
+     */
     private static void processUserRequest(Clinic clinic, MainOperation operation) {
         switch (operation) {
             case SHOW_ALL_CLIENTS:
@@ -169,12 +231,20 @@ public class ConsoleWorker {
         }
     }
 
+    /**
+     * Показать всех клиентов в консоли
+     * @param clinic Клиника
+     */
     private static void showAllClients(Clinic clinic) {
         writeMessageLn(CLINICS_CLIENTS);
         showClients(clinic.getClients());
         writeMessageLn(BLANK_LINE);
     }
 
+    /**
+     * Вывести клиентов в консоль
+     * @param clients Массив клиентов
+     */
     private static void showClients(Client[] clients) {
         boolean hasClients = false;
 
@@ -188,10 +258,18 @@ public class ConsoleWorker {
             writeMessageLn(CLIENTS_NOT_FOUND);
     }
 
+    /**
+     * Показать одного клиента в консоли
+     * @param client Клиент
+     */
     private static void showClient(Client client) {
         writeMessageLn(client.toString());
     }
 
+    /**
+     * Диалог отображения найденных клиентов по запросу пользователя
+     * @param clinic Клиника
+     */
     private static void showFoundClientsDialog(Clinic clinic) {
         String isAnotherSearch = ANSWER_YES;
 
@@ -211,16 +289,30 @@ public class ConsoleWorker {
         writeMessageLn(BLANK_LINE);
     }
 
+    /**
+     * Проверка строки на соответствие ANSWER_YES в любом регистре
+     * @param yesOrNo Строка для проверки
+     * @return Соответствие строки
+     */
     private static boolean isYes(String yesOrNo) {
         return yesOrNo.toLowerCase().trim().equals(ANSWER_YES);
     }
 
+    /**
+     * Диалог выбора типа поиска клиентов
+     * @return Тип поиска
+     */
     private static Client.SearchType askSearchType() {
         writeMessageLn(SELECT_SEARCH_TYPE);
         writeMessage(SEARCH_TYPES_LIST);
         return askCorrectSearchType();
     }
 
+    /**
+     * Диалог выбора корректного типа поиска
+     * Повторение в цикле до выбора корректного типа
+     * @return Тип поиска
+     */
     private static Client.SearchType askCorrectSearchType() {
         Client.SearchType searchType = null;
         boolean isCorrectType = false;
@@ -238,32 +330,55 @@ public class ConsoleWorker {
         return searchType;
     }
 
+    /**
+     * Диалог ввода строки поиска
+     * @return Строка минимум с одним символом
+     */
     private static String askStringForSearch() {
         writeMessage(ENTER_SEARCH);
         return askNotBlankString();
     }
 
+    /**
+     * Показать в консоль результат поиска клиентов
+     * @param clients Массив клиентов
+     */
     private static void showSearchResult(Client[] clients) {
         writeMessageLn(BLANK_LINE);
         writeMessageLn(SEARCH_RESULT);
         showClients(clients);
     }
 
+    /**
+     * Запросить повторение операции
+     * @param askMessage Строка запроса
+     * @return Строка ответа
+     */
     private static String askAnother(String askMessage) {
         writeMessageLn(BLANK_LINE);
         writeMessage(askMessage);
         return askString();
     }
 
+    /**
+     * Диалог добавления клиента
+     * @param clinic Клиника
+     */
     private static void addClientDialog(Clinic clinic) {
         writeMessageLn(ADD_CLIENT);
 
         String id = askUniqueClientId(clinic);
         String fullName = askClientFullName();
         Client client = new Client(fullName, id);
-        tryAddClientWithPets(clinic, client);
+        addClientWithPets(clinic, client);
     }
 
+    /**
+     * Дилог запроса уникального идентификатора пользователя
+     * Проверка на отсутствие у других пользователей клиники
+     * @param clinic Клиника
+     * @return Строка уникального id
+     */
     private static String askUniqueClientId(Clinic clinic) {
         boolean uniqueId = false;
         String clientId = BLANK_LINE;
@@ -279,22 +394,36 @@ public class ConsoleWorker {
         return clientId;
     }
 
+    /**
+     * Диалог ввода непустой строки пользователем
+     * @return Непустая строка
+     */
     private static String askNotBlankString() {
-        String s = BLANK_LINE;
+        String string = BLANK_LINE;
 
-        while (BLANK_LINE.equals(s)) {
-            s = askString();
+        while (BLANK_LINE.equals(string)) {
+            string = askString();
         }
 
-        return s;
+        return string;
     }
 
+    /**
+     * Диплог ввода полного имени клиента
+     * Может быть пустым
+     * @return Полное имя клиента
+     */
     private static String askClientFullName() {
         writeMessage(ENTER_CLIENT_NAME);
         return askString();
     }
 
-    private static void tryAddClientWithPets(Clinic clinic, Client client) {
+    /**
+     * Добавление в клинику клиента с животными
+     * @param clinic Клиника
+     * @param client Клиент
+     */
+    private static void addClientWithPets(Clinic clinic, Client client) {
         writeMessageLn(BLANK_LINE);
 
         try {
@@ -308,18 +437,26 @@ public class ConsoleWorker {
         }
     }
 
+    /**
+     * Диалог добавления животных клиенту
+     * @param client Клиент
+     */
     private static void askAddPets(Client client) {
         writeMessage(ASK_ADD_PET);
         String askAddPetOrNot = askString();
 
         while (isYes(askAddPetOrNot)) {
             Pet pet = askOnePet();
-            tryAddPetForClient(client, pet);
+            addPetForClient(client, pet);
 
             askAddPetOrNot = askAnother(ASK_ADD_ANOTHER_PET);
         }
     }
 
+    /**
+     * Диалог запроса одного животного
+     * @return Животное
+     */
     private static Pet askOnePet() {
         PetType petType = askPetType();
         String petName = askPetName();
@@ -327,18 +464,31 @@ public class ConsoleWorker {
         return PetFactory.createPet(petType, petName);
     }
 
+    /**
+     * Диалог запроса типа животного
+     * @return Тип животного
+     */
     private static PetType askPetType() {
         writeMessageLn(SELECT_PET_TYPE);
         writeMessage(PET_TYPES);
         return PetType.getPetTypeByString(askString());
     }
 
+    /**
+     * Диалог запроса имени животного
+     * @return Строка с именем животного
+     */
     private static String askPetName() {
         writeMessage(ENTER_PET_NAME);
         return askNotBlankString();
     }
 
-    private static void tryAddPetForClient(Client client, Pet pet) {
+    /**
+     * Добавление одного животного клиенту
+     * @param client Клиент
+     * @param pet Животное
+     */
+    private static void addPetForClient(Client client, Pet pet) {
         try {
             client.addPet(pet);
         } catch (IllegalArgumentException iae) {
@@ -346,6 +496,10 @@ public class ConsoleWorker {
         }
     }
 
+    /**
+     * Диалог редактирования клиента
+     * @param clinic Клиника
+     */
     private static void editClientDialog(Clinic clinic) {
         String askNewEdit = ANSWER_YES;
         writeMessageLn(SELECT_CLIENT_FOR_EDIT);
@@ -361,10 +515,19 @@ public class ConsoleWorker {
         }
     }
 
+    /**
+     * Проверка найден ли клиент по заросу
+     * @param clinic Клиника
+     * @return Найден ли клиент
+     */
     private static boolean isClientFound(Clinic clinic) {
         return clinic.getCurrentClient() != null;
     }
 
+    /**
+     * Диалог выбора клиента для редактирования
+     * @param clinic Клиника
+     */
     private static void askClientForEdit(Clinic clinic) {
         Client.SearchType searchType = askSearchType();
         String searchString = askStringForSearch();
@@ -372,6 +535,10 @@ public class ConsoleWorker {
         showFoundClient(clinic);
     }
 
+    /**
+     * Показать в консоли найденного клиента
+     * @param clinic Клиника
+     */
     private static void showFoundClient(Clinic clinic) {
         Client client = clinic.getCurrentClient();
         writeMessageLn(BLANK_LINE);
@@ -384,6 +551,10 @@ public class ConsoleWorker {
         }
     }
 
+    /**
+     * Диалог редактирования текущего клиента
+     * @param clinic Клиника
+     */
     private static void editClient(Clinic clinic) {
         EditClientOperation operation = askEditingOperation();
         switch (operation) {
@@ -405,36 +576,56 @@ public class ConsoleWorker {
         }
     }
 
+    /**
+     * Список операций редактирования клиента
+     */
     private enum EditClientOperation {
+        /** Переименование клиента */
         RENAME_CLIENT,
+        /** Удаление клиента */
         DELETE_CLIENT,
+        /** Переименование животного */
         RENAME_PET,
+        /** Добавление животного */
         ADD_PET,
+        /** Удаление животного */
         DELETE_PET;
 
-        private static final String EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_CLIENT = "1";
-        private static final String EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_CLIENT = "2";
-        private static final String EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_PET = "3";
-        private static final String EDIT_CLIENT_OPERATION_STRING_FOR_ADD_PET = "4";
-        private static final String EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_PET = "5";
+        /**
+         * Строковые константы для операций редактирования клиента
+         */
+        private static final String STRING_FOR_RENAME_CLIENT = "1";
+        private static final String STRING_FOR_DELETE_CLIENT = "2";
+        private static final String STRING_FOR_RENAME_PET = "3";
+        private static final String STRING_FOR_ADD_PET = "4";
+        private static final String STRING_FOR_DELETE_PET = "5";
 
-        private static EditClientOperation getEditClientOperationByString(String numberString) {
-            switch (numberString) {
-                case EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_CLIENT:
+        /**
+         * Получить операцию редактирования по строке
+         * @param operationString Строка операции
+         * @return Операция редактирования клиента
+         */
+        private static EditClientOperation getEditClientOperationByString(String operationString) {
+            switch (operationString) {
+                case STRING_FOR_RENAME_CLIENT:
                     return RENAME_CLIENT;
-                case EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_CLIENT:
+                case STRING_FOR_DELETE_CLIENT:
                     return DELETE_CLIENT;
-                case EDIT_CLIENT_OPERATION_STRING_FOR_RENAME_PET:
+                case STRING_FOR_RENAME_PET:
                     return RENAME_PET;
-                case EDIT_CLIENT_OPERATION_STRING_FOR_ADD_PET:
+                case STRING_FOR_ADD_PET:
                     return ADD_PET;
-                case EDIT_CLIENT_OPERATION_STRING_FOR_DELETE_PET:
+                case STRING_FOR_DELETE_PET:
                     return DELETE_PET;
                 default: throw new UnsupportedOperationException();
             }
         }
     }
 
+    /**
+     * Диалог выбора операции редактирования
+     * @return Операция редактирования
+     */
     private static EditClientOperation askEditingOperation() {
         writeMessageLn(BLANK_LINE);
         writeMessageLn(SELECT_EDITING_OPERATION);
@@ -444,6 +635,11 @@ public class ConsoleWorker {
         return operation;
     }
 
+    /**
+     * Диалог выбора корректной операции редактирования
+     * Повторение в цикле до выбора корректной операции
+     * @return Операция редактирования
+     */
     private static EditClientOperation askCorrectEditingOperation() {
         EditClientOperation operation = null;
         boolean isCorrect = false;
@@ -461,6 +657,10 @@ public class ConsoleWorker {
         return operation;
     }
 
+    /**
+     * Диалог переименования текущего клиента
+     * @param clinic Клиника
+     */
     private static void clientRenamingDialog(Clinic clinic) {
         writeMessage(ENTER_NEW_NAME);
         String newName = askString();
@@ -468,16 +668,28 @@ public class ConsoleWorker {
         showClientChangesAfterEditing(clinic.getCurrentClient());
     }
 
+    /**
+     * Показать измененного клиента после редактирования
+     * @param client Клиент
+     */
     private static void showClientChangesAfterEditing(Client client) {
         writeMessageLn(CHANGES_AFTER_EDITING);
         writeMessageLn(client.toString());
     }
 
+    /**
+     * Диалог удаления текущего клиента
+     * @param clinic Клиника
+     */
     private static void clientRemovingDialog(Clinic clinic) {
         clinic.removeCurrentClient();
         writeMessageLn(CLIENT_DELETED);
     }
 
+    /**
+     * Диалог переименования животного
+     * @param clinic Клиника
+     */
     private static void petRenamingDialog(Clinic clinic) {
         writeMessage(ENTER_OLD_PET_NAME);
         String petOldName = askNotBlankString();
@@ -490,15 +702,23 @@ public class ConsoleWorker {
         showClientChangesAfterEditing(client);
     }
 
+    /**
+     * Диалог добавления животного
+     * @param clinic Клиника
+     */
     private static void petAddingDialog(Clinic clinic) {
         Pet pet = askOnePet();
         Client client = clinic.getCurrentClient();
-        tryAddPetForClient(client, pet);
+        addPetForClient(client, pet);
         writeMessageLn(BLANK_LINE);
 
         showClientChangesAfterEditing(client);
     }
 
+    /**
+     * Диалог удаления животного
+     * @param clinic Клиника
+     */
     private static void petRemovingDialog(Clinic clinic) {
         writeMessage(ENTER_PET_NAME_TO_DELETE);
         String petName = askNotBlankString();
@@ -508,6 +728,9 @@ public class ConsoleWorker {
         showClientChangesAfterEditing(client);
     }
 
+    /**
+     * Закрытие консольного ридера
+     */
     private static void closeReader() {
         reader.close();
     }

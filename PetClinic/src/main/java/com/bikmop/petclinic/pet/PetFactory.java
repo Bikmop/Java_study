@@ -1,7 +1,15 @@
 package com.bikmop.petclinic.pet;
 
+/**
+ * Класс реализует фабрику животных
+ */
 public class PetFactory {
-
+    /**
+     * Создать животное
+     * @param type Тип животного из PetType
+     * @param name Имя животного
+     * @return Животное нужного типа
+     */
     public static Pet createPet(PetType type, String name) {
         switch (type) {
             case CAT:
