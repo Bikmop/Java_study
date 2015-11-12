@@ -1,28 +1,42 @@
 package com.bikmop.petclinic;
 
 import com.bikmop.petclinic.client.Client;
+import com.bikmop.petclinic.console.ConsoleInput;
+import com.bikmop.petclinic.console.ConsoleOutput;
 import com.bikmop.petclinic.pet.*;
 
 /**
  * Клас для демонстрации работы клиники из консоли
  */
 public class ClinicRunner {
+    private final Clinic clinic;
+    private final InteractClinic interactClinic;
+
+    public ClinicRunner(Clinic clinic, Input input, Output output) {
+        this.clinic = clinic;
+        interactClinic = new InteractClinic(clinic, input, output);
+    }
+
     /**
      * Main
      * @param args Параметры запуска
      */
     public static void main(String[] args) {
-        final Clinic clinic = new Clinic(10);
-        initialClinicFilling(clinic);
-        ConsoleWorker.mainDialog(clinic);
+        ClinicRunner runner = new ClinicRunner(new Clinic(10), new ConsoleInput(), new ConsoleOutput());
+        runner.initialClinicFilling();
+        runner.mainDialog();
     }
 
+    public void mainDialog() {
+        interactClinic.mainDialog();
+    }
 
     /**
      * Начальное заполнение клиники клиентами Анна, Иван и Петр
-     * @param clinic Клиника
      */
-    private static void initialClinicFilling(Clinic clinic) {
+
+
+    public void initialClinicFilling() {
         clinic.addClient(createAnna());
         clinic.addClient(createIvan());
         clinic.addClient(createPetr());
@@ -32,7 +46,9 @@ public class ClinicRunner {
      * Создание клиента Анна
      * @return Клиент Анна
      */
-    private static Client createAnna() {
+
+
+    private Client createAnna() {
         Client anna = new Client("Anna Ivanova", "XX 33335789");
         anna.addPet(new Bird("Kesha"));
         anna.addPet(new Rodent("Mickey"));
@@ -46,7 +62,9 @@ public class ClinicRunner {
      * Создание клиента Иван
      * @return Клиент Иван
      */
-    private static Client createIvan() {
+
+
+    private Client createIvan() {
         Client ivan = new Client("XY 01234567");
         ivan.setFullName("Ivan Petrov");
 
@@ -57,7 +75,9 @@ public class ClinicRunner {
      * Создание клиента Петр
      * @return Клиент Петр
      */
-    private static Client createPetr() {
+
+
+    private Client createPetr() {
         Client petr = new Client("XY 89012345");
         petr.setFullName("Petr Sidorov");
         petr.addPet(new Cat("Masha"));
