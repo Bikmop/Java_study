@@ -8,16 +8,16 @@ import com.bikmop.petclinic.pet.PetType;
 import java.util.Scanner;
 
 /**
- * Класс для работы с клиникой домашних животных из консоли
+ * РљР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РєР»РёРЅРёРєРѕР№ РґРѕРјР°С€РЅРёС… Р¶РёРІРѕС‚РЅС‹С… РёР· РєРѕРЅСЃРѕР»Рё
  */
 public class ConsoleWorker {
     /**
-     * Ридер для получения данных из консоли
+     * Р РёРґРµСЂ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… РёР· РєРѕРЅСЃРѕР»Рё
      */
     private static Scanner reader = new Scanner(System.in);
 
     /**
-     * Строковые константы вывода в консоль
+     * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РІС‹РІРѕРґР° РІ РєРѕРЅСЃРѕР»СЊ
      */
     private static final String WELCOME = "********************  WELCOME TO PET CLINIC  ********************";
     private static final String SELECT_MAIN_OPERATION = "Please, select operation.";
@@ -68,8 +68,8 @@ public class ConsoleWorker {
 
 
     /**
-     * Главный диалог с пользователем
-     * @param clinic Клиника
+     * Р“Р»Р°РІРЅС‹Р№ РґРёР°Р»РѕРі СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+     * @param clinic РљР»РёРЅРёРєР°
      */
     public static void mainDialog(Clinic clinic) {
         writeMessageLn(WELCOME);
@@ -81,24 +81,24 @@ public class ConsoleWorker {
 
 
     /**
-     * Вывести сообщение в консоль с переходом на новую строку
-     * @param message Сообщение
+     * Р’С‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ РІ РєРѕРЅСЃРѕР»СЊ СЃ РїРµСЂРµС…РѕРґРѕРј РЅР° РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
+     * @param message РЎРѕРѕР±С‰РµРЅРёРµ
      */
     private static void writeMessageLn(String message) {
         System.out.println(message);
     }
 
     /**
-     * Вывести сообщение в консоль без перехода на новую строку
-     * @param message Сообщение
+     * Р’С‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ РІ РєРѕРЅСЃРѕР»СЊ Р±РµР· РїРµСЂРµС…РѕРґР° РЅР° РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
+     * @param message РЎРѕРѕР±С‰РµРЅРёРµ
      */
     private static void writeMessage(String message) {
         System.out.print(message);
     }
 
     /**
-     * Консольный диалог с пользователем до выхода из программы
-     * @param clinic Клиника
+     * РљРѕРЅСЃРѕР»СЊРЅС‹Р№ РґРёР°Р»РѕРі СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј РґРѕ РІС‹С…РѕРґР° РёР· РїСЂРѕРіСЂР°РјРјС‹
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void dialogWithUserTillQuit(Clinic clinic) {
         boolean isQuit = false;
@@ -112,22 +112,22 @@ public class ConsoleWorker {
     }
 
     /**
-     * Список основных операций пользователя
+     * РЎРїРёСЃРѕРє РѕСЃРЅРѕРІРЅС‹С… РѕРїРµСЂР°С†РёР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
      */
     private enum MainOperation {
-        /** Показать всех клиентов */
+        /** РџРѕРєР°Р·Р°С‚СЊ РІСЃРµС… РєР»РёРµРЅС‚РѕРІ */
         SHOW_ALL_CLIENTS,
-        /** Поиск */
+        /** РџРѕРёСЃРє */
         FIND,
-        /** Добавление */
+        /** Р”РѕР±Р°РІР»РµРЅРёРµ */
         ADD,
-        /** Редактирование */
+        /** Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ */
         EDIT,
-        /** Выход из программы */
+        /** Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹ */
         QUIT;
 
         /**
-         * Строковые константы для основных операций
+         * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ РѕСЃРЅРѕРІРЅС‹С… РѕРїРµСЂР°С†РёР№
          */
         private static final String STRING_FOR_SHOW_ALL_CLIENTS = "1";
         private static final String STRING_FOR_FIND = "2";
@@ -136,9 +136,9 @@ public class ConsoleWorker {
         private static final String STRING_FOR_QUIT = "5";
 
         /**
-         * Получить основную операцию по строке
-         * @param operationString Строка операции
-         * @return Основная операция
+         * РџРѕР»СѓС‡РёС‚СЊ РѕСЃРЅРѕРІРЅСѓСЋ РѕРїРµСЂР°С†РёСЋ РїРѕ СЃС‚СЂРѕРєРµ
+         * @param operationString РЎС‚СЂРѕРєР° РѕРїРµСЂР°С†РёРё
+         * @return РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
          */
         private static MainOperation getMainOperationByString(String operationString) {
             switch (operationString) {
@@ -159,8 +159,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог выбора основной операции пользователем
-     * @return Основная операция
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РѕСЃРЅРѕРІРЅРѕР№ РѕРїРµСЂР°С†РёРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+     * @return РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
      */
     private static MainOperation askMainOperation() {
         writeMessageLn(BLANK_LINE);
@@ -172,9 +172,9 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог выбора корректной основной операции пользователем
-     * Повторение в цикле до выбора корректной операции
-     * @return Основная операция
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕР№ РѕСЃРЅРѕРІРЅРѕР№ РѕРїРµСЂР°С†РёРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+     * РџРѕРІС‚РѕСЂРµРЅРёРµ РІ С†РёРєР»Рµ РґРѕ РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕР№ РѕРїРµСЂР°С†РёРё
+     * @return РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
      */
     private static MainOperation askCorrectMainOperation() {
         MainOperation operation = null;
@@ -194,25 +194,25 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог ввода любой строки пользователем
-     * @return Строка
+     * Р”РёР°Р»РѕРі РІРІРѕРґР° Р»СЋР±РѕР№ СЃС‚СЂРѕРєРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+     * @return РЎС‚СЂРѕРєР°
      */
     private static String askString() {
         return readString();
     }
 
     /**
-     * Считать строку из консоли
-     * @return Строка
+     * РЎС‡РёС‚Р°С‚СЊ СЃС‚СЂРѕРєСѓ РёР· РєРѕРЅСЃРѕР»Рё
+     * @return РЎС‚СЂРѕРєР°
      */
     private static String readString() {
         return reader.nextLine();
     }
 
     /**
-     * Обработать запрос пользователя
-     * @param clinic Клиника
-     * @param operation Основная операция
+     * РћР±СЂР°Р±РѕС‚Р°С‚СЊ Р·Р°РїСЂРѕСЃ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+     * @param clinic РљР»РёРЅРёРєР°
+     * @param operation РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
      */
     private static void processUserRequest(Clinic clinic, MainOperation operation) {
         switch (operation) {
@@ -232,8 +232,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Показать всех клиентов в консоли
-     * @param clinic Клиника
+     * РџРѕРєР°Р·Р°С‚СЊ РІСЃРµС… РєР»РёРµРЅС‚РѕРІ РІ РєРѕРЅСЃРѕР»Рё
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void showAllClients(Clinic clinic) {
         writeMessageLn(CLINICS_CLIENTS);
@@ -242,8 +242,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Вывести клиентов в консоль
-     * @param clients Массив клиентов
+     * Р’С‹РІРµСЃС‚Рё РєР»РёРµРЅС‚РѕРІ РІ РєРѕРЅСЃРѕР»СЊ
+     * @param clients РњР°СЃСЃРёРІ РєР»РёРµРЅС‚РѕРІ
      */
     private static void showClients(Client[] clients) {
         boolean hasClients = false;
@@ -259,16 +259,16 @@ public class ConsoleWorker {
     }
 
     /**
-     * Показать одного клиента в консоли
-     * @param client Клиент
+     * РџРѕРєР°Р·Р°С‚СЊ РѕРґРЅРѕРіРѕ РєР»РёРµРЅС‚Р° РІ РєРѕРЅСЃРѕР»Рё
+     * @param client РљР»РёРµРЅС‚
      */
     private static void showClient(Client client) {
         writeMessageLn(client.toString());
     }
 
     /**
-     * Диалог отображения найденных клиентов по запросу пользователя
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РЅР°Р№РґРµРЅРЅС‹С… РєР»РёРµРЅС‚РѕРІ РїРѕ Р·Р°РїСЂРѕСЃСѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void showFoundClientsDialog(Clinic clinic) {
         String isAnotherSearch = ANSWER_YES;
@@ -290,17 +290,17 @@ public class ConsoleWorker {
     }
 
     /**
-     * Проверка строки на соответствие ANSWER_YES в любом регистре
-     * @param yesOrNo Строка для проверки
-     * @return Соответствие строки
+     * РџСЂРѕРІРµСЂРєР° СЃС‚СЂРѕРєРё РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ ANSWER_YES РІ Р»СЋР±РѕРј СЂРµРіРёСЃС‚СЂРµ
+     * @param yesOrNo РЎС‚СЂРѕРєР° РґР»СЏ РїСЂРѕРІРµСЂРєРё
+     * @return РЎРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЃС‚СЂРѕРєРё
      */
     private static boolean isYes(String yesOrNo) {
         return yesOrNo.toLowerCase().trim().equals(ANSWER_YES);
     }
 
     /**
-     * Диалог выбора типа поиска клиентов
-     * @return Тип поиска
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° С‚РёРїР° РїРѕРёСЃРєР° РєР»РёРµРЅС‚РѕРІ
+     * @return РўРёРї РїРѕРёСЃРєР°
      */
     private static Client.SearchType askSearchType() {
         writeMessageLn(SELECT_SEARCH_TYPE);
@@ -309,9 +309,9 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог выбора корректного типа поиска
-     * Повторение в цикле до выбора корректного типа
-     * @return Тип поиска
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ С‚РёРїР° РїРѕРёСЃРєР°
+     * РџРѕРІС‚РѕСЂРµРЅРёРµ РІ С†РёРєР»Рµ РґРѕ РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ С‚РёРїР°
+     * @return РўРёРї РїРѕРёСЃРєР°
      */
     private static Client.SearchType askCorrectSearchType() {
         Client.SearchType searchType = null;
@@ -331,8 +331,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог ввода строки поиска
-     * @return Строка минимум с одним символом
+     * Р”РёР°Р»РѕРі РІРІРѕРґР° СЃС‚СЂРѕРєРё РїРѕРёСЃРєР°
+     * @return РЎС‚СЂРѕРєР° РјРёРЅРёРјСѓРј СЃ РѕРґРЅРёРј СЃРёРјРІРѕР»РѕРј
      */
     private static String askStringForSearch() {
         writeMessage(ENTER_SEARCH);
@@ -340,8 +340,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Показать в консоль результат поиска клиентов
-     * @param clients Массив клиентов
+     * РџРѕРєР°Р·Р°С‚СЊ РІ РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚ РїРѕРёСЃРєР° РєР»РёРµРЅС‚РѕРІ
+     * @param clients РњР°СЃСЃРёРІ РєР»РёРµРЅС‚РѕРІ
      */
     private static void showSearchResult(Client[] clients) {
         writeMessageLn(BLANK_LINE);
@@ -350,9 +350,9 @@ public class ConsoleWorker {
     }
 
     /**
-     * Запросить повторение операции
-     * @param askMessage Строка запроса
-     * @return Строка ответа
+     * Р—Р°РїСЂРѕСЃРёС‚СЊ РїРѕРІС‚РѕСЂРµРЅРёРµ РѕРїРµСЂР°С†РёРё
+     * @param askMessage РЎС‚СЂРѕРєР° Р·Р°РїСЂРѕСЃР°
+     * @return РЎС‚СЂРѕРєР° РѕС‚РІРµС‚Р°
      */
     private static String askAnother(String askMessage) {
         writeMessageLn(BLANK_LINE);
@@ -361,8 +361,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог добавления клиента
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі РґРѕР±Р°РІР»РµРЅРёСЏ РєР»РёРµРЅС‚Р°
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void addClientDialog(Clinic clinic) {
         writeMessageLn(ADD_CLIENT);
@@ -374,10 +374,10 @@ public class ConsoleWorker {
     }
 
     /**
-     * Дилог запроса уникального идентификатора пользователя
-     * Проверка на отсутствие у других пользователей клиники
-     * @param clinic Клиника
-     * @return Строка уникального id
+     * Р”РёР»РѕРі Р·Р°РїСЂРѕСЃР° СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+     * РџСЂРѕРІРµСЂРєР° РЅР° РѕС‚СЃСѓС‚СЃС‚РІРёРµ Сѓ РґСЂСѓРіРёС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РєР»РёРЅРёРєРё
+     * @param clinic РљР»РёРЅРёРєР°
+     * @return РЎС‚СЂРѕРєР° СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ id
      */
     private static String askUniqueClientId(Clinic clinic) {
         boolean uniqueId = false;
@@ -395,8 +395,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог ввода непустой строки пользователем
-     * @return Непустая строка
+     * Р”РёР°Р»РѕРі РІРІРѕРґР° РЅРµРїСѓСЃС‚РѕР№ СЃС‚СЂРѕРєРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+     * @return РќРµРїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР°
      */
     private static String askNotBlankString() {
         String string = BLANK_LINE;
@@ -409,9 +409,9 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диплог ввода полного имени клиента
-     * Может быть пустым
-     * @return Полное имя клиента
+     * Р”РёРїР»РѕРі РІРІРѕРґР° РїРѕР»РЅРѕРіРѕ РёРјРµРЅРё РєР»РёРµРЅС‚Р°
+     * РњРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј
+     * @return РџРѕР»РЅРѕРµ РёРјСЏ РєР»РёРµРЅС‚Р°
      */
     private static String askClientFullName() {
         writeMessage(ENTER_CLIENT_NAME);
@@ -419,9 +419,9 @@ public class ConsoleWorker {
     }
 
     /**
-     * Добавление в клинику клиента с животными
-     * @param clinic Клиника
-     * @param client Клиент
+     * Р”РѕР±Р°РІР»РµРЅРёРµ РІ РєР»РёРЅРёРєСѓ РєР»РёРµРЅС‚Р° СЃ Р¶РёРІРѕС‚РЅС‹РјРё
+     * @param clinic РљР»РёРЅРёРєР°
+     * @param client РљР»РёРµРЅС‚
      */
     private static void addClientWithPets(Clinic clinic, Client client) {
         writeMessageLn(BLANK_LINE);
@@ -438,8 +438,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог добавления животных клиенту
-     * @param client Клиент
+     * Р”РёР°Р»РѕРі РґРѕР±Р°РІР»РµРЅРёСЏ Р¶РёРІРѕС‚РЅС‹С… РєР»РёРµРЅС‚Сѓ
+     * @param client РљР»РёРµРЅС‚
      */
     private static void askAddPets(Client client) {
         writeMessage(ASK_ADD_PET);
@@ -454,8 +454,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог запроса одного животного
-     * @return Животное
+     * Р”РёР°Р»РѕРі Р·Р°РїСЂРѕСЃР° РѕРґРЅРѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @return Р–РёРІРѕС‚РЅРѕРµ
      */
     private static Pet askOnePet() {
         PetType petType = askPetType();
@@ -465,8 +465,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог запроса типа животного
-     * @return Тип животного
+     * Р”РёР°Р»РѕРі Р·Р°РїСЂРѕСЃР° С‚РёРїР° Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @return РўРёРї Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private static PetType askPetType() {
         writeMessageLn(SELECT_PET_TYPE);
@@ -475,8 +475,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог запроса имени животного
-     * @return Строка с именем животного
+     * Р”РёР°Р»РѕРі Р·Р°РїСЂРѕСЃР° РёРјРµРЅРё Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @return РЎС‚СЂРѕРєР° СЃ РёРјРµРЅРµРј Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private static String askPetName() {
         writeMessage(ENTER_PET_NAME);
@@ -484,9 +484,9 @@ public class ConsoleWorker {
     }
 
     /**
-     * Добавление одного животного клиенту
-     * @param client Клиент
-     * @param pet Животное
+     * Р”РѕР±Р°РІР»РµРЅРёРµ РѕРґРЅРѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ РєР»РёРµРЅС‚Сѓ
+     * @param client РљР»РёРµРЅС‚
+     * @param pet Р–РёРІРѕС‚РЅРѕРµ
      */
     private static void addPetForClient(Client client, Pet pet) {
         try {
@@ -497,8 +497,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог редактирования клиента
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР»РёРµРЅС‚Р°
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void editClientDialog(Clinic clinic) {
         String askNewEdit = ANSWER_YES;
@@ -516,17 +516,17 @@ public class ConsoleWorker {
     }
 
     /**
-     * Проверка найден ли клиент по заросу
-     * @param clinic Клиника
-     * @return Найден ли клиент
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р№РґРµРЅ Р»Рё РєР»РёРµРЅС‚ РїРѕ Р·Р°СЂРѕСЃСѓ
+     * @param clinic РљР»РёРЅРёРєР°
+     * @return РќР°Р№РґРµРЅ Р»Рё РєР»РёРµРЅС‚
      */
     private static boolean isClientFound(Clinic clinic) {
         return clinic.getCurrentClient() != null;
     }
 
     /**
-     * Диалог выбора клиента для редактирования
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РєР»РёРµРЅС‚Р° РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void askClientForEdit(Clinic clinic) {
         Client.SearchType searchType = askSearchType();
@@ -536,8 +536,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Показать в консоли найденного клиента
-     * @param clinic Клиника
+     * РџРѕРєР°Р·Р°С‚СЊ РІ РєРѕРЅСЃРѕР»Рё РЅР°Р№РґРµРЅРЅРѕРіРѕ РєР»РёРµРЅС‚Р°
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void showFoundClient(Clinic clinic) {
         Client client = clinic.getCurrentClient();
@@ -552,8 +552,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог редактирования текущего клиента
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void editClient(Clinic clinic) {
         EditClientOperation operation = askEditingOperation();
@@ -577,22 +577,22 @@ public class ConsoleWorker {
     }
 
     /**
-     * Список операций редактирования клиента
+     * РЎРїРёСЃРѕРє РѕРїРµСЂР°С†РёР№ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР»РёРµРЅС‚Р°
      */
     private enum EditClientOperation {
-        /** Переименование клиента */
+        /** РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ РєР»РёРµРЅС‚Р° */
         RENAME_CLIENT,
-        /** Удаление клиента */
+        /** РЈРґР°Р»РµРЅРёРµ РєР»РёРµРЅС‚Р° */
         DELETE_CLIENT,
-        /** Переименование животного */
+        /** РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ */
         RENAME_PET,
-        /** Добавление животного */
+        /** Р”РѕР±Р°РІР»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ */
         ADD_PET,
-        /** Удаление животного */
+        /** РЈРґР°Р»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ */
         DELETE_PET;
 
         /**
-         * Строковые константы для операций редактирования клиента
+         * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ РѕРїРµСЂР°С†РёР№ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР»РёРµРЅС‚Р°
          */
         private static final String STRING_FOR_RENAME_CLIENT = "1";
         private static final String STRING_FOR_DELETE_CLIENT = "2";
@@ -601,9 +601,9 @@ public class ConsoleWorker {
         private static final String STRING_FOR_DELETE_PET = "5";
 
         /**
-         * Получить операцию редактирования по строке
-         * @param operationString Строка операции
-         * @return Операция редактирования клиента
+         * РџРѕР»СѓС‡РёС‚СЊ РѕРїРµСЂР°С†РёСЋ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РїРѕ СЃС‚СЂРѕРєРµ
+         * @param operationString РЎС‚СЂРѕРєР° РѕРїРµСЂР°С†РёРё
+         * @return РћРїРµСЂР°С†РёСЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР»РёРµРЅС‚Р°
          */
         private static EditClientOperation getEditClientOperationByString(String operationString) {
             switch (operationString) {
@@ -623,8 +623,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог выбора операции редактирования
-     * @return Операция редактирования
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РѕРїРµСЂР°С†РёРё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * @return РћРїРµСЂР°С†РёСЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
      */
     private static EditClientOperation askEditingOperation() {
         writeMessageLn(BLANK_LINE);
@@ -636,9 +636,9 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог выбора корректной операции редактирования
-     * Повторение в цикле до выбора корректной операции
-     * @return Операция редактирования
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕР№ РѕРїРµСЂР°С†РёРё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * РџРѕРІС‚РѕСЂРµРЅРёРµ РІ С†РёРєР»Рµ РґРѕ РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕР№ РѕРїРµСЂР°С†РёРё
+     * @return РћРїРµСЂР°С†РёСЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
      */
     private static EditClientOperation askCorrectEditingOperation() {
         EditClientOperation operation = null;
@@ -658,8 +658,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог переименования текущего клиента
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void clientRenamingDialog(Clinic clinic) {
         writeMessage(ENTER_NEW_NAME);
@@ -669,8 +669,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Показать измененного клиента после редактирования
-     * @param client Клиент
+     * РџРѕРєР°Р·Р°С‚СЊ РёР·РјРµРЅРµРЅРЅРѕРіРѕ РєР»РёРµРЅС‚Р° РїРѕСЃР»Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * @param client РљР»РёРµРЅС‚
      */
     private static void showClientChangesAfterEditing(Client client) {
         writeMessageLn(CHANGES_AFTER_EDITING);
@@ -678,8 +678,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог удаления текущего клиента
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі СѓРґР°Р»РµРЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void clientRemovingDialog(Clinic clinic) {
         clinic.removeCurrentClient();
@@ -687,8 +687,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог переименования животного
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void petRenamingDialog(Clinic clinic) {
         writeMessage(ENTER_OLD_PET_NAME);
@@ -703,8 +703,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог добавления животного
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі РґРѕР±Р°РІР»РµРЅРёСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void petAddingDialog(Clinic clinic) {
         Pet pet = askOnePet();
@@ -716,8 +716,8 @@ public class ConsoleWorker {
     }
 
     /**
-     * Диалог удаления животного
-     * @param clinic Клиника
+     * Р”РёР°Р»РѕРі СѓРґР°Р»РµРЅРёСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void petRemovingDialog(Clinic clinic) {
         writeMessage(ENTER_PET_NAME_TO_DELETE);
@@ -729,7 +729,7 @@ public class ConsoleWorker {
     }
 
     /**
-     * Закрытие консольного ридера
+     * Р—Р°РєСЂС‹С‚РёРµ РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ СЂРёРґРµСЂР°
      */
     private static void closeReader() {
         reader.close();

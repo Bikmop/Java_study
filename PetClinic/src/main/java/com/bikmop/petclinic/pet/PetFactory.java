@@ -1,14 +1,14 @@
 package com.bikmop.petclinic.pet;
 
 /**
- * Класс реализует фабрику животных
+ * РљР»Р°СЃСЃ СЂРµР°Р»РёР·СѓРµС‚ С„Р°Р±СЂРёРєСѓ Р¶РёРІРѕС‚РЅС‹С…
  */
 public class PetFactory {
     /**
-     * Создать животное
-     * @param type Тип животного из PetType
-     * @param name Имя животного
-     * @return Животное нужного типа
+     * РЎРѕР·РґР°С‚СЊ Р¶РёРІРѕС‚РЅРѕРµ
+     * @param type РўРёРї Р¶РёРІРѕС‚РЅРѕРіРѕ РёР· PetType
+     * @param name РРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @return Р–РёРІРѕС‚РЅРѕРµ РЅСѓР¶РЅРѕРіРѕ С‚РёРїР°
      */
     public static Pet createPet(PetType type, String name) {
         switch (type) {

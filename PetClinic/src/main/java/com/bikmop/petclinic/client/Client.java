@@ -6,24 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс реализующий клиента клиники домашних животных
+ * РљР»Р°СЃСЃ СЂРµР°Р»РёР·СѓСЋС‰РёР№ РєР»РёРµРЅС‚Р° РєР»РёРЅРёРєРё РґРѕРјР°С€РЅРёС… Р¶РёРІРѕС‚РЅС‹С…
  */
 public class Client {
     /**
-     * Полное имя клиента
+     * РџРѕР»РЅРѕРµ РёРјСЏ РєР»РёРµРЅС‚Р°
      */
     private String fullName;
     /**
-     * Идентификационный номер клиента(паспорт, и т.п.)
+     * РРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅС‹Р№ РЅРѕРјРµСЂ РєР»РёРµРЅС‚Р°(РїР°СЃРїРѕСЂС‚, Рё С‚.Рї.)
      */
     private final String id;
     /**
-     * Список животных клиента
+     * РЎРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С… РєР»РёРµРЅС‚Р°
      */
     private List<Pet> pets = new ArrayList<>();
 
     /**
-     * Строковые константы
+     * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹
      */
     private static final String NO_PETS = "no pets";
     private static final String PETS_SEPARATOR = ",  ";
@@ -31,17 +31,17 @@ public class Client {
     private static final String HAS_PET = "The client already has this pet!";
 
     /**
-     * Конструктор
-     * @param fullName Полное имя
-     * @param id Идентификационный номер
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param fullName РџРѕР»РЅРѕРµ РёРјСЏ
+     * @param id РРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅС‹Р№ РЅРѕРјРµСЂ
      */
     public Client(String fullName, String id) {
         this.fullName = fullName;
         this.id = id;
     }
     /**
-     * Конструктор
-     * @param id Идентификационный номер
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param id РРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅС‹Р№ РЅРѕРјРµСЂ
      */
     public Client(String id) {
         this("", id);
@@ -49,41 +49,41 @@ public class Client {
 
 
     /**
-     * Получить идентификационный номер клиента
-     * @return идентификационный номер
+     * РџРѕР»СѓС‡РёС‚СЊ РёРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅС‹Р№ РЅРѕРјРµСЂ РєР»РёРµРЅС‚Р°
+     * @return РёРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅС‹Р№ РЅРѕРјРµСЂ
      */
     public String getId() {
         return id;
     }
 
     /**
-     * Установить имя клиента
-     * @param fullName Полное имя
+     * РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РёРјСЏ РєР»РёРµРЅС‚Р°
+     * @param fullName РџРѕР»РЅРѕРµ РёРјСЏ
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
     /**
-     * Получить имя клиента
-     * @return Полное имя
+     * РџРѕР»СѓС‡РёС‚СЊ РёРјСЏ РєР»РёРµРЅС‚Р°
+     * @return РџРѕР»РЅРѕРµ РёРјСЏ
      */
     public String getFullName() {
         return fullName;
     }
 
     /**
-     * Получить список животных клиента
-     * @return Список животных
+     * РџРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С… РєР»РёРµРЅС‚Р°
+     * @return РЎРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С…
      */
     public List<Pet> getPets() {
         return pets;
     }
 
     /**
-     * Добавить животное клиенту
-     * @param pet Животное
-     * @throws IllegalArgumentException Падает при попытке добавить уже присутствующее животное
+     * Р”РѕР±Р°РІРёС‚СЊ Р¶РёРІРѕС‚РЅРѕРµ РєР»РёРµРЅС‚Сѓ
+     * @param pet Р–РёРІРѕС‚РЅРѕРµ
+     * @throws IllegalArgumentException РџР°РґР°РµС‚ РїСЂРё РїРѕРїС‹С‚РєРµ РґРѕР±Р°РІРёС‚СЊ СѓР¶Рµ РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‰РµРµ Р¶РёРІРѕС‚РЅРѕРµ
      */
     public void addPet(Pet pet) {
         if (hasSamePet(pet))
@@ -93,27 +93,27 @@ public class Client {
     }
 
     /**
-     * Проверка наличия части Id в Id
-     * @param searchId Часть Id
-     * @return Присутствие части Id
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ С‡Р°СЃС‚Рё Id РІ Id
+     * @param searchId Р§Р°СЃС‚СЊ Id
+     * @return РџСЂРёСЃСѓС‚СЃС‚РІРёРµ С‡Р°СЃС‚Рё Id
      */
     public boolean hasInId(String searchId) {
         return hasInString(this.id, searchId);
     }
 
     /**
-     * Проверка наличия части имени в имени клиента
-     * @param searchName Часть имени
-     * @return Присутствие части имени
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ С‡Р°СЃС‚Рё РёРјРµРЅРё РІ РёРјРµРЅРё РєР»РёРµРЅС‚Р°
+     * @param searchName Р§Р°СЃС‚СЊ РёРјРµРЅРё
+     * @return РџСЂРёСЃСѓС‚СЃС‚РІРёРµ С‡Р°СЃС‚Рё РёРјРµРЅРё
      */
     public boolean hasInName(String searchName) {
         return hasInString(this.fullName, searchName);
     }
 
     /**
-     * Строковое представление клиента
-     * @return Имя, идентификатор, список животных
-     * Пример: "Name LastName    Id: XX 00000000    Pets: Reptile 'Snaky',  Cat 'Kitty'"
+     * РЎС‚СЂРѕРєРѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РєР»РёРµРЅС‚Р°
+     * @return РРјСЏ, РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ, СЃРїРёСЃРѕРє Р¶РёРІРѕС‚РЅС‹С…
+     * РџСЂРёРјРµСЂ: "Name LastName    Id: XX 00000000    Pets: Reptile 'Snaky',  Cat 'Kitty'"
      */
     @Override
     public String toString() {
@@ -122,22 +122,22 @@ public class Client {
     }
 
     /**
-     * Список доступных типов поиска клиента
+     * РЎРїРёСЃРѕРє РґРѕСЃС‚СѓРїРЅС‹С… С‚РёРїРѕРІ РїРѕРёСЃРєР° РєР»РёРµРЅС‚Р°
      */
     public enum SearchType{
-        /** Поиск по части Id */
+        /** РџРѕРёСЃРє РїРѕ С‡Р°СЃС‚Рё Id */
         ID_PART,
-        /** Поиск по полному совпадению Id */
+        /** РџРѕРёСЃРє РїРѕ РїРѕР»РЅРѕРјСѓ СЃРѕРІРїР°РґРµРЅРёСЋ Id */
         ID_FULL,
-        /** Поиск по части имени */
+        /** РџРѕРёСЃРє РїРѕ С‡Р°СЃС‚Рё РёРјРµРЅРё */
         NAME_PART,
-        /** Поиск по полному совпадению имени */
+        /** РџРѕРёСЃРє РїРѕ РїРѕР»РЅРѕРјСѓ СЃРѕРІРїР°РґРµРЅРёСЋ РёРјРµРЅРё */
         NAME_FULL,
-        /** Поиск по полному совпадению имени питомца */
+        /** РџРѕРёСЃРє РїРѕ РїРѕР»РЅРѕРјСѓ СЃРѕРІРїР°РґРµРЅРёСЋ РёРјРµРЅРё РїРёС‚РѕРјС†Р° */
         PETS_NAME;
 
         /**
-         * Строковые константы для каждого типа
+         * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ РєР°Р¶РґРѕРіРѕ С‚РёРїР°
          */
         private static final String STRING_FOR_ID_PART = "1";
         private static final String STRING_FOR_ID_FULL = "2";
@@ -147,9 +147,9 @@ public class Client {
         private static final String UNKNOWN_SEARCH_TYPE = "Unknown search type";
 
         /**
-         * Получить тип поиска по строке
-         * @param searchType Строка выбора типа
-         * @return Тип поиска
+         * РџРѕР»СѓС‡РёС‚СЊ С‚РёРї РїРѕРёСЃРєР° РїРѕ СЃС‚СЂРѕРєРµ
+         * @param searchType РЎС‚СЂРѕРєР° РІС‹Р±РѕСЂР° С‚РёРїР°
+         * @return РўРёРї РїРѕРёСЃРєР°
          */
         public static SearchType getSearchTypeByString(String searchType) {
             switch (searchType) {
@@ -171,9 +171,9 @@ public class Client {
     }
 
     /**
-     * Проверка клиента на наличие животного с именем
-     * @param searchName Искомое имя
-     * @return Наличие животного
+     * РџСЂРѕРІРµСЂРєР° РєР»РёРµРЅС‚Р° РЅР° РЅР°Р»РёС‡РёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ СЃ РёРјРµРЅРµРј
+     * @param searchName РСЃРєРѕРјРѕРµ РёРјСЏ
+     * @return РќР°Р»РёС‡РёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     public boolean hasPetWithName(String searchName) {
         boolean result = false;
@@ -189,10 +189,10 @@ public class Client {
     }
 
     /**
-     * Проверка наличия у клиента строки в зависимости от типа поиска
-     * @param type Тип поиска
-     * @param toSearch Искомая строка
-     * @return Наличие строки в типе
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ Сѓ РєР»РёРµРЅС‚Р° СЃС‚СЂРѕРєРё РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РёРїР° РїРѕРёСЃРєР°
+     * @param type РўРёРї РїРѕРёСЃРєР°
+     * @param toSearch РСЃРєРѕРјР°СЏ СЃС‚СЂРѕРєР°
+     * @return РќР°Р»РёС‡РёРµ СЃС‚СЂРѕРєРё РІ С‚РёРїРµ
      */
     public boolean hasIn(SearchType type, String toSearch) {
         boolean result = false;
@@ -219,9 +219,9 @@ public class Client {
     }
 
     /**
-     * Переименование животного
-     * @param oldName Старое имя
-     * @param newName Новое имя
+     * РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param oldName РЎС‚Р°СЂРѕРµ РёРјСЏ
+     * @param newName РќРѕРІРѕРµ РёРјСЏ
      */
     public void renamePet(String oldName, String newName) {
         Pet searched = getPetByName(oldName);
@@ -229,8 +229,8 @@ public class Client {
     }
 
     /**
-     * Удаление животного по имени
-     * @param petsName Полное имя животного
+     * РЈРґР°Р»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ РїРѕ РёРјРµРЅРё
+     * @param petsName РџРѕР»РЅРѕРµ РёРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     public void removePetByName(String petsName) {
         Pet searched = getPetByName(petsName);
@@ -240,9 +240,9 @@ public class Client {
 
 
     /**
-     * Проверка наличия данного животного(одинаковый тип и имя) у клиента
-     * @param pet Животное
-     * @return Наличие животного
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РґР°РЅРЅРѕРіРѕ Р¶РёРІРѕС‚РЅРѕРіРѕ(РѕРґРёРЅР°РєРѕРІС‹Р№ С‚РёРї Рё РёРјСЏ) Сѓ РєР»РёРµРЅС‚Р°
+     * @param pet Р–РёРІРѕС‚РЅРѕРµ
+     * @return РќР°Р»РёС‡РёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private boolean hasSamePet(Pet pet) {
         boolean samePet = false;
@@ -257,39 +257,39 @@ public class Client {
     }
 
     /**
-     * Проверка совпадения имени и класса у двух животных
-     * @param pet1 Первое животное
-     * @param pet2 Второе животное
-     * @return Совпадение имени и класса
+     * РџСЂРѕРІРµСЂРєР° СЃРѕРІРїР°РґРµРЅРёСЏ РёРјРµРЅРё Рё РєР»Р°СЃСЃР° Сѓ РґРІСѓС… Р¶РёРІРѕС‚РЅС‹С…
+     * @param pet1 РџРµСЂРІРѕРµ Р¶РёРІРѕС‚РЅРѕРµ
+     * @param pet2 Р’С‚РѕСЂРѕРµ Р¶РёРІРѕС‚РЅРѕРµ
+     * @return РЎРѕРІРїР°РґРµРЅРёРµ РёРјРµРЅРё Рё РєР»Р°СЃСЃР°
      */
     private boolean isPetsNamesAndClassesEquals(Pet pet1, Pet pet2) {
         return isPetsNamesEquals(pet1, pet2) && isClassesEquals(pet1, pet2);
     }
 
     /**
-     * Проверка совпадения имен животных
-     * @param pet1 Первое животное
-     * @param pet2 Второе животное
-     * @return Совпадение имени
+     * РџСЂРѕРІРµСЂРєР° СЃРѕРІРїР°РґРµРЅРёСЏ РёРјРµРЅ Р¶РёРІРѕС‚РЅС‹С…
+     * @param pet1 РџРµСЂРІРѕРµ Р¶РёРІРѕС‚РЅРѕРµ
+     * @param pet2 Р’С‚РѕСЂРѕРµ Р¶РёРІРѕС‚РЅРѕРµ
+     * @return РЎРѕРІРїР°РґРµРЅРёРµ РёРјРµРЅРё
      */
     private boolean isPetsNamesEquals(Pet pet1, Pet pet2) {
         return pet2.getName().equals(pet1.getName());
     }
 
     /**
-     * Проверка совпадения классов у двух объектов
-     * @param obj1 Первый объект
-     * @param obj2 Второй объект
-     * @return Совпадение классов
+     * РџСЂРѕРІРµСЂРєР° СЃРѕРІРїР°РґРµРЅРёСЏ РєР»Р°СЃСЃРѕРІ Сѓ РґРІСѓС… РѕР±СЉРµРєС‚РѕРІ
+     * @param obj1 РџРµСЂРІС‹Р№ РѕР±СЉРµРєС‚
+     * @param obj2 Р’С‚РѕСЂРѕР№ РѕР±СЉРµРєС‚
+     * @return РЎРѕРІРїР°РґРµРЅРёРµ РєР»Р°СЃСЃРѕРІ
      */
     private boolean isClassesEquals(Object obj1, Object obj2) {
         return obj1.getClass().equals(obj2.getClass());
     }
 
     /**
-     * Переименование животного
-     * @param pet Животное
-     * @param newName Новое имя
+     * РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param pet Р–РёРІРѕС‚РЅРѕРµ
+     * @param newName РќРѕРІРѕРµ РёРјСЏ
      */
     private void renamePet(Pet pet, String newName) {
         if (pet != null)
@@ -297,9 +297,9 @@ public class Client {
     }
 
     /**
-     * Получить животное по имени
-     * @param petsFullName Полное имя
-     * @return Животное, если присутствует в списке. null - отсутствует в списке.
+     * РџРѕР»СѓС‡РёС‚СЊ Р¶РёРІРѕС‚РЅРѕРµ РїРѕ РёРјРµРЅРё
+     * @param petsFullName РџРѕР»РЅРѕРµ РёРјСЏ
+     * @return Р–РёРІРѕС‚РЅРѕРµ, РµСЃР»Рё РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ РІ СЃРїРёСЃРєРµ. null - РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РІ СЃРїРёСЃРєРµ.
      */
     private Pet getPetByName(String petsFullName) {
         Pet searched = null;
@@ -315,28 +315,28 @@ public class Client {
     }
 
     /**
-     * Проверка полного совпадения имени у животного
-     * @param pet Животное
-     * @param checkedName Имя для проверки
-     * @return Полное совпадение имени
+     * РџСЂРѕРІРµСЂРєР° РїРѕР»РЅРѕРіРѕ СЃРѕРІРїР°РґРµРЅРёСЏ РёРјРµРЅРё Сѓ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param pet Р–РёРІРѕС‚РЅРѕРµ
+     * @param checkedName РРјСЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё
+     * @return РџРѕР»РЅРѕРµ СЃРѕРІРїР°РґРµРЅРёРµ РёРјРµРЅРё
      */
     private boolean hasPetFullName(Pet pet, String checkedName) {
         return pet.getName().equals(checkedName);
     }
 
     /**
-     * Проверка наличия подстроки в строке
-     * @param mainString Строка для поиска
-     * @param searchString Искомая строка
-     * @return Наличие подстроки
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РїРѕРґСЃС‚СЂРѕРєРё РІ СЃС‚СЂРѕРєРµ
+     * @param mainString РЎС‚СЂРѕРєР° РґР»СЏ РїРѕРёСЃРєР°
+     * @param searchString РСЃРєРѕРјР°СЏ СЃС‚СЂРѕРєР°
+     * @return РќР°Р»РёС‡РёРµ РїРѕРґСЃС‚СЂРѕРєРё
      */
     private boolean hasInString(String mainString, String searchString) {
         return searchString != null && mainString.toLowerCase().contains(searchString.toLowerCase());
     }
 
     /**
-     * Получить строку со списком животных клиента
-     * @return Строка с животными клиента, или сообщение об их отсутствии
+     * РџРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ СЃРѕ СЃРїРёСЃРєРѕРј Р¶РёРІРѕС‚РЅС‹С… РєР»РёРµРЅС‚Р°
+     * @return РЎС‚СЂРѕРєР° СЃ Р¶РёРІРѕС‚РЅС‹РјРё РєР»РёРµРЅС‚Р°, РёР»Рё СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РёС… РѕС‚СЃСѓС‚СЃС‚РІРёРё
      */
     private String getPetsString(){
         String petsString;
@@ -349,8 +349,8 @@ public class Client {
     }
 
     /**
-     * Формирование строки со списком животных
-     * @return Строка со списком животных
+     * Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё СЃРѕ СЃРїРёСЃРєРѕРј Р¶РёРІРѕС‚РЅС‹С…
+     * @return РЎС‚СЂРѕРєР° СЃРѕ СЃРїРёСЃРєРѕРј Р¶РёРІРѕС‚РЅС‹С…
      */
     private String getPetsInOneLine() {
         StringBuilder petsBuilder = new StringBuilder();
@@ -368,17 +368,17 @@ public class Client {
     }
 
     /**
-     * Установка имени животного
-     * @param pet Животное
-     * @param name Имя
+     * РЈСЃС‚Р°РЅРѕРІРєР° РёРјРµРЅРё Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param pet Р–РёРІРѕС‚РЅРѕРµ
+     * @param name РРјСЏ
      */
     private void setPetsName(Pet pet, String name) {
         pet.setName(name);
     }
 
     /**
-     * Удаление животного
-     * @param pet Животное
+     * РЈРґР°Р»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param pet Р–РёРІРѕС‚РЅРѕРµ
      */
     private void removePet(Pet pet) {
         this.pets.remove(pet);

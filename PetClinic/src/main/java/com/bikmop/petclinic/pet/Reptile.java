@@ -1,25 +1,25 @@
 package com.bikmop.petclinic.pet;
 
 /**
- * Класс Рептилия расширяющий Животное
+ * РљР»Р°СЃСЃ Р РµРїС‚РёР»РёСЏ СЂР°СЃС€РёСЂСЏСЋС‰РёР№ Р–РёРІРѕС‚РЅРѕРµ
  */
 public class Reptile extends Pet {
     /**
-     * Строка типа животного
+     * РЎС‚СЂРѕРєР° С‚РёРїР° Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private final static String STRING_TYPE_OF_PET = "Reptile";
 
     /**
-     * Конструктор
-     * @param name Имя рептилии
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param name РРјСЏ СЂРµРїС‚РёР»РёРё
      */
     public Reptile(String name) {
         super(name);
     }
 
     /**
-     * Возвращает строковый тип
-     * @return Строковый тип
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєРѕРІС‹Р№ С‚РёРї
+     * @return РЎС‚СЂРѕРєРѕРІС‹Р№ С‚РёРї
      */
     @Override
     public String getStringPetType() {

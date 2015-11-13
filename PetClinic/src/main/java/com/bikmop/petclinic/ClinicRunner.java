@@ -4,12 +4,12 @@ import com.bikmop.petclinic.client.Client;
 import com.bikmop.petclinic.pet.*;
 
 /**
- * Клас для демонстрации работы клиники из консоли
+ * РљР»Р°СЃ РґР»СЏ РґРµРјРѕРЅСЃС‚СЂР°С†РёРё СЂР°Р±РѕС‚С‹ РєР»РёРЅРёРєРё РёР· РєРѕРЅСЃРѕР»Рё
  */
 public class ClinicRunner {
     /**
      * Main
-     * @param args Параметры запуска
+     * @param args РџР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСѓСЃРєР°
      */
     public static void main(String[] args) {
         final Clinic clinic = new Clinic(10);
@@ -19,8 +19,8 @@ public class ClinicRunner {
 
 
     /**
-     * Начальное заполнение клиники клиентами Анна, Иван и Петр
-     * @param clinic Клиника
+     * РќР°С‡Р°Р»СЊРЅРѕРµ Р·Р°РїРѕР»РЅРµРЅРёРµ РєР»РёРЅРёРєРё РєР»РёРµРЅС‚Р°РјРё РђРЅРЅР°, РРІР°РЅ Рё РџРµС‚СЂ
+     * @param clinic РљР»РёРЅРёРєР°
      */
     private static void initialClinicFilling(Clinic clinic) {
         clinic.addClient(createAnna());
@@ -29,8 +29,8 @@ public class ClinicRunner {
     }
 
     /**
-     * Создание клиента Анна
-     * @return Клиент Анна
+     * РЎРѕР·РґР°РЅРёРµ РєР»РёРµРЅС‚Р° РђРЅРЅР°
+     * @return РљР»РёРµРЅС‚ РђРЅРЅР°
      */
     private static Client createAnna() {
         Client anna = new Client("Anna Ivanova", "XX 33335789");
@@ -43,8 +43,8 @@ public class ClinicRunner {
     }
 
     /**
-     * Создание клиента Иван
-     * @return Клиент Иван
+     * РЎРѕР·РґР°РЅРёРµ РєР»РёРµРЅС‚Р° РРІР°РЅ
+     * @return РљР»РёРµРЅС‚ РРІР°РЅ
      */
     private static Client createIvan() {
         Client ivan = new Client("XY 01234567");
@@ -54,8 +54,8 @@ public class ClinicRunner {
     }
 
     /**
-     * Создание клиента Петр
-     * @return Клиент Петр
+     * РЎРѕР·РґР°РЅРёРµ РєР»РёРµРЅС‚Р° РџРµС‚СЂ
+     * @return РљР»РёРµРЅС‚ РџРµС‚СЂ
      */
     private static Client createPetr() {
         Client petr = new Client("XY 89012345");

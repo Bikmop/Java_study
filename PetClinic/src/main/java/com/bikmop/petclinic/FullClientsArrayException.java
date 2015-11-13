@@ -1,7 +1,7 @@
 package com.bikmop.petclinic;
 
 /**
- * Исключение при попытке добавления клиента в полный массив
+ * РСЃРєР»СЋС‡РµРЅРёРµ РїСЂРё РїРѕРїС‹С‚РєРµ РґРѕР±Р°РІР»РµРЅРёСЏ РєР»РёРµРЅС‚Р° РІ РїРѕР»РЅС‹Р№ РјР°СЃСЃРёРІ
  */
 public class FullClientsArrayException extends RuntimeException {
 }
