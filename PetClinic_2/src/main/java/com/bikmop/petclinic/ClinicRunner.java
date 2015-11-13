@@ -6,20 +6,29 @@ import com.bikmop.petclinic.console.ConsoleOutput;
 import com.bikmop.petclinic.pet.*;
 
 /**
- * Клас для демонстрации работы клиники из консоли
+ * РљР»Р°СЃ РґР»СЏ РґРµРјРѕРЅСЃС‚СЂР°С†РёРё СЂР°Р±РѕС‚С‹ РєР»РёРЅРёРєРё РґРѕРјР°С€РЅРёС… Р¶РёРІРѕС‚РЅС‹С… РёР· РєРѕРЅСЃРѕР»Рё
  */
 public class ClinicRunner {
+    /** Р­РєР·РµРјРїР»СЏСЂ РєР»РёРЅРёРєРё */
     private final Clinic clinic;
+    /** Р­РєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° РёРЅС‚РµСЂР°РєС‚РёРІРЅРѕР№ СЂР°Р±РѕС‚С‹ СЃ РєР»РёРЅРёРєРѕР№ РґРѕРјР°С€РЅРёС… Р¶РёРІРѕС‚РЅС‹С… */
     private final InteractClinic interactClinic;
 
+    /**
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param clinic РљР»РёРЅРёРєР°
+     * @param input Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° Input
+     * @param output Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° Output
+     */
     public ClinicRunner(Clinic clinic, Input input, Output output) {
         this.clinic = clinic;
         interactClinic = new InteractClinic(clinic, input, output);
     }
 
+
     /**
      * Main
-     * @param args Параметры запуска
+     * @param args РџР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСѓСЃРєР°
      */
     public static void main(String[] args) {
         ClinicRunner runner = new ClinicRunner(new Clinic(10), new ConsoleInput(), new ConsoleOutput());
@@ -27,27 +36,27 @@ public class ClinicRunner {
         runner.mainDialog();
     }
 
+
+    /**
+     * РћСЃРЅРѕРІРЅРѕР№ РґРёР°Р»РѕРі СЂР°Р±РѕС‚С‹ РєР»РёРЅРёРєРё СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+     */
     public void mainDialog() {
         interactClinic.mainDialog();
     }
 
     /**
-     * Начальное заполнение клиники клиентами Анна, Иван и Петр
+     * РќР°С‡Р°Р»СЊРЅРѕРµ Р·Р°РїРѕР»РЅРµРЅРёРµ РєР»РёРЅРёРєРё РєР»РёРµРЅС‚Р°РјРё РђРЅРЅР°, РРІР°РЅ Рё РџРµС‚СЂ
      */
-
-
-    public void initialClinicFilling() {
+    private void initialClinicFilling() {
         clinic.addClient(createAnna());
         clinic.addClient(createIvan());
         clinic.addClient(createPetr());
     }
 
     /**
-     * Создание клиента Анна
-     * @return Клиент Анна
+     * РЎРѕР·РґР°РЅРёРµ РєР»РёРµРЅС‚Р° РђРЅРЅР°
+     * @return РљР»РёРµРЅС‚ РђРЅРЅР°
      */
-
-
     private Client createAnna() {
         Client anna = new Client("Anna Ivanova", "XX 33335789");
         anna.addPet(new Bird("Kesha"));
@@ -59,11 +68,9 @@ public class ClinicRunner {
     }
 
     /**
-     * Создание клиента Иван
-     * @return Клиент Иван
+     * РЎРѕР·РґР°РЅРёРµ РєР»РёРµРЅС‚Р° РРІР°РЅ
+     * @return РљР»РёРµРЅС‚ РРІР°РЅ
      */
-
-
     private Client createIvan() {
         Client ivan = new Client("XY 01234567");
         ivan.setFullName("Ivan Petrov");
@@ -72,11 +79,9 @@ public class ClinicRunner {
     }
 
     /**
-     * Создание клиента Петр
-     * @return Клиент Петр
+     * РЎРѕР·РґР°РЅРёРµ РєР»РёРµРЅС‚Р° РџРµС‚СЂ
+     * @return РљР»РёРµРЅС‚ РџРµС‚СЂ
      */
-
-
     private Client createPetr() {
         Client petr = new Client("XY 89012345");
         petr.setFullName("Petr Sidorov");

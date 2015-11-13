@@ -3,21 +3,21 @@ package com.bikmop.petclinic;
 import com.bikmop.petclinic.client.Client;
 
 /**
- * Класс реализующий клинику домашних животных
+ * РљР»Р°СЃСЃ СЂРµР°Р»РёР·СѓСЋС‰РёР№ РєР»РёРЅРёРєСѓ РґРѕРјР°С€РЅРёС… Р¶РёРІРѕС‚РЅС‹С…
  */
 public class Clinic {
     /**
-     * Массив клиентов
+     * РњР°СЃСЃРёРІ РєР»РёРµРЅС‚РѕРІ
      */
     private final Client[] clients;
     /**
-     * Текущий клиент для редактирования
+     * РўРµРєСѓС‰РёР№ РєР»РёРµРЅС‚ РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
      */
     private Client currentClient = null;
 
     /**
-     * Конструктор
-     * @param maxNumberOfClients Максимальное количество клиентов клиники
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param maxNumberOfClients РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєР»РёРµРЅС‚РѕРІ РєР»РёРЅРёРєРё
      */
     public Clinic(final int maxNumberOfClients) {
         this.clients = new Client[maxNumberOfClients];
@@ -25,34 +25,34 @@ public class Clinic {
 
 
     /**
-     * Получить массив клиентов
-     * @return Массив клиентов
+     * РџРѕР»СѓС‡РёС‚СЊ РјР°СЃСЃРёРІ РєР»РёРµРЅС‚РѕРІ
+     * @return РњР°СЃСЃРёРІ РєР»РёРµРЅС‚РѕРІ
      */
     public Client[] getClients() {
         return this.clients;
     }
 
     /**
-     * Получить текущего клиента
-     * @return Текущий клиент
+     * РџРѕР»СѓС‡РёС‚СЊ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
+     * @return РўРµРєСѓС‰РёР№ РєР»РёРµРЅС‚
      */
     public Client getCurrentClient() {
         return this.currentClient;
     }
 
     /**
-     * Добавить клиента
-     * @param client Клиент
+     * Р”РѕР±Р°РІРёС‚СЊ РєР»РёРµРЅС‚Р°
+     * @param client РљР»РёРµРЅС‚
      */
     public void addClient(Client client) {
         addClient(findFreePlaceInClientsArray(), client);
     }
 
     /**
-     * Найти клиентов по типу и строке поиска
-     * @param type Тип поиска
-     * @param toSearch Строка поиска
-     * @return Массив найденных клиентов
+     * РќР°Р№С‚Рё РєР»РёРµРЅС‚РѕРІ РїРѕ С‚РёРїСѓ Рё СЃС‚СЂРѕРєРµ РїРѕРёСЃРєР°
+     * @param type РўРёРї РїРѕРёСЃРєР°
+     * @param toSearch РЎС‚СЂРѕРєР° РїРѕРёСЃРєР°
+     * @return РњР°СЃСЃРёРІ РЅР°Р№РґРµРЅРЅС‹С… РєР»РёРµРЅС‚РѕРІ
      */
     public Client[] findClients(Client.SearchType type, final String toSearch) {
         Client[] found = new Client[this.clients.length];
@@ -66,9 +66,9 @@ public class Clinic {
     }
 
     /**
-     * Выбрать первого клиента удовлетворяющего поисковому запросу
-     * @param type Тип поиска
-     * @param searchString Строка поиска
+     * Р’С‹Р±СЂР°С‚СЊ РїРµСЂРІРѕРіРѕ РєР»РёРµРЅС‚Р° СѓРґРѕРІР»РµС‚РІРѕСЂСЏСЋС‰РµРіРѕ РїРѕРёСЃРєРѕРІРѕРјСѓ Р·Р°РїСЂРѕСЃСѓ
+     * @param type РўРёРї РїРѕРёСЃРєР°
+     * @param searchString РЎС‚СЂРѕРєР° РїРѕРёСЃРєР°
      */
     public void selectFirstMatchingClient(Client.SearchType type, String searchString) {
         boolean found = false;
@@ -85,8 +85,8 @@ public class Clinic {
     }
 
     /**
-     * Удалить текущего клиента из массива
-     * Текущий клиент становится null
+     * РЈРґР°Р»РёС‚СЊ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р° РёР· РјР°СЃСЃРёРІР°
+     * РўРµРєСѓС‰РёР№ РєР»РёРµРЅС‚ СЃС‚Р°РЅРѕРІРёС‚СЃСЏ null
      */
     public void removeCurrentClient() {
         if (this.currentClient != null)
@@ -99,8 +99,8 @@ public class Clinic {
     }
 
     /**
-     * Переименование текущего клиента
-     * @param newName Новое имя
+     * РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
+     * @param newName РќРѕРІРѕРµ РёРјСЏ
      */
     public void renameCurrentClient(String newName) {
         if (this.currentClient != null)
@@ -108,9 +108,9 @@ public class Clinic {
     }
 
     /**
-     * Проверить уникальность идентификатора клиента
-     * @param clientId Id для проверки
-     * @return Отсутствие Id у других клиентов клиники
+     * РџСЂРѕРІРµСЂРёС‚СЊ СѓРЅРёРєР°Р»СЊРЅРѕСЃС‚СЊ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РєР»РёРµРЅС‚Р°
+     * @param clientId Id РґР»СЏ РїСЂРѕРІРµСЂРєРё
+     * @return РћС‚СЃСѓС‚СЃС‚РІРёРµ Id Сѓ РґСЂСѓРіРёС… РєР»РёРµРЅС‚РѕРІ РєР»РёРЅРёРєРё
      */
     public boolean isUniqueClientId(String clientId) {
         boolean uniqueId = true;
@@ -126,18 +126,18 @@ public class Clinic {
 
 
     /**
-     * Добавление клиента
-     * @param position Порядковый номер в массиве
-     * @param client Клиент
+     * Р”РѕР±Р°РІР»РµРЅРёРµ РєР»РёРµРЅС‚Р°
+     * @param position РџРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РІ РјР°СЃСЃРёРІРµ
+     * @param client РљР»РёРµРЅС‚
      */
     private void addClient(int position, Client client) {
         this.clients[position] = client;
     }
 
     /**
-     * Поиск свободной ячейки в массиве клиентов
-     * @return Номер ячейки
-     * @throws FullClientsArrayException Падает, если весь массив клиентов заполнен
+     * РџРѕРёСЃРє СЃРІРѕР±РѕРґРЅРѕР№ СЏС‡РµР№РєРё РІ РјР°СЃСЃРёРІРµ РєР»РёРµРЅС‚РѕРІ
+     * @return РќРѕРјРµСЂ СЏС‡РµР№РєРё
+     * @throws FullClientsArrayException РџР°РґР°РµС‚, РµСЃР»Рё РІРµСЃСЊ РјР°СЃСЃРёРІ РєР»РёРµРЅС‚РѕРІ Р·Р°РїРѕР»РЅРµРЅ
      */
     private int findFreePlaceInClientsArray() throws FullClientsArrayException{
         int i = 0;
@@ -156,8 +156,8 @@ public class Clinic {
     }
 
     /**
-     * Выбрать клиента текущим
-     * @param client Клиент
+     * Р’С‹Р±СЂР°С‚СЊ РєР»РёРµРЅС‚Р° С‚РµРєСѓС‰РёРј
+     * @param client РљР»РёРµРЅС‚
      */
     private void selectCurrentClient(Client client) {
         this.currentClient = client;

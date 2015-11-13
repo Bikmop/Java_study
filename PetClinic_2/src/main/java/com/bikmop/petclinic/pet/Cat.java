@@ -1,25 +1,25 @@
 package com.bikmop.petclinic.pet;
 
 /**
- * Класс Кот расширяющий Животное
+ * РљР»Р°СЃСЃ РљРѕС‚ СЂР°СЃС€РёСЂСЏСЋС‰РёР№ Р–РёРІРѕС‚РЅРѕРµ
  */
 public class Cat extends Pet {
     /**
-     * Строка типа животного
+     * РЎС‚СЂРѕРєР° С‚РёРїР° Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private final static String STRING_TYPE_OF_PET = "Cat";
 
     /**
-     * Конструктор
-     * @param name Имя кота
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param name РРјСЏ РєРѕС‚Р°
      */
     public Cat(String name) {
         super(name);
     }
 
     /**
-     * Возвращает строковый тип
-     * @return Строковый тип
+     * Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєРѕРІС‹Р№ С‚РёРї
+     * @return РЎС‚СЂРѕРєРѕРІС‹Р№ С‚РёРї
      */
     @Override
     public String getStringPetType() {

@@ -1,26 +1,26 @@
 package com.bikmop.petclinic.pet;
 
 /**
- * Список доступных типов животных
+ * РЎРїРёСЃРѕРє РґРѕСЃС‚СѓРїРЅС‹С… С‚РёРїРѕРІ Р¶РёРІРѕС‚РЅС‹С…
  */
 public enum PetType {
-    /** Кот */
+    /** РљРѕС‚ */
     CAT,
-    /** Собака */
+    /** РЎРѕР±Р°РєР° */
     DOG,
-    /** Рыба */
+    /** Р С‹Р±Р° */
     FISH,
-    /** Птица */
+    /** РџС‚РёС†Р° */
     BIRD,
-    /** Рептилия */
+    /** Р РµРїС‚РёР»РёСЏ */
     REPTILE,
-    /** Грызун */
+    /** Р“СЂС‹Р·СѓРЅ */
     RODENT,
-    /** Животное не из списка */
+    /** Р–РёРІРѕС‚РЅРѕРµ РЅРµ РёР· СЃРїРёСЃРєР° */
     SOME_PET;
 
     /**
-     * Строковые константы для каждого типа
+     * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ РєР°Р¶РґРѕРіРѕ С‚РёРїР°
      */
     private static final String STRING_FOR_CAT = "1";
     private static final String STRING_FOR_DOG = "2";
@@ -30,9 +30,9 @@ public enum PetType {
     private static final String STRING_FOR_RODENT = "6";
 
     /**
-     * Получить тип животного по строке
-     * @param petType Строка выбора типа
-     * @return Тип животного
+     * РџРѕР»СѓС‡РёС‚СЊ С‚РёРї Р¶РёРІРѕС‚РЅРѕРіРѕ РїРѕ СЃС‚СЂРѕРєРµ
+     * @param petType РЎС‚СЂРѕРєР° РІС‹Р±РѕСЂР° С‚РёРїР°
+     * @return РўРёРї Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     public static PetType getPetTypeByString(String petType) {
         switch (petType) {

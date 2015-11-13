@@ -3,13 +3,13 @@ package com.bikmop.petclinic.console;
 import com.bikmop.petclinic.Output;
 
 /**
- * Вывод в консоль реализующий интерфейс Вывод
+ * Р’С‹РІРѕРґ РІ РєРѕРЅСЃРѕР»СЊ, СЂРµР°Р»РёР·СѓСЋС‰РёР№ РёРЅС‚РµСЂС„РµР№СЃ Output
  */
 public class ConsoleOutput implements Output {
 
     /**
-     * Вывести сообщение в консоль без перехода на новую строку
-     * @param message Сообщение
+     * Р’С‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ РІ РєРѕРЅСЃРѕР»СЊ Р±РµР· РїРµСЂРµС…РѕРґР° РЅР° РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
+     * @param message РЎРѕРѕР±С‰РµРЅРёРµ
      */
     @Override
     public void print(String message) {
@@ -17,8 +17,8 @@ public class ConsoleOutput implements Output {
     }
 
     /**
-     * Вывести сообщение в консоль с переходом на новую строку
-     * @param message Сообщение
+     * Р’С‹РІРµСЃС‚Рё СЃРѕРѕР±С‰РµРЅРёРµ РІ РєРѕРЅСЃРѕР»СЊ СЃ РїРµСЂРµС…РѕРґРѕРј РЅР° РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
+     * @param message РЎРѕРѕР±С‰РµРЅРёРµ
      */
     @Override
     public void println(String message) {

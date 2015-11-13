@@ -5,13 +5,19 @@ import com.bikmop.petclinic.pet.Pet;
 import com.bikmop.petclinic.pet.PetFactory;
 import com.bikmop.petclinic.pet.PetType;
 
+/**
+ * Класс для работы с клиникой домашних животных
+ */
 public class InteractClinic {
+    /** Клиника */
     private final Clinic clinic;
+    /** Интерфейс ввода */
     private final Input input;
+    /** Интерфейс вывода */
     private final Output output;
 
     /**
-     * ��������� ��������� ������
+     * Строковые константы вывода
      */
     private static final String WELCOME = "********************  WELCOME TO PET CLINIC  ********************";
     private static final String SELECT_MAIN_OPERATION = "Please, select operation.";
@@ -60,30 +66,48 @@ public class InteractClinic {
     private static final String BLANK_LINE = "";
     private static final String COLON = ":";
 
-
+    /**
+     * Конструктор
+     * @param clinic Клиника
+     * @param input Реализация интерфейса ввода
+     * @param output Реализация интерфейса вывода
+     */
     public InteractClinic(Clinic clinic, Input input, Output output) {
         this.clinic = clinic;
         this.input = input;
         this.output = output;
     }
 
-
+    /**
+     * Главный диалог с пользователем
+     */
     public void mainDialog() {
         writeMessageLn(WELCOME);
         dialogWithUserTillQuit();
         writeMessageLn(BLANK_LINE);
-        writeMessage(GOOD_BYE);
+        writeMessageLn(GOOD_BYE);
         closeReader();
     }
 
+    /**
+     * Вывести сообщение в output с переходом на новую строку
+     * @param message Сообщение
+     */
     private void writeMessageLn(String message) {
         this.output.println(message);
     }
 
+    /**
+     * Вывести сообщение в output без перехода на новую строку
+     * @param message Сообщение
+     */
     private void writeMessage(String message) {
         this.output.print(message);
     }
 
+    /**
+     * Диалог с пользователем до выхода из программы
+     */
     private void dialogWithUserTillQuit() {
         boolean isQuit = false;
 
@@ -97,22 +121,22 @@ public class InteractClinic {
     }
 
     /**
-     * ������ �������� �������� ������������
+     * Список основных операций пользователя
      */
     private enum MainOperation {
-        /** �������� ���� �������� */
+        /** Показать всех клиентов */
         SHOW_ALL_CLIENTS,
-        /** ����� */
+        /** Поиск */
         FIND,
-        /** ���������� */
+        /** Добавление */
         ADD,
-        /** �������������� */
+        /** Редактирование */
         EDIT,
-        /** ����� �� ��������� */
+        /** Выход из программы */
         QUIT;
 
         /**
-         * ��������� ��������� ��� �������� ��������
+         * Строковые константы для основных операций
          */
         private static final String STRING_FOR_SHOW_ALL_CLIENTS = "1";
         private static final String STRING_FOR_FIND = "2";
@@ -121,9 +145,9 @@ public class InteractClinic {
         private static final String STRING_FOR_QUIT = "5";
 
         /**
-         * �������� �������� �������� �� ������
-         * @param operationString ������ ��������
-         * @return �������� ��������
+         * Получить основную операцию по строке
+         * @param operationString Строка операции
+         * @return Основная операция
          */
         private static MainOperation getMainOperationByString(String operationString) {
             switch (operationString) {
@@ -143,6 +167,10 @@ public class InteractClinic {
 
     }
 
+    /**
+     * Диалог выбора основной операции пользователем
+     * @return Основная операция
+     */
     private MainOperation askMainOperation() {
         writeMessageLn(BLANK_LINE);
         writeMessageLn(SELECT_MAIN_OPERATION);
@@ -152,6 +180,11 @@ public class InteractClinic {
         return operation;
     }
 
+    /**
+     * Диалог выбора корректной основной операции пользователем
+     * Повторение в цикле до выбора корректной операции
+     * @return Основная операция
+     */
     private MainOperation askCorrectMainOperation() {
         MainOperation operation = null;
         boolean isCorrect = false;
@@ -169,10 +202,18 @@ public class InteractClinic {
         return operation;
     }
 
+    /**
+     * Диалог ввода любой строки пользователем
+     * @return Строка
+     */
     private String askString() {
         return this.input.next();
     }
 
+    /**
+     * Обработать запрос пользователя
+     * @param operation Основная операция
+     */
     private void processUserRequest(MainOperation operation) {
         switch (operation) {
             case SHOW_ALL_CLIENTS:
@@ -190,12 +231,19 @@ public class InteractClinic {
         }
     }
 
+    /**
+     * Показать всех клиентов в консоли
+     */
     private void showAllClients() {
         writeMessageLn(CLINICS_CLIENTS);
-        showClients(clinic.getClients());
+        showClients(this.clinic.getClients());
         writeMessageLn(BLANK_LINE);
     }
 
+    /**
+     * Вывести клиентов в output
+     * @param clients Массив клиентов
+     */
     private void showClients(Client[] clients) {
         boolean hasClients = false;
 
@@ -209,10 +257,17 @@ public class InteractClinic {
             writeMessageLn(CLIENTS_NOT_FOUND);
     }
 
+    /**
+     * Показать одного клиента в output
+     * @param client Клиент
+     */
     private void showClient(Client client) {
         writeMessageLn(client.toString());
     }
 
+    /**
+     * Диалог отображения найденных клиентов по запросу пользователя
+     */
     private void showFoundClientsDialog() {
         String isAnotherSearch = ANSWER_YES;
 
@@ -221,7 +276,7 @@ public class InteractClinic {
         while (isYes(isAnotherSearch)) {
             Client.SearchType searchType = askSearchType();
             String searchString = askStringForSearch();
-            Client[] clients = clinic.findClients(searchType, searchString);
+            Client[] clients = this.clinic.findClients(searchType, searchString);
 
             showSearchResult(clients);
 
@@ -232,16 +287,30 @@ public class InteractClinic {
         writeMessageLn(BLANK_LINE);
     }
 
+    /**
+     * Проверка строки на соответствие ANSWER_YES в любом регистре
+     * @param yesOrNo Строка для проверки
+     * @return Соответствие строки
+     */
     private static boolean isYes(String yesOrNo) {
         return yesOrNo.toLowerCase().trim().equals(ANSWER_YES);
     }
 
+    /**
+     * Диалог выбора типа поиска клиентов
+     * @return Тип поиска
+     */
     private Client.SearchType askSearchType() {
         writeMessageLn(SELECT_SEARCH_TYPE);
         writeMessage(SEARCH_TYPES_LIST);
         return askCorrectSearchType();
     }
 
+    /**
+     * Диалог выбора корректного типа поиска
+     * Повторение в цикле до выбора корректного типа
+     * @return Тип поиска
+     */
     private Client.SearchType askCorrectSearchType() {
         Client.SearchType searchType = null;
         boolean isCorrectType = false;
@@ -259,17 +328,29 @@ public class InteractClinic {
         return searchType;
     }
 
+    /**
+     * Диалог ввода строки поиска
+     * @return Строка минимум с одним символом
+     */
     private String askStringForSearch() {
         writeMessage(ENTER_SEARCH);
         return askNotBlankString();
     }
 
+    /**
+     * Показать в консоль результат поиска клиентов
+     * @param clients Массив клиентов
+     */
     private void showSearchResult(Client[] clients) {
         writeMessageLn(BLANK_LINE);
         writeMessageLn(SEARCH_RESULT);
         showClients(clients);
     }
 
+    /**
+     * Диалог ввода непустой строки пользователем
+     * @return Непустая строка
+     */
     private String askNotBlankString() {
         String string = BLANK_LINE;
 
@@ -280,29 +361,42 @@ public class InteractClinic {
         return string;
     }
 
+    /**
+     * Запросить повторение операции
+     * @param askMessage Строка запроса
+     * @return Строка ответа
+     */
     private String askAnother(String askMessage) {
         writeMessageLn(BLANK_LINE);
         writeMessage(askMessage);
         return askString();
     }
 
+    /**
+     * Диалог добавления клиента
+     */
     private void addClientDialog() {
         writeMessageLn(ADD_CLIENT);
 
-        String id = askUniqueClientId(clinic);
+        String id = askUniqueClientId();
         String fullName = askClientFullName();
         Client client = new Client(fullName, id);
-        addClientWithPets(clinic, client);
+        addClientWithPets(client);
     }
 
-    private String askUniqueClientId(Clinic clinic) {
+    /**
+     * Диалог запроса уникального идентификатора пользователя
+     * Проверка на отсутствие у других пользователей клиники
+     * @return Строка уникального id
+     */
+    private String askUniqueClientId() {
         boolean uniqueId = false;
         String clientId = BLANK_LINE;
 
         while (!uniqueId) {
             writeMessage(ENTER_CLIENT_ID);
             clientId = askNotBlankString();
-            uniqueId = clinic.isUniqueClientId(clientId);
+            uniqueId = this.clinic.isUniqueClientId(clientId);
             if (!uniqueId)
                 writeMessageLn(ID_PRESENT);
         }
@@ -310,16 +404,25 @@ public class InteractClinic {
         return clientId;
     }
 
+    /**
+     * Диалог ввода полного имени клиента
+     * Может быть пустым
+     * @return Полное имя клиента
+     */
     private String askClientFullName() {
         writeMessage(ENTER_CLIENT_NAME);
         return askString();
     }
 
-    private void addClientWithPets(Clinic clinic, Client client) {
+    /**
+     * Добавление в клинику клиента с животными
+     * @param client Клиент
+     */
+    private void addClientWithPets(Client client) {
         writeMessageLn(BLANK_LINE);
 
         try {
-            clinic.addClient(client);
+            this.clinic.addClient(client);
             askAddPets(client);
             writeMessageLn(BLANK_LINE);
             writeMessageLn(CLIENT_ADDED);
@@ -329,6 +432,10 @@ public class InteractClinic {
         }
     }
 
+    /**
+     * Диалог добавления животных клиенту
+     * @param client Клиент
+     */
     private void askAddPets(Client client) {
         writeMessage(ASK_ADD_PET);
         String askAddPetOrNot = askString();
@@ -341,6 +448,10 @@ public class InteractClinic {
         }
     }
 
+    /**
+     * Диалог запроса одного животного
+     * @return Животное
+     */
     private Pet askOnePet() {
         PetType petType = askPetType();
         String petName = askPetName();
@@ -348,17 +459,30 @@ public class InteractClinic {
         return PetFactory.createPet(petType, petName);
     }
 
+    /**
+     * Диалог запроса типа животного
+     * @return Тип животного
+     */
     private PetType askPetType() {
         writeMessageLn(SELECT_PET_TYPE);
         writeMessage(PET_TYPES);
         return PetType.getPetTypeByString(askString());
     }
 
+    /**
+     * Диалог запроса имени животного
+     * @return Строка с именем животного
+     */
     private String askPetName() {
         writeMessage(ENTER_PET_NAME);
         return askNotBlankString();
     }
 
+    /**
+     * Добавление одного животного клиенту
+     * @param client Клиент
+     * @param pet Животное
+     */
     private void addPetForClient(Client client, Pet pet) {
         try {
             client.addPet(pet);
@@ -367,6 +491,9 @@ public class InteractClinic {
         }
     }
 
+    /**
+     * Диалог редактирования клиента
+     */
     private void editClientDialog() {
         String askNewEdit = ANSWER_YES;
         writeMessageLn(SELECT_CLIENT_FOR_EDIT);
@@ -382,29 +509,49 @@ public class InteractClinic {
         }
     }
 
+    /**
+     * Диалог выбора клиента для редактирования
+     */
     private void askClientForEdit() {
         Client.SearchType searchType = askSearchType();
         String searchString = askStringForSearch();
-        clinic.selectFirstMatchingClient(searchType, searchString);
-        showFoundClient(clinic);
+        this.clinic.selectFirstMatchingClient(searchType, searchString);
+        showFoundClient();
     }
 
-    private void showFoundClient(Clinic clinic) {
-        Client client = clinic.getCurrentClient();
+    /**
+     *  Показать найденного клиента
+     */
+    private void showFoundClient() {
         writeMessageLn(BLANK_LINE);
         writeMessage(CLIENT_FOR_EDIT);
         if (isClientFound()) {
             writeMessageLn(COLON);
-            writeMessageLn(client.toString());
+            writeMessageLn(getCurrentClient().toString());
         } else {
             writeMessageLn(CLIENT_NOT_FOUND);
         }
     }
 
-    private boolean isClientFound() {
-        return clinic.getCurrentClient() != null;
+    /**
+     * Получить текущего клиента клиники
+     * @return Текущий клиент
+     */
+    private Client getCurrentClient() {
+        return this.clinic.getCurrentClient();
     }
 
+    /**
+     * Проверка найден ли клиент по запросу
+     * @return Найден ли клиент
+     */
+    private boolean isClientFound() {
+        return getCurrentClient() != null;
+    }
+
+    /**
+     * Диалог редактирования текущего клиента
+     */
     private void editClient() {
         EditClientOperation operation = askEditingOperation();
         switch (operation) {
@@ -426,20 +573,23 @@ public class InteractClinic {
         }
     }
 
+    /**
+     * Список операций редактирования клиента
+     */
     private enum EditClientOperation {
-        /** �������������� ������� */
+        /** Переименование клиента */
         RENAME_CLIENT,
-        /** �������� ������� */
+        /** Удаление клиента */
         DELETE_CLIENT,
-        /** �������������� ��������� */
+        /** Переименование животного */
         RENAME_PET,
-        /** ���������� ��������� */
+        /** Добавление животного */
         ADD_PET,
-        /** �������� ��������� */
+        /** Удаление животного */
         DELETE_PET;
 
         /**
-         * ��������� ��������� ��� �������� �������������� �������
+         * Строковые константы для операций редактирования клиента
          */
         private static final String STRING_FOR_RENAME_CLIENT = "1";
         private static final String STRING_FOR_DELETE_CLIENT = "2";
@@ -448,9 +598,9 @@ public class InteractClinic {
         private static final String STRING_FOR_DELETE_PET = "5";
 
         /**
-         * �������� �������� �������������� �� ������
-         * @param operationString ������ ��������
-         * @return �������� �������������� �������
+         * Получить операцию редактирования по строке
+         * @param operationString Строка операции
+         * @return Операция редактирования клиента
          */
         private static EditClientOperation getEditClientOperationByString(String operationString) {
             switch (operationString) {
@@ -469,6 +619,10 @@ public class InteractClinic {
         }
     }
 
+    /**
+     * Диалог выбора операции редактирования
+     * @return Операция редактирования
+     */
     private EditClientOperation askEditingOperation() {
         writeMessageLn(BLANK_LINE);
         writeMessageLn(SELECT_EDITING_OPERATION);
@@ -478,6 +632,11 @@ public class InteractClinic {
         return operation;
     }
 
+    /**
+     * Диалог выбора корректной операции редактирования
+     * Повторение в цикле до выбора корректной операции
+     * @return Операция редактирования
+     */
     private EditClientOperation askCorrectEditingOperation() {
         EditClientOperation operation = null;
         boolean isCorrect = false;
@@ -495,53 +654,75 @@ public class InteractClinic {
         return operation;
     }
 
+    /**
+     * Диалог переименования текущего клиента
+     */
     private void clientRenamingDialog() {
         writeMessage(ENTER_NEW_NAME);
         String newName = askString();
-        clinic.renameCurrentClient(newName);
-        showClientChangesAfterEditing(clinic.getCurrentClient());
+        this.clinic.renameCurrentClient(newName);
+        showClientChangesAfterEditing(getCurrentClient());
     }
 
+    /**
+     * Показать измененного клиента после редактирования
+     * @param client Клиент
+     */
     private void showClientChangesAfterEditing(Client client) {
         writeMessageLn(CHANGES_AFTER_EDITING);
         writeMessageLn(client.toString());
     }
 
+    /**
+     * Диалог удаления текущего клиента
+     */
     private void clientRemovingDialog() {
-        clinic.removeCurrentClient();
+        this.clinic.removeCurrentClient();
         writeMessageLn(CLIENT_DELETED);
     }
 
+    /**
+     * Диалог переименования животного
+     */
     private void petRenamingDialog() {
         writeMessage(ENTER_OLD_PET_NAME);
         String petOldName = askNotBlankString();
         writeMessage(ENTER_NEW_PET_NAME);
         String petNewName = askNotBlankString();
 
-        Client client = clinic.getCurrentClient();
+        Client client = getCurrentClient();
         client.renamePet(petOldName, petNewName);
 
         showClientChangesAfterEditing(client);
     }
 
+    /**
+     * Диалог добавления животного
+     */
     private void petAddingDialog() {
         Pet pet = askOnePet();
-        Client client = clinic.getCurrentClient();
+        Client client = getCurrentClient();
         addPetForClient(client, pet);
         writeMessageLn(BLANK_LINE);
 
         showClientChangesAfterEditing(client);
     }
 
+    /**
+     * Диалог удаления животного
+     */
     private void petRemovingDialog() {
         writeMessage(ENTER_PET_NAME_TO_DELETE);
         String petName = askNotBlankString();
-        Client client = clinic.getCurrentClient();
+        Client client = getCurrentClient();
         client.removePetByName(petName);
 
         showClientChangesAfterEditing(client);
     }
 
+    /**
+     * Закрытие input-ридера
+     */
     private void closeReader() {
         this.input.close();
     }

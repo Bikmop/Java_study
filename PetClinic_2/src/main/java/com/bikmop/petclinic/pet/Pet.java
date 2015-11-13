@@ -1,51 +1,51 @@
 package com.bikmop.petclinic.pet;
 
 /**
- * Абстрактный класс Животное
+ * РђР±СЃС‚СЂР°РєС‚РЅС‹Р№ РєР»Р°СЃСЃ Р–РёРІРѕС‚РЅРѕРµ
  */
 public abstract class Pet {
     /**
-     * Формат преобразования животного в строку
+     * Р¤РѕСЂРјР°С‚ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ РІ СЃС‚СЂРѕРєСѓ
      */
     private static final String PET_TO_STRING_FORMAT = "%s '%s'";
     /**
-     * Имя животного
+     * РРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private String name;
 
     /**
-     * Конструктор
-     * @param name Имя животного
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param name РРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     public Pet(final String name) {
         this.name = name;
     }
 
     /**
-     * Получить имя животного
-     * @return Имя животного
+     * РџРѕР»СѓС‡РёС‚СЊ РёРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @return РРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Установить имя животного
-     * @param name Новое имя
+     * РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РёРјСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param name РќРѕРІРѕРµ РёРјСЏ
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Получить строку - тип животного
-     * @return Тип животного
+     * РџРѕР»СѓС‡РёС‚СЊ СЃС‚СЂРѕРєСѓ - С‚РёРї Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @return РўРёРї Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     public abstract String getStringPetType();
 
     /**
-     * Строковое представление животного
-     * @return Тип и имя. Пример: "Cat 'Tom'"
+     * РЎС‚СЂРѕРєРѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @return РўРёРї Рё РёРјСЏ. РџСЂРёРјРµСЂ: "Cat 'Tom'"
      */
     @Override
     public String toString() {
@@ -53,28 +53,28 @@ public abstract class Pet {
     }
 
     /**
-     * Проверка имени животного
-     * @param searchName Имя для проверки
-     * @return Равны ли имена
+     * РџСЂРѕРІРµСЂРєР° РёРјРµРЅРё Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param searchName РРјСЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё
+     * @return Р Р°РІРЅС‹ Р»Рё РёРјРµРЅР°
      */
     public boolean isNameEquals(String searchName) {
         return this.name.equals(searchName);
     }
 
     /**
-     * Проверка наличия части имени(в любом регистре) в имени животного
-     * @param searchPartName Часть имени
-     * @return Присутствие части имени
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ С‡Р°СЃС‚Рё РёРјРµРЅРё(РІ Р»СЋР±РѕРј СЂРµРіРёСЃС‚СЂРµ) РІ РёРјРµРЅРё Р¶РёРІРѕС‚РЅРѕРіРѕ
+     * @param searchPartName Р§Р°СЃС‚СЊ РёРјРµРЅРё
+     * @return РџСЂРёСЃСѓС‚СЃС‚РІРёРµ С‡Р°СЃС‚Рё РёРјРµРЅРё
      */
     public boolean hasInName(String searchPartName) {
         return hasInString(this.name, searchPartName);
     }
 
     /**
-     * Проверка наличия подстроки в строке
-     * @param mainString Строка в которой производится поиск
-     * @param searchString Подстрока поиска
-     * @return Присутствие подстроки
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РїРѕРґСЃС‚СЂРѕРєРё РІ СЃС‚СЂРѕРєРµ
+     * @param mainString РЎС‚СЂРѕРєР° РІ РєРѕС‚РѕСЂРѕР№ РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РїРѕРёСЃРє
+     * @param searchString РџРѕРґСЃС‚СЂРѕРєР° РїРѕРёСЃРєР°
+     * @return РџСЂРёСЃСѓС‚СЃС‚РІРёРµ РїРѕРґСЃС‚СЂРѕРєРё
      */
     private static boolean hasInString(final String mainString, final String searchString) {
         return searchString != null && mainString.toLowerCase().contains(searchString.toLowerCase());
