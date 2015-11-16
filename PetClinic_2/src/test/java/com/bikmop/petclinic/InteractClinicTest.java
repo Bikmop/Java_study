@@ -165,8 +165,8 @@ public class InteractClinicTest {
                 "Sara Smith",               //full name of the client
                 "N",                        //add pets?
                 "3",                        //Add second client
-                "XX 00000555",              //id
-                "Sara Smith",               //full name of the client
+                "XX 00000444",              //id
+                "Sara Connor",              //full name of the client
                 "N",                        //add pets?
                 "5"};                       //Quit program
 
