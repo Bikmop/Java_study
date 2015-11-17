@@ -18,8 +18,9 @@ public class EditClient extends UserAction {
     private static final String YES_OR_NO = " (y - for Yes, another - for No): ";
     private static final String ASK_ANOTHER_EDIT = "Another editing?" + YES_OR_NO;
     private static final String SELECT_EDITING_OPERATION = "Please, select editing operation";
-    private static final String EDITING_TYPES = "(1 - rename client,  2 - delete client,  3 - rename pet," +
-            "  4 - add pet,  5 - delete pet): ";
+    private static final String EDITING_TYPES =
+            "(1 - rename client,  2 - delete client,  3 - rename pet,\n" +
+            " 4 - add pet,        5 - delete pet,     6 - cancel editing): ";
     private static final String SELECT_CORRECT_OPERATION = "Select correct operation! : ";
     private static final String CLIENT_FOR_EDIT = "Client for edit is";
     private static final String COLON = ":";
@@ -113,6 +114,8 @@ public class EditClient extends UserAction {
             case DELETE_PET:
                 petRemovingDialog();
                 break;
+            case CANCEL:
+                break;
         }
     }
 
@@ -129,7 +132,9 @@ public class EditClient extends UserAction {
         /** Добавление животного */
         ADD_PET,
         /** Удаление животного */
-        DELETE_PET;
+        DELETE_PET,
+        /** Отменить редактирование */
+        CANCEL;
 
         /**
          * Строковые константы для операций редактирования клиента
@@ -139,6 +144,7 @@ public class EditClient extends UserAction {
         private static final String STRING_FOR_RENAME_PET = "3";
         private static final String STRING_FOR_ADD_PET = "4";
         private static final String STRING_FOR_DELETE_PET = "5";
+        private static final String STRING_FOR_CANCEL = "6";
 
         /**
          * Получить операцию редактирования по строке
@@ -157,6 +163,8 @@ public class EditClient extends UserAction {
                     return ADD_PET;
                 case STRING_FOR_DELETE_PET:
                     return DELETE_PET;
+                case STRING_FOR_CANCEL:
+                    return CANCEL;
                 default: throw new UnsupportedOperationException();
             }
         }
