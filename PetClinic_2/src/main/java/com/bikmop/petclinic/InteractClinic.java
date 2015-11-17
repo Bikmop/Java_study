@@ -52,6 +52,9 @@ public class InteractClinic {
      * Главный диалог с пользователем
      */
     public void mainDialog() {
+        for (int i = 0; i < 20; i++) {
+            writeMessageLn(BLANK_LINE);
+        }
         writeMessageLn(WELCOME);
         dialogWithUserTillQuit();
         writeMessageLn(BLANK_LINE);
