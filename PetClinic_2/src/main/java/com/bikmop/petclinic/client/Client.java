@@ -1,5 +1,6 @@
 package com.bikmop.petclinic.client;
 
+import com.bikmop.petclinic.lists.LinkedListForClinic;
 import com.bikmop.petclinic.pet.Pet;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Client {
     /**
      * Список животных клиента
      */
-    private List<Pet> pets = new ArrayList<>();
+    private List<Pet> pets = new LinkedListForClinic<>();
 
     /**
      * Строковые константы

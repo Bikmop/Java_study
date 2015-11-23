@@ -12,7 +12,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class InteractClinicTest {
-    Clinic clinic = new Clinic(5);
+    Clinic clinic = new Clinic();
 
     //Additional methods for tests:
 
@@ -301,6 +301,21 @@ public class InteractClinicTest {
                 "xx",                       //part of id
                 "5",                        //delete pet
                 "Python",                   //name of the pet
+                "n",                        //another editing?
+                "5"};                       //Quit program
+
+        final Input input = new InputForTest(Arrays.asList(userActions).iterator());
+        initialClinicFilling();
+
+        new InteractClinic(clinic, input, new ConsoleOutput()).mainDialog();
+    }
+
+    @Test
+    public void testMainDialogCancel() throws Exception {
+        final String[] userActions = {"4",  //Edit
+                "1",                        //client search by part of ID
+                "xx",                       //part of id
+                "6",                        //cancel
                 "n",                        //another editing?
                 "5"};                       //Quit program
 

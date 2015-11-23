@@ -6,13 +6,15 @@ import com.bikmop.petclinic.Output;
 import com.bikmop.petclinic.UserAction;
 import com.bikmop.petclinic.client.Client;
 
+import java.util.List;
+
 
 /**
- * Класс реализует поиск клиентов по запросу и вывод результатов в Output
+ * РљР»Р°СЃСЃ СЂРµР°Р»РёР·СѓРµС‚ РїРѕРёСЃРє РєР»РёРµРЅС‚РѕРІ РїРѕ Р·Р°РїСЂРѕСЃСѓ Рё РІС‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ РІ Output
  */
 public class FindClients extends UserAction {
     /**
-     * Строковые константы вывода
+     * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РІС‹РІРѕРґР°
      */
     private static final String SEARCH_CLIENT = "Client search...";
     private static final String YES_OR_NO = " (y - for Yes, another - for No): ";
@@ -20,10 +22,10 @@ public class FindClients extends UserAction {
     private static final String SEARCH_RESULT = "Search result:";
 
     /**
-     * Конструктор
-     * @param clinic Клиника
-     * @param input Реализация интерфейса ввода
-     * @param output Реализация интерфейса вывода
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param clinic РљР»РёРЅРёРєР°
+     * @param input Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РІРІРѕРґР°
+     * @param output Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РІС‹РІРѕРґР°
      */
     public FindClients(Clinic clinic, Input input, Output output) {
         this.clinic = clinic;
@@ -33,8 +35,8 @@ public class FindClients extends UserAction {
 
 
     /**
-     * Основная операция соответствующая данной реализации UserAction
-     * @return Основная операция
+     * РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰Р°СЏ РґР°РЅРЅРѕР№ СЂРµР°Р»РёР·Р°С†РёРё UserAction
+     * @return РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
      */
     @Override
     public MainOperation mainOperation() {
@@ -42,7 +44,7 @@ public class FindClients extends UserAction {
     }
 
     /**
-     * Выполнить действие соответствующее реализации UserAction
+     * Р’С‹РїРѕР»РЅРёС‚СЊ РґРµР№СЃС‚РІРёРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРµ СЂРµР°Р»РёР·Р°С†РёРё UserAction
      */
     @Override
     public void process() {
@@ -53,7 +55,7 @@ public class FindClients extends UserAction {
         while (isYes(isAnotherSearch)) {
             Client.SearchType searchType = askSearchType();
             String searchString = askStringForSearch();
-            Client[] clients = this.clinic.findClients(searchType, searchString);
+            List<Client> clients = this.clinic.findClients(searchType, searchString);
 
             showSearchResult(clients);
 
@@ -65,10 +67,10 @@ public class FindClients extends UserAction {
     }
 
     /**
-     * Показать в консоль результат поиска клиентов
-     * @param clients Массив клиентов
+     * РџРѕРєР°Р·Р°С‚СЊ РІ РєРѕРЅСЃРѕР»СЊ СЂРµР·СѓР»СЊС‚Р°С‚ РїРѕРёСЃРєР° РєР»РёРµРЅС‚РѕРІ
+     * @param clients РњР°СЃСЃРёРІ РєР»РёРµРЅС‚РѕРІ
      */
-    private void showSearchResult(Client[] clients) {
+    private void showSearchResult(List<Client> clients) {
         this.output.println(BLANK_LINE);
         this.output.println(SEARCH_RESULT);
         showClients(clients);

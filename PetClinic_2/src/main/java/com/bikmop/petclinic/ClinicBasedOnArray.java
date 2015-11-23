@@ -1,18 +1,15 @@
 package com.bikmop.petclinic;
 
 import com.bikmop.petclinic.client.Client;
-import com.bikmop.petclinic.lists.ArrayListForClinic;
-
-import java.util.List;
 
 /**
- * Класс реализующий клинику домашних животных
+ * Класс реализующий клинику домашних животных на основе массива клиентов
  */
-public class Clinic {
+public class ClinicBasedOnArray {
     /**
-     * Список клиентов
+     * Массив клиентов
      */
-    private final List<Client> clients;
+    private final Client[] clients;
     /**
      * Текущий клиент для редактирования
      */
@@ -20,17 +17,18 @@ public class Clinic {
 
     /**
      * Конструктор
+     * @param maxNumberOfClients Максимальное количество клиентов клиники
      */
-    public Clinic() {
-        this.clients = new ArrayListForClinic<>();
+    public ClinicBasedOnArray(final int maxNumberOfClients) {
+        this.clients = new Client[maxNumberOfClients];
     }
 
 
     /**
-     * Получить список клиентов
-     * @return Список клиентов
+     * Получить массив клиентов
+     * @return Массив клиентов
      */
-    public List<Client> getClients() {
+    public Client[] getClients() {
         return this.clients;
     }
 
@@ -47,21 +45,22 @@ public class Clinic {
      * @param client Клиент
      */
     public void addClient(Client client) {
-        clients.add(client);
+        addClient(findFreePlaceInClientsArray(), client);
     }
 
     /**
      * Найти клиентов по типу и строке поиска
      * @param type Тип поиска
      * @param toSearch Строка поиска
-     * @return Список найденных клиентов
+     * @return Массив найденных клиентов
      */
-    public List<Client> findClients(Client.SearchType type, final String toSearch) {
-        List<Client> found = new ArrayListForClinic<>();
+    public Client[] findClients(Client.SearchType type, final String toSearch) {
+        Client[] found = new Client[this.clients.length];
+        int i = 0;
 
         for (Client client : this.clients)
             if (client != null && client.hasIn(type, toSearch))
-                found.add(client);
+                found[i++] = client;
 
         return found;
     }
@@ -86,13 +85,17 @@ public class Clinic {
     }
 
     /**
-     * Удалить текущего клиента из списка
+     * Удалить текущего клиента из массива
      * Текущий клиент становится null
      */
     public void removeCurrentClient() {
         if (this.currentClient != null)
-            if (this.clients.remove(this.currentClient))
-                this.currentClient = null;
+            for (int i = 0; i < this.clients.length; i++)
+                if (this.clients[i] == this.currentClient) {
+                    this.clients[i] = null;
+                    this.currentClient = null;
+                    break;
+                }
     }
 
     /**
@@ -121,6 +124,36 @@ public class Clinic {
         return uniqueId;
     }
 
+
+    /**
+     * Добавление клиента
+     * @param position Порядковый номер в массиве
+     * @param client Клиент
+     */
+    private void addClient(int position, Client client) {
+        this.clients[position] = client;
+    }
+
+    /**
+     * Поиск свободной ячейки в массиве клиентов
+     * @return Номер ячейки
+     * @throws FullClientsArrayException Падает, если весь массив клиентов заполнен
+     */
+    private int findFreePlaceInClientsArray() throws FullClientsArrayException{
+        int i = 0;
+
+        for (Client tmpClient : this.clients) {
+            if (tmpClient == null)
+                break;
+
+            i++;
+        }
+
+        if (i >= this.clients.length)
+            throw new FullClientsArrayException();
+
+        return i;
+    }
 
     /**
      * Выбрать клиента текущим

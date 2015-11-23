@@ -8,11 +8,11 @@ import com.bikmop.petclinic.client.Client;
 import com.bikmop.petclinic.pet.Pet;
 
 /**
- * Класс реализует редактирование клиента
+ * РљР»Р°СЃСЃ СЂРµР°Р»РёР·СѓРµС‚ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєР»РёРµРЅС‚Р°
  */
 public class EditClient extends UserAction {
     /**
-     * Строковые константы вывода
+     * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РІС‹РІРѕРґР°
      */
     private static final String SELECT_CLIENT_FOR_EDIT = "Client for editing selection...";
     private static final String YES_OR_NO = " (y - for Yes, another - for No): ";
@@ -34,10 +34,10 @@ public class EditClient extends UserAction {
 
 
     /**
-     * Конструктор
-     * @param clinic Клиника
-     * @param input Реализация интерфейса ввода
-     * @param output Реализация интерфейса вывода
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param clinic РљР»РёРЅРёРєР°
+     * @param input Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РІРІРѕРґР°
+     * @param output Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РІС‹РІРѕРґР°
      */
     public EditClient(Clinic clinic, Input input, Output output) {
         this.clinic = clinic;
@@ -47,8 +47,8 @@ public class EditClient extends UserAction {
 
 
     /**
-     * Основная операция соответствующая данной реализации UserAction
-     * @return Основная операция
+     * РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰Р°СЏ РґР°РЅРЅРѕР№ СЂРµР°Р»РёР·Р°С†РёРё UserAction
+     * @return РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
      */
     @Override
     public MainOperation mainOperation() {
@@ -56,7 +56,7 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Выполнить действие соответствующее реализации UserAction
+     * Р’С‹РїРѕР»РЅРёС‚СЊ РґРµР№СЃС‚РІРёРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРµ СЂРµР°Р»РёР·Р°С†РёРё UserAction
      */
     @Override
     public void process() {
@@ -76,7 +76,7 @@ public class EditClient extends UserAction {
 
 
     /**
-     * Диалог выбора клиента для редактирования
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РєР»РёРµРЅС‚Р° РґР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
      */
     private void askClientForEdit() {
         Client.SearchType searchType = askSearchType();
@@ -86,15 +86,15 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Проверка найден ли клиент по запросу
-     * @return Найден ли клиент
+     * РџСЂРѕРІРµСЂРєР° РЅР°Р№РґРµРЅ Р»Рё РєР»РёРµРЅС‚ РїРѕ Р·Р°РїСЂРѕСЃСѓ
+     * @return РќР°Р№РґРµРЅ Р»Рё РєР»РёРµРЅС‚
      */
     private boolean isClientFound() {
         return getCurrentClient() != null;
     }
 
     /**
-     * Диалог редактирования текущего клиента
+     * Р”РёР°Р»РѕРі СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
      */
     private void editClient() {
         EditClientOperation operation = askEditingOperation();
@@ -120,24 +120,24 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Список операций редактирования клиента
+     * РЎРїРёСЃРѕРє РѕРїРµСЂР°С†РёР№ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР»РёРµРЅС‚Р°
      */
     private enum EditClientOperation {
-        /** Переименование клиента */
+        /** РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ РєР»РёРµРЅС‚Р° */
         RENAME_CLIENT,
-        /** Удаление клиента */
+        /** РЈРґР°Р»РµРЅРёРµ РєР»РёРµРЅС‚Р° */
         DELETE_CLIENT,
-        /** Переименование животного */
+        /** РџРµСЂРµРёРјРµРЅРѕРІР°РЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ */
         RENAME_PET,
-        /** Добавление животного */
+        /** Р”РѕР±Р°РІР»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ */
         ADD_PET,
-        /** Удаление животного */
+        /** РЈРґР°Р»РµРЅРёРµ Р¶РёРІРѕС‚РЅРѕРіРѕ */
         DELETE_PET,
-        /** Отменить редактирование */
+        /** РћС‚РјРµРЅРёС‚СЊ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ */
         CANCEL;
 
         /**
-         * Строковые константы для операций редактирования клиента
+         * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ РѕРїРµСЂР°С†РёР№ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР»РёРµРЅС‚Р°
          */
         private static final String STRING_FOR_RENAME_CLIENT = "1";
         private static final String STRING_FOR_DELETE_CLIENT = "2";
@@ -147,9 +147,9 @@ public class EditClient extends UserAction {
         private static final String STRING_FOR_CANCEL = "6";
 
         /**
-         * Получить операцию редактирования по строке
-         * @param operationString Строка операции
-         * @return Операция редактирования клиента
+         * РџРѕР»СѓС‡РёС‚СЊ РѕРїРµСЂР°С†РёСЋ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РїРѕ СЃС‚СЂРѕРєРµ
+         * @param operationString РЎС‚СЂРѕРєР° РѕРїРµСЂР°С†РёРё
+         * @return РћРїРµСЂР°С†РёСЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєР»РёРµРЅС‚Р°
          */
         private static EditClientOperation getEditClientOperationByString(String operationString) {
             switch (operationString) {
@@ -171,8 +171,8 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Диалог выбора операции редактирования
-     * @return Операция редактирования
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РѕРїРµСЂР°С†РёРё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * @return РћРїРµСЂР°С†РёСЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
      */
     private EditClientOperation askEditingOperation() {
         this.output.println(BLANK_LINE);
@@ -184,9 +184,9 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Диалог выбора корректной операции редактирования
-     * Повторение в цикле до выбора корректной операции
-     * @return Операция редактирования
+     * Р”РёР°Р»РѕРі РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕР№ РѕРїРµСЂР°С†РёРё СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * РџРѕРІС‚РѕСЂРµРЅРёРµ РІ С†РёРєР»Рµ РґРѕ РІС‹Р±РѕСЂР° РєРѕСЂСЂРµРєС‚РЅРѕР№ РѕРїРµСЂР°С†РёРё
+     * @return РћРїРµСЂР°С†РёСЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
      */
     private EditClientOperation askCorrectEditingOperation() {
         EditClientOperation operation = null;
@@ -206,7 +206,7 @@ public class EditClient extends UserAction {
     }
 
     /**
-     *  Показать найденного клиента
+     *  РџРѕРєР°Р·Р°С‚СЊ РЅР°Р№РґРµРЅРЅРѕРіРѕ РєР»РёРµРЅС‚Р°
      */
     private void showFoundClient() {
         this.output.println(BLANK_LINE);
@@ -220,15 +220,15 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Получить текущего клиента клиники
-     * @return Текущий клиент
+     * РџРѕР»СѓС‡РёС‚СЊ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р° РєР»РёРЅРёРєРё
+     * @return РўРµРєСѓС‰РёР№ РєР»РёРµРЅС‚
      */
     private Client getCurrentClient() {
         return this.clinic.getCurrentClient();
     }
 
     /**
-     * Диалог переименования текущего клиента
+     * Р”РёР°Р»РѕРі РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
      */
     private void clientRenamingDialog() {
         this.output.print(ENTER_NEW_NAME);
@@ -238,8 +238,8 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Показать измененного клиента после редактирования
-     * @param client Клиент
+     * РџРѕРєР°Р·Р°С‚СЊ РёР·РјРµРЅРµРЅРЅРѕРіРѕ РєР»РёРµРЅС‚Р° РїРѕСЃР»Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * @param client РљР»РёРµРЅС‚
      */
     private void showClientChangesAfterEditing(Client client) {
         this.output.println(CHANGES_AFTER_EDITING);
@@ -247,7 +247,7 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Диалог удаления текущего клиента
+     * Р”РёР°Р»РѕРі СѓРґР°Р»РµРЅРёСЏ С‚РµРєСѓС‰РµРіРѕ РєР»РёРµРЅС‚Р°
      */
     private void clientRemovingDialog() {
         this.clinic.removeCurrentClient();
@@ -255,7 +255,7 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Диалог переименования животного
+     * Р”РёР°Р»РѕРі РїРµСЂРµРёРјРµРЅРѕРІР°РЅРёСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private void petRenamingDialog() {
         this.output.print(ENTER_OLD_PET_NAME);
@@ -270,7 +270,7 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Диалог добавления животного
+     * Р”РёР°Р»РѕРі РґРѕР±Р°РІР»РµРЅРёСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private void petAddingDialog() {
         Pet pet = askOnePet();
@@ -282,7 +282,7 @@ public class EditClient extends UserAction {
     }
 
     /**
-     * Диалог удаления животного
+     * Р”РёР°Р»РѕРі СѓРґР°Р»РµРЅРёСЏ Р¶РёРІРѕС‚РЅРѕРіРѕ
      */
     private void petRemovingDialog() {
         this.output.print(ENTER_PET_NAME_TO_DELETE);

@@ -5,6 +5,9 @@ import com.bikmop.petclinic.console.ConsoleInput;
 import com.bikmop.petclinic.console.ConsoleOutput;
 import com.bikmop.petclinic.pet.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Клас для демонстрации работы клиники домашних животных из консоли
  */
@@ -31,7 +34,7 @@ public class ClinicRunner {
      * @param args Параметры запуска
      */
     public static void main(String[] args) {
-        ClinicRunner runner = new ClinicRunner(new Clinic(10), new ConsoleInput(), new ConsoleOutput());
+        ClinicRunner runner = new ClinicRunner(new Clinic(), new ConsoleInput(), new ConsoleOutput());
         runner.initialClinicFilling();
         runner.mainDialog();
     }

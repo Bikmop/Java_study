@@ -7,11 +7,11 @@ import com.bikmop.petclinic.pet.Pet;
 
 
 /**
- * Класс реализует диалог добавления клиента
+ * РљР»Р°СЃСЃ СЂРµР°Р»РёР·СѓРµС‚ РґРёР°Р»РѕРі РґРѕР±Р°РІР»РµРЅРёСЏ РєР»РёРµРЅС‚Р°
  */
 public class AddClient extends UserAction {
     /**
-     * Строковые константы вывода
+     * РЎС‚СЂРѕРєРѕРІС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹ РІС‹РІРѕРґР°
      */
     private static final String ADD_CLIENT = "Adding a client...";
     private static final String ENTER_CLIENT_ID = "Please, enter a unique ID(not blank) of the client: ";
@@ -26,10 +26,10 @@ public class AddClient extends UserAction {
 
 
     /**
-     * Конструктор
-     * @param clinic Клиника
-     * @param input Реализация интерфейса ввода
-     * @param output Реализация интерфейса вывода
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param clinic РљР»РёРЅРёРєР°
+     * @param input Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РІРІРѕРґР°
+     * @param output Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РІС‹РІРѕРґР°
      */
     public AddClient(Clinic clinic, Input input, Output output) {
         this.clinic = clinic;
@@ -39,8 +39,8 @@ public class AddClient extends UserAction {
 
 
     /**
-     * Основная операция соответствующая данной реализации UserAction
-     * @return Основная операция
+     * РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰Р°СЏ РґР°РЅРЅРѕР№ СЂРµР°Р»РёР·Р°С†РёРё UserAction
+     * @return РћСЃРЅРѕРІРЅР°СЏ РѕРїРµСЂР°С†РёСЏ
      */
     @Override
     public MainOperation mainOperation() {
@@ -48,7 +48,7 @@ public class AddClient extends UserAction {
     }
 
     /**
-     * Выполнить действие соответствующее реализации UserAction
+     * Р’С‹РїРѕР»РЅРёС‚СЊ РґРµР№СЃС‚РІРёРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРµ СЂРµР°Р»РёР·Р°С†РёРё UserAction
      */
     @Override
     public void process() {
@@ -61,9 +61,9 @@ public class AddClient extends UserAction {
     }
 
     /**
-     * Диалог запроса уникального идентификатора пользователя
-     * Проверка на отсутствие у других пользователей клиники
-     * @return Строка уникального id
+     * Р”РёР°Р»РѕРі Р·Р°РїСЂРѕСЃР° СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+     * РџСЂРѕРІРµСЂРєР° РЅР° РѕС‚СЃСѓС‚СЃС‚РІРёРµ Сѓ РґСЂСѓРіРёС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РєР»РёРЅРёРєРё
+     * @return РЎС‚СЂРѕРєР° СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ id
      */
     private String askUniqueClientId() {
         boolean uniqueId = false;
@@ -81,8 +81,8 @@ public class AddClient extends UserAction {
     }
 
     /**
-     * Диалог ввода полного имени(может быть пустым) клиента
-     * @return Полное имя клиента
+     * Р”РёР°Р»РѕРі РІРІРѕРґР° РїРѕР»РЅРѕРіРѕ РёРјРµРЅРё(РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј) РєР»РёРµРЅС‚Р°
+     * @return РџРѕР»РЅРѕРµ РёРјСЏ РєР»РёРµРЅС‚Р°
      */
     private String askClientFullName() {
         this.output.println(ENTER_CLIENT_NAME);
@@ -90,26 +90,21 @@ public class AddClient extends UserAction {
     }
 
     /**
-     * Добавление в клинику клиента с животными
-     * @param client Клиент
+     * Р”РѕР±Р°РІР»РµРЅРёРµ РІ РєР»РёРЅРёРєСѓ РєР»РёРµРЅС‚Р° СЃ Р¶РёРІРѕС‚РЅС‹РјРё
+     * @param client РљР»РёРµРЅС‚
      */
     private void addClientWithPets(Client client) {
         this.output.println(BLANK_LINE);
-
-        try {
-            this.clinic.addClient(client);
-            askAddPets(client);
-            this.output.println(BLANK_LINE);
-            this.output.println(CLIENT_ADDED);
-            showClient(client);
-        } catch (FullClientsArrayException e) {
-            this.output.println(CLIENTS_DB_IS_FULL);
-        }
+        this.clinic.addClient(client);
+        askAddPets(client);
+        this.output.println(BLANK_LINE);
+        this.output.println(CLIENT_ADDED);
+        showClient(client);
     }
 
     /**
-     * Диалог добавления животных клиенту
-     * @param client Клиент
+     * Р”РёР°Р»РѕРі РґРѕР±Р°РІР»РµРЅРёСЏ Р¶РёРІРѕС‚РЅС‹С… РєР»РёРµРЅС‚Сѓ
+     * @param client РљР»РёРµРЅС‚
      */
     private void askAddPets(Client client) {
         this.output.print(ASK_ADD_PET);

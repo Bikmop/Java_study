@@ -33,7 +33,7 @@ public class AddClientTest {
 
     @Test
     public void testMainOperation() throws Exception {
-        AddClient addClient = new AddClient(new Clinic(5), new ConsoleInput(), new ConsoleOutput());
+        AddClient addClient = new AddClient(new Clinic(), new ConsoleInput(), new ConsoleOutput());
         assertEquals(addClient.mainOperation(), MainOperation.ADD);
     }
 
@@ -56,8 +56,7 @@ public class AddClientTest {
         final Input input = new InputForTest(Arrays.asList(userActions).iterator());
         final OutputForTest out = new OutputForTest();
 
-        new AddClient(new Clinic(5), input, out).process();
-//        System.out.println(out.getOutput());
+        new AddClient(new Clinic(), input, out).process();
 
         assertEquals(expected, out.getOutput());
 
@@ -85,10 +84,9 @@ public class AddClientTest {
         final Input input = new InputForTest(Arrays.asList(userActions).iterator());
         final OutputForTest out = new OutputForTest();
 
-        Clinic clinic = new Clinic(5);
+        Clinic clinic = new Clinic();
         clinic.addClient(createAnna());
         new AddClient(clinic, input, out).process();
-//        System.out.println(out.getOutput());
 
         assertEquals(expected, out.getOutput());
 

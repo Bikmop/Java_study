@@ -48,4 +48,8 @@ public class PetFactoryTest {
         assertEquals(SomePet.class, pet.getClass());
     }
 
+    @Test
+    public void testCreateClass() throws Exception {
+        new PetFactory();
+    }
 }

@@ -6,6 +6,8 @@ import com.bikmop.petclinic.pet.PetFactory;
 import com.bikmop.petclinic.pet.PetType;
 import com.bikmop.petclinic.user_actions.MainOperation;
 
+import java.util.List;
+
 /**
  * Абстрактный класс действия пользователя. Для паттерна "команда".
  */
@@ -56,9 +58,9 @@ public abstract class UserAction {
 
     /**
      * Вывести клиентов в output
-     * @param clients Массив клиентов
+     * @param clients Список клиентов
      */
-    protected void showClients(Client[] clients) {
+    protected void showClients(List<Client> clients) {
         boolean hasClients = false;
 
         for (Client client : clients)

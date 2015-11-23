@@ -1,29 +1,26 @@
 package com.bikmop.petclinic;
 
 import com.bikmop.petclinic.client.Client;
-import com.bikmop.petclinic.client.Client.SearchType;
 import com.bikmop.petclinic.pet.*;
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
 
-public class ClinicTest {
-    private Clinic clinic;
+public class ClinicBasedOnArrayTest {
+    private ClinicBasedOnArray clinic;
 
 
     //Additional methods for test preparing:
 
-    private void createClinic() {
-        clinic = new Clinic();
+    private void createClinic(final int clientsNumber) {
+        clinic = new ClinicBasedOnArray(clientsNumber);
     }
 
     private void addClientById(String clientId) {
         addClient(new Client(clientId));
     }
 
-    private List<Client> getClients() {
+    private Client[] getClients() {
         return clinic.getClients();
     }
 
@@ -32,12 +29,12 @@ public class ClinicTest {
     }
 
     private void removeClientById(String id) {
-        selectClient(SearchType.ID_FULL, id);
+        selectClient(Client.SearchType.ID_FULL, id);
         removeClient();
     }
 
     private void fillClients() {
-        createClinic();
+        createClinic(5);
         // Anna Ivanova    Id: XX 33335789    Pets: Bird 'Kesha',  Rodent 'Mickey',  Reptile 'Python',  Pet 'Snail'
         addClient(createAnna());
         // Ivan Petrov    Id: XY 01234567    Pets: no pets
@@ -77,11 +74,11 @@ public class ClinicTest {
         return clinic.getCurrentClient();
     }
 
-    private List<Client> findClients(SearchType type, String toSearch) {
+    private Client[] findClients(Client.SearchType type, String toSearch) {
         return clinic.findClients(type, toSearch);
     }
 
-    private void selectClient(SearchType idFull, String selectString) {
+    private void selectClient(Client.SearchType idFull, String selectString) {
         clinic.selectFirstMatchingClient(idFull, selectString);
     }
 
@@ -104,40 +101,65 @@ public class ClinicTest {
     //AddClient
     @Test
     public void testAddClient() throws Exception {
-        createClinic();
-        List<Client> clients = getClients();
+        final int maxClients = 5;
+
+        createClinic(maxClients);
+        Client[] clients = getClients();
+        assertNull(clients[0]);
         addClientById("SomeId");
-        assertNotNull(clients.get(0));
+        assertNotNull(clients[0]);
+        assertNull(clients[1]);
     }
 
     @Test
-    public void testAddClients() throws Exception {
-        createClinic();
-        List<Client> clients = getClients();
+    public void testAddClientMakeFull() throws Exception {
+        final int maxClients = 3;
+
+        createClinic(maxClients);
+        Client[] clients = getClients();
+        assertNull(clients[0]);
+        assertNull(clients[1]);
+        assertNull(clients[2]);
         addClientById("SomeId01");
         addClientById("SomeId02");
         addClientById("SomeId03");
-        assertNotNull(clients.get(0));
-        assertNotNull(clients.get(1));
-        assertNotNull(clients.get(2));
+        assertNotNull(clients[0]);
+        assertNotNull(clients[1]);
+        assertNotNull(clients[2]);
+    }
+
+    @Test(expected = FullClientsArrayException.class)
+    public void testAddClientToFull() throws Exception {
+        final int maxClients = 3;
+
+        createClinic(maxClients);
+        addClientById("SomeId01");
+        addClientById("SomeId02");
+        addClientById("SomeId03");
+        addClientById("SomeId04");
     }
 
     @Test
     public void testAddClientToMiddleOfArrayAfterRemoving() throws Exception {
-        createClinic();
-        List<Client> clients = getClients();
+        final int maxClients = 5;
+
+        createClinic(maxClients);
+        Client[] clients = getClients();
         addClientById("SomeId01");
         addClientById("SomeId02");
         addClientById("SomeId03");
         //Remove from middle
         removeClientById("SomeId02");
-        //Check for not null
-        assertNotNull(clients.get(0));
-        assertNotNull(clients.get(1));
+        //Check for null/not null
+        assertNotNull(clients[0]);
+        assertNull(clients[1]);
+        assertNotNull(clients[2]);
+        assertNull(clients[3]);
         //Add and check
         addClientById("SomeId04");
-        assertNotNull(clients.get(1));
-        assertEquals("SomeId04", clients.get(2).getId());
+        assertNotNull(clients[1]);
+        assertNull(clients[3]);
+        assertEquals("SomeId04", clients[1].getId());
     }
 
 
@@ -145,134 +167,134 @@ public class ClinicTest {
 
     /*  Anna Ivanova    Id: XX 33335789    Pets: Bird 'Kesha',  Rodent 'Mickey',  Reptile 'Python',  Pet 'Snail'
         Ivan Petrov    Id: XY 01234567    Pets: no pets
-        Petr Sidorov    Id: XY 89012345    Pets: Cat 'Masha',  Cat 'Python',  Dog 'Palkan'*/
-
-
+        Petr Sidorov    Id: XY 89012345    Pets: Cat 'Masha',  Cat 'Python',  Dog 'Palkan'
+    */
 
     //Client.SearchType.ID_FULL
     @Test
     public void testFindClientsFullId() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.ID_FULL, "XY 01234567");
-        assertNotNull(clients.get(0));
+        Client[] clients = findClients(Client.SearchType.ID_FULL, "XY 01234567");
+        assertNotNull(clients[0]);
+        assertNull(clients[1]);
     }
 
     @Test
     public void testFindClientsFullIdNotFound() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.ID_FULL, "XY 00000000");
-        assertEquals(0, clients.size());
+        Client[] clients = findClients(Client.SearchType.ID_FULL, "XY 00000000");
+        assertNull(clients[0]);
     }
 
     //Client.SearchType.ID_PART
     @Test
     public void testFindClientsPartId01() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.ID_PART, "XY");
-        assertNotNull(clients.get(0));
-        assertNotNull(clients.get(1));
-        assertEquals(2, clients.size());
+        Client[] clients = findClients(Client.SearchType.ID_PART, "XY");
+        assertNotNull(clients[0]);
+        assertNotNull(clients[1]);
+        assertNull(clients[2]);
     }
 
     @Test
     public void testFindClientsPartId02() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.ID_PART, "xx");
-        assertNotNull(clients.get(0));
-        assertEquals(1, clients.size());
+        Client[] clients = findClients(Client.SearchType.ID_PART, "xx");
+        assertNotNull(clients[0]);
+        assertNull(clients[1]);
     }
 
     @Test
     public void testFindClientsPartId03() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.ID_PART, "5");
-        assertNotNull(clients.get(0));
-        assertNotNull(clients.get(1));
-        assertNotNull(clients.get(2));
-        assertEquals(3, clients.size());
+        Client[] clients = findClients(Client.SearchType.ID_PART, "5");
+        assertNotNull(clients[0]);
+        assertNotNull(clients[1]);
+        assertNotNull(clients[2]);
+        assertNull(clients[3]);
     }
 
     @Test
     public void testFindClientsPartIdNotFound() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.ID_PART, "XYZ");
-        assertTrue(clients.isEmpty());
+        Client[] clients = findClients(Client.SearchType.ID_PART, "XYZ");
+        assertNull(clients[0]);
     }
 
     //Client.SearchType.NAME_FULL
     @Test
     public void testFindClientsFullName() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.NAME_FULL, "Ivan Petrov");
-        assertNotNull(clients.get(0));
-        assertEquals(1, clients.size());
+        Client[] clients = findClients(Client.SearchType.NAME_FULL, "Ivan Petrov");
+        assertNotNull(clients[0]);
+        assertNull(clients[1]);
     }
 
     @Test
     public void testFindClientsFullNameNotFound() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.NAME_FULL, "Ivan");
-        assertTrue(clients.isEmpty());
+        Client[] clients = findClients(Client.SearchType.NAME_FULL, "Ivan");
+        assertNull(clients[0]);
     }
 
     //Client.SearchType.NAME_PART
     @Test
     public void testFindClientsPartName01() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.NAME_PART, "ivan petrov");
-        assertNotNull(clients.get(0));
-        assertEquals(1, clients.size());
+        Client[] clients = findClients(Client.SearchType.NAME_PART, "ivan petrov");
+        assertNotNull(clients[0]);
+        assertNull(clients[1]);
     }
 
     @Test
     public void testFindClientsPartName02() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.NAME_PART, "ivan");
-        assertNotNull(clients.get(0));
-        assertNotNull(clients.get(1));
-        assertEquals(2, clients.size());
+        Client[] clients = findClients(Client.SearchType.NAME_PART, "ivan");
+        assertNotNull(clients[0]);
+        assertNotNull(clients[1]);
+        assertNull(clients[2]);
     }
 
     @Test
     public void testFindClientsPartName03() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.NAME_PART, "ov");
-        assertNotNull(clients.get(0));
-        assertNotNull(clients.get(1));
-        assertNotNull(clients.get(2));
-        assertEquals(3, clients.size());
+        Client[] clients = findClients(Client.SearchType.NAME_PART, "ov");
+        assertNotNull(clients[0]);
+        assertNotNull(clients[1]);
+        assertNotNull(clients[2]);
+        assertNull(clients[3]);
     }
 
     @Test
     public void testFindClientsPartNameNotFound() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.NAME_PART, "Ivan  ");
-        assertTrue(clients.isEmpty());
+        Client[] clients = findClients(Client.SearchType.NAME_PART, "Ivan  ");
+        assertNull(clients[0]);
     }
 
     //Client.SearchType.PETS_NAME
     @Test
     public void testFindClientsNameOfPet01() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.PETS_NAME, "Kesha");
-        assertNotNull(clients.get(0));
-        assertEquals(1, clients.size());
+        Client[] clients = findClients(Client.SearchType.PETS_NAME, "Kesha");
+        assertNotNull(clients[0]);
+        assertNull(clients[1]);
     }
 
     @Test
     public void testFindClientsNameOfPet02() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.PETS_NAME, "Python");
-        assertNotNull(clients.get(0));
-        assertNotNull(clients.get(1));
-        assertEquals(2, clients.size());
+        Client[] clients = findClients(Client.SearchType.PETS_NAME, "Python");
+        assertNotNull(clients[0]);
+        assertNotNull(clients[1]);
+        assertNull(clients[2]);
     }
 
     @Test
     public void testFindClientsNameOfPetNotFound() throws Exception {
         fillClients();
-        List<Client> clients = findClients(SearchType.PETS_NAME, "kesha");
-        assertTrue(clients.isEmpty());
+        Client[] clients = findClients(Client.SearchType.PETS_NAME, "kesha");
+        assertNull(clients[0]);
     }
 
 
@@ -280,105 +302,104 @@ public class ClinicTest {
 
     /*  Anna Ivanova    Id: XX 33335789    Pets: Bird 'Kesha',  Rodent 'Mickey',  Reptile 'Python',  Pet 'Snail'
         Ivan Petrov    Id: XY 01234567    Pets: no pets
-        Petr Sidorov    Id: XY 89012345    Pets: Cat 'Masha',  Cat 'Python',  Dog 'Palkan'*/
-
-
+        Petr Sidorov    Id: XY 89012345    Pets: Cat 'Masha',  Cat 'Python',  Dog 'Palkan'
+    */
 
     //Client.SearchType.ID_FULL
     @Test
     public void selectFirstMatchingClientFullId() throws Exception {
-        createClinic();
+        createClinic(5);
         Client anna = createAnna();
         Client petr = createPetr();
         Client ivan = createIvan();
         addClient(anna);
         addClient(petr);
         addClient(ivan);
-        selectClient(SearchType.ID_FULL, "XY 01234567");
+        selectClient(Client.SearchType.ID_FULL, "XY 01234567");
         assertEquals(ivan, getCurrentClient());
     }
 
     @Test
     public void selectFirstMatchingClientFullIdNotFound() throws Exception {
-        createClinic();
+        createClinic(5);
         Client anna = createAnna();
         Client petr = createPetr();
         Client ivan = createIvan();
         addClient(anna);
         addClient(petr);
         addClient(ivan);
-        selectClient(SearchType.ID_FULL, "XY 00000000");
+        selectClient(Client.SearchType.ID_FULL, "XY 00000000");
         assertNull(getCurrentClient());
     }
 
     //Client.SearchType.ID_PART
     @Test
     public void selectFirstMatchingClientPartId() throws Exception {
-        createClinic();
+        createClinic(5);
         Client anna = createAnna();
         Client petr = createPetr();
         Client ivan = createIvan();
         addClient(anna);
         addClient(petr);
         addClient(ivan);
-        selectClient(SearchType.ID_PART, "XY");
+        selectClient(Client.SearchType.ID_PART, "XY");
         assertEquals(petr, getCurrentClient());
     }
 
     @Test
     public void selectFirstMatchingClientPartIdNotFound() throws Exception {
-        createClinic();
+        createClinic(5);
         Client anna = createAnna();
         Client petr = createPetr();
         Client ivan = createIvan();
         addClient(anna);
         addClient(petr);
         addClient(ivan);
-        selectClient(SearchType.ID_PART, "XY");
+        selectClient(Client.SearchType.ID_PART, "XY");
         assertNotNull(getCurrentClient());
-        selectClient(SearchType.ID_PART, "XYZ");
+        selectClient(Client.SearchType.ID_PART, "XYZ");
         assertNull(getCurrentClient());
     }
 
     //Client.SearchType.NAME_FULL
     @Test
     public void selectFirstMatchingClientFullName() throws Exception {
-        createClinic();
+        createClinic(5);
         Client anna = createAnna();
         Client petr = createPetr();
         Client ivan = createIvan();
         addClient(anna);
         addClient(petr);
         addClient(ivan);
-        selectClient(SearchType.NAME_FULL, "Anna Ivanova");
+        selectClient(Client.SearchType.NAME_FULL, "Anna Ivanova");
         assertEquals(anna, getCurrentClient());
     }
 
     //Client.SearchType.NAME_PART
     @Test
     public void selectFirstMatchingClientPartName01() throws Exception {
-        createClinic();
+        createClinic(5);
         Client anna = createAnna();
         Client petr = createPetr();
         Client ivan = createIvan();
         addClient(anna);
         addClient(petr);
         addClient(ivan);
-        selectClient(SearchType.NAME_PART, "Ivan");
+        selectClient(Client.SearchType.NAME_PART, "Ivan");
         assertEquals(anna, getCurrentClient()); //Ivanova
     }
 
     //Client.SearchType.PETS_NAME
     @Test
     public void selectFirstMatchingClientNameOfPet02() throws Exception {
-        createClinic();
+        createClinic(5);
         Client anna = createAnna();
         Client petr = createPetr();
         Client ivan = createIvan();
         addClient(anna);
         addClient(petr);
         addClient(ivan);
-        selectClient(SearchType.PETS_NAME, "Python");
+        selectClient(Client.SearchType.PETS_NAME, "Python");
         assertEquals(anna, getCurrentClient());
     }
 
@@ -387,11 +408,11 @@ public class ClinicTest {
     @Test
     public void testRemoveCurrentClient() throws Exception {
         fillClients();
-        selectClient(SearchType.NAME_FULL, "Anna Ivanova");
+        selectClient(Client.SearchType.NAME_FULL, "Anna Ivanova");
         removeClient();
         assertNull(getCurrentClient());
-        List<Client> clients = findClients(SearchType.NAME_FULL, "Anna Ivanova");
-        assertTrue(clients.isEmpty());
+        Client[] clients = findClients(Client.SearchType.NAME_FULL, "Anna Ivanova");
+        assertNull(clients[0]);
     }
 
 
@@ -399,12 +420,12 @@ public class ClinicTest {
     @Test
     public void testRenameCurrentClient() throws Exception {
         fillClients();
-        selectClient(SearchType.NAME_FULL, "Anna Ivanova");
+        selectClient(Client.SearchType.NAME_FULL, "Anna Ivanova");
         renameClient();
-        List<Client> clients = findClients(SearchType.NAME_FULL, "Anna Ivanova");
-        assertTrue(clients.isEmpty());
-        clients = findClients(SearchType.NAME_FULL, "Anna Sidorova");
-        assertNotNull(clients.get(0));
+        Client[] clients = findClients(Client.SearchType.NAME_FULL, "Anna Ivanova");
+        assertNull(clients[0]);
+        clients = findClients(Client.SearchType.NAME_FULL, "Anna Sidorova");
+        assertNotNull(clients[0]);
     }
 
 

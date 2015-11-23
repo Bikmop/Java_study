@@ -24,8 +24,8 @@ public class InteractClinic {
      */
     private static final String WELCOME = "********************  WELCOME TO PET CLINIC  ********************";
     private static final String SELECT_MAIN_OPERATION = "Please, select operation.";
-    private static final String MAIN_OPERATIONS_LIST = "(1 - Show all clients,  2 - Find,  3 - Add," +
-            "  4 - Edit,  5 - Quit program): ";
+    private static final String MAIN_OPERATIONS_LIST = "(1 - Show all clients,  2 - Find clients,  " +
+            "3 - Add client,  4 - Edit client,  5 - Quit program): ";
     private static final String SELECT_CORRECT_OPERATION = "Select correct operation! : ";
     private static final String GOOD_BYE = "Good bye.";
     private static final String BLANK_LINE = "";

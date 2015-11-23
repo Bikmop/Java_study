@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class ShowAllClientsTest {
 
     private static final String L = System.lineSeparator();
-    private Clinic clinic = new Clinic(5);
+    private Clinic clinic = new Clinic();
     private ConsoleInput in = new ConsoleInput();
     private final OutputForTest out = new OutputForTest();
     private ShowAllClients showAllClients;
