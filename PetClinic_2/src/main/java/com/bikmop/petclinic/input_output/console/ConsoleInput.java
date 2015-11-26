@@ -1,6 +1,6 @@
-package com.bikmop.petclinic.console;
+package com.bikmop.petclinic.input_output.console;
 
-import com.bikmop.petclinic.Input;
+import com.bikmop.petclinic.input_output.Input;
 
 import java.util.Scanner;
 

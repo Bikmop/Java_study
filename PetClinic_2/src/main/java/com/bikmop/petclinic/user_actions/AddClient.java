@@ -3,6 +3,8 @@ package com.bikmop.petclinic.user_actions;
 
 import com.bikmop.petclinic.*;
 import com.bikmop.petclinic.client.Client;
+import com.bikmop.petclinic.input_output.Input;
+import com.bikmop.petclinic.input_output.Output;
 import com.bikmop.petclinic.pet.Pet;
 
 

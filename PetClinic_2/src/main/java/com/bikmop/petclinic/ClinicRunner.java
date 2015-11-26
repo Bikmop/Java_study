@@ -1,12 +1,11 @@
 package com.bikmop.petclinic;
 
 import com.bikmop.petclinic.client.Client;
-import com.bikmop.petclinic.console.ConsoleInput;
-import com.bikmop.petclinic.console.ConsoleOutput;
+import com.bikmop.petclinic.input_output.console.ConsoleInput;
+import com.bikmop.petclinic.input_output.console.ConsoleOutput;
+import com.bikmop.petclinic.input_output.Input;
+import com.bikmop.petclinic.input_output.Output;
 import com.bikmop.petclinic.pet.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Клас для демонстрации работы клиники домашних животных из консоли

@@ -1,6 +1,7 @@
 package com.bikmop.petclinic;
 
 import com.bikmop.petclinic.client.Client;
+import com.bikmop.petclinic.exceptions.FullClientsArrayException;
 
 /**
  * Класс реализующий клинику домашних животных на основе массива клиентов

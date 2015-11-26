@@ -5,6 +5,7 @@ import com.bikmop.petclinic.pet.Pet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Класс реализующий клиента клиники домашних животных

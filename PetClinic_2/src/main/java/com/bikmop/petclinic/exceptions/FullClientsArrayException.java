@@ -1,4 +1,4 @@
-package com.bikmop.petclinic;
+package com.bikmop.petclinic.exceptions;
 
 /**
  * Исключение при попытке добавления клиента в полный массив

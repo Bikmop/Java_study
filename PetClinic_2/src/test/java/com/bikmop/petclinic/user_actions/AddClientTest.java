@@ -1,13 +1,12 @@
 package com.bikmop.petclinic.user_actions;
 
 import com.bikmop.petclinic.Clinic;
-import com.bikmop.petclinic.Input;
-import com.bikmop.petclinic.InteractClinic;
+import com.bikmop.petclinic.input_output.Input;
 import com.bikmop.petclinic.client.Client;
-import com.bikmop.petclinic.console.ConsoleInput;
-import com.bikmop.petclinic.console.ConsoleOutput;
-import com.bikmop.petclinic.console.InputForTest;
-import com.bikmop.petclinic.console.OutputForTest;
+import com.bikmop.petclinic.input_output.console.ConsoleInput;
+import com.bikmop.petclinic.input_output.console.ConsoleOutput;
+import com.bikmop.petclinic.input_output.console.InputForTest;
+import com.bikmop.petclinic.input_output.console.OutputForTest;
 import com.bikmop.petclinic.pet.Bird;
 import com.bikmop.petclinic.pet.Reptile;
 import com.bikmop.petclinic.pet.Rodent;

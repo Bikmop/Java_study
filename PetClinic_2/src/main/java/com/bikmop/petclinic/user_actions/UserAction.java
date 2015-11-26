@@ -1,10 +1,12 @@
-package com.bikmop.petclinic;
+package com.bikmop.petclinic.user_actions;
 
+import com.bikmop.petclinic.Clinic;
+import com.bikmop.petclinic.input_output.Input;
+import com.bikmop.petclinic.input_output.Output;
 import com.bikmop.petclinic.client.Client;
 import com.bikmop.petclinic.pet.Pet;
 import com.bikmop.petclinic.pet.PetFactory;
 import com.bikmop.petclinic.pet.PetType;
-import com.bikmop.petclinic.user_actions.MainOperation;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.bikmop.petclinic.console;
+package com.bikmop.petclinic.input_output.console;
 
-import com.bikmop.petclinic.Output;
+import com.bikmop.petclinic.input_output.Output;
 
 /**
  * Вывод в консоль, реализующий интерфейс Output

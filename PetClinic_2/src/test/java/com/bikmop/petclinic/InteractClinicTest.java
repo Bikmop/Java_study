@@ -1,15 +1,13 @@
 package com.bikmop.petclinic;
 
 import com.bikmop.petclinic.client.Client;
-import com.bikmop.petclinic.console.ConsoleOutput;
-import com.bikmop.petclinic.console.InputForTest;
+import com.bikmop.petclinic.input_output.console.ConsoleOutput;
+import com.bikmop.petclinic.input_output.console.InputForTest;
+import com.bikmop.petclinic.input_output.Input;
 import com.bikmop.petclinic.pet.*;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
-
-import static org.junit.Assert.*;
 
 public class InteractClinicTest {
     Clinic clinic = new Clinic();

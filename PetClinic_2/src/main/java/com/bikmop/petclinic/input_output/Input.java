@@ -1,4 +1,4 @@
-package com.bikmop.petclinic;
+package com.bikmop.petclinic.input_output;
 
 /**
  * Интерфейс ввода. Получение строки на запрос
