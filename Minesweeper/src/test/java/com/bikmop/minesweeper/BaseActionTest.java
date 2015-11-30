@@ -5,14 +5,12 @@ import com.bikmop.minesweeper.console.ConsoleCell;
 import com.bikmop.minesweeper.logic.Easy;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 
 public class BaseActionTest {
 
     final BaseAction action = new BaseAction(
             new Easy(), new ConsoleBoard(),
-            new GeneratorBoard() {
+            new BoardGenerator() {
                 public Cell[][] generate() {
                     return new Cell[][] {
                             {new ConsoleCell(true), new ConsoleCell(false)},

@@ -7,22 +7,26 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * TODO: comment
+ * Графическая (swing) реализация игральной доски
  */
 public class GUIBoard extends JPanel implements Board {
-
+    /** Ширина ячейки */
     public static final int PADDING = 50;
 
     public Cell<Graphics>[][] cells;
 
+    /**
+     * Метод отрисовки (swing) содержимого ячеек
+     * @param graphics
+     */
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         if (this.cells != null) {
             for (int x = 0; x != cells.length; x++) {
                 for (int y = 0; y != cells[0].length; y++) {
+                    cells[x][y].draw(graphics, x*PADDING, y*PADDING, PADDING, false);
                     graphics.setColor(Color.black);
-                    cells[x][y].draw(graphics, false);
                     graphics.drawRect(x * PADDING, y * PADDING, PADDING, PADDING);
                 }
             }

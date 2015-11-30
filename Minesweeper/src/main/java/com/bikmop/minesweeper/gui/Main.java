@@ -1,7 +1,7 @@
 package com.bikmop.minesweeper.gui;
 
 import com.bikmop.minesweeper.Cell;
-import com.bikmop.minesweeper.GeneratorBoard;
+import com.bikmop.minesweeper.BoardGenerator;
 import com.bikmop.minesweeper.logic.Easy;
 
 import javax.swing.*;
@@ -16,6 +16,7 @@ import java.awt.event.WindowEvent;
 public class Main {
     private static final JPanel controlPanel = new JPanel();
     private static final GUIBoard board = new GUIBoard();
+//    private static boolean g
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -32,9 +33,10 @@ public class Main {
                 generate.addActionListener(
                         new GUIAction(
                                 new Easy(), board,
-                                new GeneratorBoard() {
+                                new BoardGenerator() {
                                     public Cell[][] generate() {
-                                        return new Cell[][] {{new GUICell(), new GUICell()}, {new GUICell(), new GUICell()}};
+                                        return new Cell[][] {{new GUICell(true), new GUICell(false)},
+                                                             {new GUICell(true), new GUICell(false)}};
                                     }
                                 }
                         )
