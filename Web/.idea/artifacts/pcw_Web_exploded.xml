@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="pcw:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/pcw_Web_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="pcw" />
+          <element id="module-output" name="PetClinic" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.plexus:plexus-utils:1.1" />
+        </element>
+      </element>
+      <element id="library" level="project" name="Maven: com.bikmop:servlet-api:2.5" />
+      <element id="library" level="project" name="Maven: javax.servlet:commons-lang:2.1" />
+      <element id="javaee-facet-resources" facet="pcw/web/Web" />
+    </root>
+  </artifact>
+</component>
