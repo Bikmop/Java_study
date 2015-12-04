@@ -2,6 +2,7 @@ package com.bikmop.petclinic.client;
 
 import com.bikmop.petclinic.Clinic;
 import com.bikmop.petclinic.pet.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -41,13 +42,14 @@ public class ConcurrentClientTest {
      *
      * @throws Exception
      */
-//    @Test
-//    public void testAddSymbolToNameNotSynch() throws Exception {
-//        for (int i = 0; i < 1000; i++) {
-//            System.out.println(i + ":");
-//            assertEquals(100, oneConcurrentIterationNotSynch());
-//        }
-//    }
+    @Ignore
+    @Test
+    public void testAddSymbolToNameNotSynch() throws Exception {
+        for (int i = 0; i < 1000; i++) {
+            System.out.println(i + ":");
+            assertEquals(100, oneConcurrentIterationNotSynch());
+        }
+    }
 
 
 
