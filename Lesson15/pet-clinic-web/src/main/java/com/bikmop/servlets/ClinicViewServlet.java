@@ -2,7 +2,7 @@ package com.bikmop.servlets;
 
 import com.bikmop.petclinic.client.Client;
 import com.bikmop.petclinic.pet.*;
-import com.bikmop.store.PetClinic;
+import com.bikmop.store.ClinicSingleton;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,20 +17,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Сервлет отображения клиники домашних животных
  */
 public class ClinicViewServlet extends HttpServlet {
-    /** Строковая константа */
+    /** Строковые константы */
     private static final String CLINIC_VIEW = "/view/clinic/ClinicView.jsp";
+    private static final String ADD_CLIENT = "/view/client/AddClient.jsp";
 
     /** Экземпляр клиники */
-    private final PetClinic CLINIC = PetClinic.getInstance();
+    private final ClinicSingleton CLINIC = ClinicSingleton.getInstance();
     /** Список клиентов для отображения (удовлетворяющий фильтрам поиска) */
     private final List<Client> clientsToShow = new CopyOnWriteArrayList<>();
 
-    /**
-     * Добавление нескольких клиентов в клинику
-     */
-    {
-        initialClinicFilling();
-    }
 
     /**
      * Обработка get-запросов
@@ -42,8 +37,8 @@ public class ClinicViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8"); //Для корректной работы с кирилицей
-        setDoGetAttributes(req);
-        forwardTo(req, resp, CLINIC_VIEW);
+        processAddClient(req, resp);
+        processNotAddClient(req, resp);
     }
 
     /**
@@ -62,6 +57,30 @@ public class ClinicViewServlet extends HttpServlet {
         doGet(req, resp);
     }
 
+
+    /**
+     * Обработка кнопки добавления клиента
+     * @param req Запрос
+     */
+    private void processAddClient(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        if (req.getParameter("addClient") != null)
+            forwardTo(req, resp, ADD_CLIENT);
+    }
+
+    /**
+     * Обработка ситуаций, если не нажата кнопка добавления клиента
+     * @param req Запрос
+     * @param resp Ответ
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void processNotAddClient(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameter("addClient") == null) {
+            setDoGetAttributes(req);
+            forwardTo(req, resp, CLINIC_VIEW);
+        }
+    }
 
     /**
      * Установка атрибутов метода doGet
@@ -163,53 +182,4 @@ public class ClinicViewServlet extends HttpServlet {
         }
     }
 
-
-// Методы предварительного заполнения клиники. Для тестов, чтобы меньше вводить через сайт.
-    /**
-     * Заполнение клиники клиентами Анна, Иван и Петр
-     */
-    private void initialClinicFilling() {
-        CLINIC.addClient(createAnna());
-        CLINIC.addClient(createIvan());
-        CLINIC.addClient(createPetr());
-    }
-
-    /**
-     * Создание клиента Анна
-     * @return Клиент Анна
-     */
-    private Client createAnna() {
-        Client anna = new Client("Anna Ivanova", "XX 33335789");
-        anna.addPet(new Bird("Kesha"));
-        anna.addPet(new Rodent("Mickey"));
-        anna.addPet(new Reptile("Python"));
-        anna.addPet(new SomePet("Snail"));
-
-        return anna;
-    }
-
-    /**
-     * Создание клиента Иван
-     * @return Клиент Иван
-     */
-    private Client createIvan() {
-        Client ivan = new Client("XY 01234567");
-        ivan.setFullName("Ivan Petrov");
-
-        return ivan;
-    }
-
-    /**
-     * Создание клиента Петр
-     * @return Клиент Петр
-     */
-    private Client createPetr() {
-        Client petr = new Client("XY 89012345");
-        petr.setFullName("Petr Sidorov");
-        petr.addPet(new Cat("Masha"));
-        petr.addPet(new Cat("Python"));
-        petr.addPet(new Dog("Palkan"));
-
-        return petr;
-    }
 }

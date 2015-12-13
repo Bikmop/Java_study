@@ -11,7 +11,7 @@
     <hr>
 
     <br>
-    <form action="${pageContext.servletContext.contextPath}/clinic/add_client" method='POST'>
+    <form action="${pageContext.servletContext.contextPath}/clinic/view" method='GET'>
         <input type="submit" name="addClient" value="Добавить клиента" />
     </form>
     <br>

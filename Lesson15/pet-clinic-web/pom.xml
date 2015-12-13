@@ -35,8 +35,8 @@
           <version>1.1.2</version>
       </dependency>
       <dependency>
-          <groupId>com.bikmop</groupId>
-          <artifactId>PetClinic</artifactId>
+          <groupId>com.bikmop.petclinic</groupId>
+          <artifactId>se</artifactId>
           <version>1.0</version>
       </dependency>
       <dependency>
@@ -55,6 +55,12 @@
           <version>4.8.2</version>
           <scope>test</scope>
       </dependency>
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-all</artifactId>
+          <version>1.10.19</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
   
   <build>
@@ -67,7 +73,32 @@
               <configuration>
                   <source>1.7</source>
                   <target>1.7</target>
+                  <encoding>UTF-8</encoding>
               </configuration>
+          </plugin>
+          <plugin>
+              <groupId>org.jacoco</groupId>
+              <artifactId>jacoco-maven-plugin</artifactId>
+              <version>0.7.4.201502262128</version>
+              <configuration>
+                  <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                  <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+              </configuration>
+              <executions>
+                  <execution>
+                      <id>jacoco-initialize</id>
+                      <goals>
+                          <goal>prepare-agent</goal>
+                      </goals>
+                  </execution>
+                  <execution>
+                      <id>jacoco-site</id>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>report</goal>
+                      </goals>
+                  </execution>
+              </executions>
           </plugin>
       </plugins>
   </build>

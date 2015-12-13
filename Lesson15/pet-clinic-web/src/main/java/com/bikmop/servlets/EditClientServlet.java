@@ -4,7 +4,7 @@ package com.bikmop.servlets;
 import com.bikmop.petclinic.client.Client;
 import com.bikmop.petclinic.pet.PetFactory;
 import com.bikmop.petclinic.pet.PetType;
-import com.bikmop.store.PetClinic;
+import com.bikmop.store.ClinicSingleton;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class EditClientServlet extends HttpServlet {
     private static final String CLINIC_VIEW = "/view/clinic/ClinicView.jsp";
 
     /** Экземпляр клиники */
-    private final PetClinic CLINIC = PetClinic.getInstance();
+    private final ClinicSingleton CLINIC = ClinicSingleton.getInstance();
 
 
     /**

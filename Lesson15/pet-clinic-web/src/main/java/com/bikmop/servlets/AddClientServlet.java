@@ -3,7 +3,7 @@ package com.bikmop.servlets;
 
 
 import com.bikmop.petclinic.client.Client;
-import com.bikmop.store.PetClinic;
+import com.bikmop.store.ClinicSingleton;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,8 +23,21 @@ public class AddClientServlet extends HttpServlet {
     private static final String ADD_CLIENT = "/view/client/AddClient.jsp";
 
     /** Экземпляр клиники */
-    private final PetClinic CLINIC = PetClinic.getInstance();
+    private final ClinicSingleton CLINIC = ClinicSingleton.getInstance();
 
+
+    /**
+     * Обработка get-запросов
+     * @param req Запрос
+     * @param resp Ответ
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8"); //Для корректной работы с кирилицей
+        forwardTo(req, resp, ADD_CLIENT);
+    }
 
     /**
      * Обработка post-запросов
@@ -37,7 +50,6 @@ public class AddClientServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8"); //Для корректной работы с кирилицей
         processAddClient(req, resp);
-        forwardTo(req, resp, ADD_CLIENT);
     }
 
 
