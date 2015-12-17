@@ -4,45 +4,43 @@
 <html>
 <head>
     <title>Добавление клиента</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 <body>
-    <h1 align="center">Добавление клиента</h1>
-    <hr>
+    <div id="main">
+        <div id="header">
+            <div id="clinic">
+                <img src="../images/addclient.jpg">
+                <a href="/pcw/clinic/view"><img src="../images/logo.png" id="logo"></a>
+            </div>
+        </div>
 
-    <br>
-    <a href="${pageContext.servletContext.contextPath}/clinic/view">Вернуться в клинику</a>
+        <div id="dialog">
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <form action="${pageContext.servletContext.contextPath}/clinic/add_client" method='POST'>
-        <table>
-            <tr>
-                <td align="left" >Имя клиента: </td>
-                <td>
-                    <input type="text" name="name" value="${nameValue}" />
-                </td>
-            </tr>
-            <tr>
-                <td align="left" >Id* клиента: </td>
-                <td>
-                    <input type="text" name="id" value="${idValue}" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" name="add" value="Добавить" />
-                </td>
-            </tr>
-        </table>
-    </form>
+            <div id="backToClinic">
+                <a href="${pageContext.servletContext.contextPath}/clinic/view">Вернуться в клинику</a>
+            </div>
 
-    <br>
-    <br>
-    <c:if test="${errorValue != null}">
-        <h3>${errorValue}</h3>
-    </c:if>
+            <form action="${pageContext.servletContext.contextPath}/clinic/add_client" method='POST'>
+                <div id="addParams">
+                    <p>
+                        <label for="name">Имя клиента: </label>
+                        <input type="text" name="name" value="${nameValue}" id="name" />
+                    </p>
+                    <p>
+                        <label for="id">Id* клиента: </label>
+                        <input type="text" name="id" value="${idValue}" id="id" />
+                    </p>
+                    <input type="submit" name="add" value="" id="addClientButton" />
+
+                    <c:if test="${errorValue != null}">
+                        <h4>${errorValue}</h4>
+                    </c:if>
+                </div>
+            </form>
+
+        </div>
+    </div>
 
 </body>
 </html>

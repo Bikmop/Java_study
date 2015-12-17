@@ -4,72 +4,86 @@
 <html>
 <head>
     <title>Редактирование клиента</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 <body>
-    <h1 align="center">Редактирование клиента</h1>
-    <hr>
+    <div id="main">
+        <div id="header">
+            <div id="clinic">
+                <img src="../images/editclient.jpg">
+                <a href="/pcw/clinic/view"><img src="../images/logo.png" id="logo"></a>
+            </div>
+        </div>
 
-    <br>
-    <a href="${pageContext.servletContext.contextPath}/clinic/view">Вернуться в клинику</a>
+        <div id="dialog">
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <form action="${pageContext.servletContext.contextPath}/client/edit" method='POST'>
-        Имя: <input type="text" name="name" value="${client.fullName}" />
-        Id: ${client.id}
-        <input type="submit" name="update" value="Изменить" />
-        ${changes}
-        <br>
-        <br>
-        <input type="submit" name="remove" value="Удалить!" />
-    </form>
+            <div id="backToClinic">
+                <a href="${pageContext.servletContext.contextPath}/clinic/view">Вернуться в клинику</a>
+            </div>
 
-    <br>
-    <br>
-    <h2>Добавить животное:</h2>
-    <form action="${pageContext.servletContext.contextPath}/client/edit" method='POST'>
-        Тип: <select name="petType">
-                <option value='7'>Другое
-                <option value='1'>Кошка
-                <option value='2'>Собака
-                <option value='3'>Рыбка
-                <option value='4'>Птица
-                <option value='5'>Рептилия
-                <option value='6'>Грызун
-        </select>
 
-        Имя: <input type="text" name="petName" />
-        <input type="submit" name="addPet" value="Добавить" />
-    </form>
+            <form action="${pageContext.servletContext.contextPath}/client/edit" method='POST'>
 
-    <br>
-    <br>
-    <c:choose>
-        <c:when test="${client.pets.size() > 0}">
-            <h3>Домашние животные:</h3>
-            <table border="1">
-                <tr>
-                    <td align="center" style='border : 2px solid black' >Тип</td>
-                    <td align="center" style='border : 2px solid black' >Имя</td>
-                    <td align="center" style='border : 2px solid black' >Удалить</td>
-                </tr>
-                <c:forEach items="${client.pets}" var="pet" varStatus="status">
-                    <tr valign="top">
-                        <td>${pet.getRuStringPetType()}</td>
-                        <td>${pet.name}</td>
-                        <td>
-                            <a href="${pageContext.servletContext.contextPath}/pet/delete?name=${pet.name}">delete</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </c:when>
-        <c:otherwise>
-            <h3>Животных нет!</h3>
-        </c:otherwise>
-    </c:choose>
+                <div id="updateParams">
+                    <p>
+                        Имя:
+                        <input type="text" name="name" value="${client.fullName}" id="name" />
+                         Id: ${client.id}
+                        <input type="submit" name="update" value="Изменить" id="updateClientButton" />
+                        ${changes}
+                    </p>
+                    <input type="submit" name="remove" value="Удалить!" id="removeClientButton" />
+                </div>
+            </form>
+
+            <div id="addClientDialog">
+                <h2>Добавить животное:</h2>
+                <form action="${pageContext.servletContext.contextPath}/client/edit" method='POST'>
+                    <div id="addClientParams">
+                        Тип: <select name="petType">
+                                <option value='7'>Другое
+                                <option value='1'>Кошка
+                                <option value='2'>Собака
+                                <option value='3'>Рыбка
+                                <option value='4'>Птица
+                                <option value='5'>Рептилия
+                                <option value='6'>Грызун
+                        </select>
+
+                        Имя: <input type="text" name="petName" />
+                        <input type="submit" name="addPet" value="" id="addPetButton" />
+                    </div>
+                </form>
+
+                <c:choose>
+                    <c:when test="${client.pets.size() > 0}">
+                        <h3>Домашние животные:</h3>
+                        <table>
+                            <tr>
+                                <th>Тип</th>
+                                <th>Имя</th>
+                                <th>Удалить</th>
+                            </tr>
+                            <c:forEach items="${client.pets}" var="pet" varStatus="status">
+                                <tr>
+                                    <td class="petType" >${pet.getRuStringPetType()}</td>
+                                    <td class="petName" >${pet.name}</td>
+                                    <td>
+                                        <a href="${pageContext.servletContext.contextPath}/pet/delete?name=${pet.name}">delete</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <h4>Животных нет!</h4>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

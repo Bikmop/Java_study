@@ -328,6 +328,30 @@ public class ClientCRUDServletTest extends Mockito {
     }
 
     @Test
+    public void testClinicViewPartSearch() throws ServletException, IOException {
+        clinic.addClient(createAnna());
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+        RequestDispatcher dispatcher = mock(RequestDispatcher.class);
+
+        when(request.getParameter("search")).thenReturn("");
+        when(request.getParameter("name")).thenReturn("anna");
+        when(request.getParameter("id")).thenReturn("33335789");
+        when(request.getRequestDispatcher("/view/clinic/ClinicView.jsp")).thenReturn(dispatcher);
+
+        new ClinicViewServlet().doPost(request, response);
+
+        verify(request, atLeast(1)).getParameter("search");
+        verify(request, atLeast(1)).getParameter("name");
+        verify(request, atLeast(1)).getParameter("id");
+        verify(dispatcher).forward(request, response);
+
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        clinic.removeCurrentClient();
+    }
+
+    @Test
     public void testClinicViewClear() throws ServletException, IOException {
         clinic.addClient(createAnna());
 
