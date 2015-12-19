@@ -5,6 +5,46 @@
 <head>
     <title>Редактирование клиента</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
+
+    <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+
+        var name = "";
+
+        $(document).ready(function(){
+            name = $('#name').val();
+        });
+
+        function nameChanged() {
+            $("#changes").text("");
+        }
+
+        function createPet() {
+            if (validatePetName()) {
+                $('#petName').css('background-color', '');
+            } else {
+                alert("Нужно заполнить имя!");
+                return false;   // cancel submit
+            }
+        }
+
+        function validatePetName() {
+            var result = true;
+            if ($('#petName').val() == '') {
+                $('#petName').css('background-color', 'pink');
+                result = false;
+            }
+            return result;
+        }
+
+        function updateClient() {
+            if (name == $('#name').val()) {
+                alert("Имя не изменилось!");
+                return false;   // cancel submit
+            }
+        }
+
+    </script>
 </head>
 <body>
     <div id="main">
@@ -27,10 +67,12 @@
                 <div id="updateParams">
                     <p>
                         Имя:
-                        <input type="text" name="name" value="${client.fullName}" id="name" />
+                        <input type="text" name="name" value="${client.fullName}" id="name"
+                               onchange="return nameChanged();">
                          Id: ${client.id}
-                        <input type="submit" name="update" value="Изменить" id="updateClientButton" />
-                        ${changes}
+                        <input type="submit" name="update" value="Изменить"
+                               id="updateClientButton" onclick="return updateClient();">
+                        <span id="changes">${changes}</span>
                     </p>
                     <input type="submit" name="remove" value="Удалить!" id="removeClientButton" />
                 </div>
@@ -50,8 +92,8 @@
                                 <option value='6'>Грызун
                         </select>
 
-                        Имя: <input type="text" name="petName" />
-                        <input type="submit" name="addPet" value="" id="addPetButton" />
+                        Имя*: <input type="text" name="petName" id="petName" />
+                        <input type="submit" name="addPet" value="" id="addPetButton" onclick="return createPet();">
                     </div>
                 </form>
 

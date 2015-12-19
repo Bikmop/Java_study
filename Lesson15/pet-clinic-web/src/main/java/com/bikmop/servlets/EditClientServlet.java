@@ -20,6 +20,7 @@ public class EditClientServlet extends HttpServlet {
     /** Строковые константы */
     private static final String EDIT_CLIENT = "/view/client/EditClient.jsp";
     private static final String CLINIC_VIEW = "/view/clinic/ClinicView.jsp";
+    private static final String CLIENT_NAME_CHANGED = " - имя клиента изменено!";
 
     /** Экземпляр клиники */
     private final ClinicSingleton CLINIC = ClinicSingleton.getInstance();
@@ -101,7 +102,7 @@ public class EditClientServlet extends HttpServlet {
 
             if (!CLINIC.getCurrentClient().getFullName().equals(name)) {
                 CLINIC.getCurrentClient().setFullName(name);
-                req.setAttribute("changes", " - имя клиента изменено.");
+                req.setAttribute("changes", CLIENT_NAME_CHANGED);
             }
         }
     }
