@@ -10,7 +10,7 @@ Lesson16:
 ------------------------------------
 Добавлены тесты сервлетов + мелкий рефакторинг.
 Покрытие тестами в файле:
-![alt tag](https://github.com/Bikmop/Java_study/blob/master/Lesson15/DemoInterface/JaCoCo.png)
+![Alt text](/DemoInterface/JaCoCo.png?raw=true "Optional Title")
 
 Lesson17:
 ------------------------------------
