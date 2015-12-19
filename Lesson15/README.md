@@ -10,7 +10,7 @@ Lesson16:
 ------------------------------------
 Добавлены тесты сервлетов + мелкий рефакторинг.
 Покрытие тестами в файле:
-![Alt text](/DemoInterface/JaCoCo.png?raw=true "Optional Title")
+[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)]
 
 Lesson17:
 ------------------------------------
