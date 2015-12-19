@@ -1,4 +1,4 @@
-Web pet clinic. Lesson15 + Lesson16
+Web pet clinic. Lesson15 + Lesson16 + Lesson17
 ========================
 
 Веб-клиника домашних животных.
@@ -9,4 +9,10 @@ Web pet clinic. Lesson15 + Lesson16
 Lesson16:
 ------------------------------------
 Добавлены тесты сервлетов + мелкий рефакторинг.
-Покрытие тестами в файле DemoInterface/JaCoCo.png
+Покрытие тестами в файле:
+![alt tag](https://github.com/Bikmop/Java_study/blob/master/Lesson15/DemoInterface/JaCoCo.png)
+
+Lesson17:
+------------------------------------
+Изменена структура JSP (верстка таблицами на верстку div-ами) без изменения функционала.
+Добавлены стили CSS. Добавлена валидация(с помощью JS/JQuery) полей ввода веб-интерфейса.
