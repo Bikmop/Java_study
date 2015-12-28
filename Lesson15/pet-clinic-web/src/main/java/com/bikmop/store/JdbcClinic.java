@@ -81,11 +81,7 @@ public class JdbcClinic implements PetClinic {
         try (final Statement statement = this.connection.createStatement();
              final ResultSet resultSet = statement.executeQuery(SQL_GET_ALL_CLIENTS)) {
 
-            while (resultSet.next()) {
-                Client clientTmp = new Client(resultSet.getString("name"), resultSet.getString("client_id"));
-                fillClientWithEmptyPets(clientTmp);
-                clients.add(clientTmp);
-            }
+            addFoundClients(resultSet, clients);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,7 +106,6 @@ public class JdbcClinic implements PetClinic {
      */
     @Override
     public void addClient(final Client client) {
-//        executeUpdateForPreparedStatement(SQL_ADD_CLIENT, client.getId(), client.getFullName());
         executePreparedStatement(SQL_ADD_CLIENT, new Command() {
             @Override
             public void execute(PreparedStatement statement) throws SQLException {
@@ -119,15 +114,6 @@ public class JdbcClinic implements PetClinic {
                 statement.executeUpdate();
             }
         });
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(SQL_ADD_CLIENT)) {
-
-            statement.setString(1, client.getId());
-            statement.setString(2, client.getFullName());
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
     }
 
     /**
@@ -147,29 +133,10 @@ public class JdbcClinic implements PetClinic {
                 statement.setString(1, getSearchString(type, toSearch));
 
                 try (final ResultSet resultSet = statement.executeQuery()){
-                    while (resultSet.next()) {
-                        Client clientTmp = new Client(resultSet.getString("name"), resultSet.getString("client_id"));
-                        fillClientWithEmptyPets(clientTmp);
-                        found.add(clientTmp);
-                    }
+                    addFoundClients(resultSet, found);
                 }
             }
         });
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(searchQuery)) {
-
-            statement.setString(1, getSearchString(type, toSearch));
-
-            try (final ResultSet resultSet = statement.executeQuery()){
-                while (resultSet.next()) {
-                    Client clientTmp = new Client(resultSet.getString("name"), resultSet.getString("client_id"));
-                    fillClientWithEmptyPets(clientTmp);
-                    found.add(clientTmp);
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
 
         return found;
     }
@@ -197,14 +164,6 @@ public class JdbcClinic implements PetClinic {
             // Only in case of adding pet with the same Name and Type - the same pet.
             // Do nothing in this case!
         }
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(SQL_CLIENT_ADD_PET)) {
-            statement.setString(1, name);
-            statement.setInt(2, Integer.parseInt(typeString));
-            statement.setString(3, this.currentClient.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
     }
 
     /**
@@ -214,7 +173,6 @@ public class JdbcClinic implements PetClinic {
     @Override
     public void removePetFromCurrentClient(final String name) {
         getCurrentClient().removePetByName(name);
-//        executeUpdateForPreparedStatement(SQL_CLIENT_REMOVE_PET, this.currentClient.getId(), name);
         executePreparedStatement(SQL_CLIENT_REMOVE_PET, new Command() {
             @Override
             public void execute(PreparedStatement statement) throws SQLException {
@@ -223,13 +181,6 @@ public class JdbcClinic implements PetClinic {
                 statement.executeUpdate();
             }
         });
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(SQL_CLIENT_REMOVE_PET)) {
-            statement.setString(1, this.currentClient.getId());
-            statement.setString(2, name);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
     }
 
     /**
@@ -245,31 +196,9 @@ public class JdbcClinic implements PetClinic {
         executePreparedStatement(searchQuery, new Command() {
             @Override
             public void execute(PreparedStatement statement) throws SQLException {
-                statement.setString(1, searchString);
-
-                try (final ResultSet resultSet = statement.executeQuery()){
-                    if (resultSet.next()) {
-                        currentClient = new Client(resultSet.getString("name"), resultSet.getString("client_id"));
-                        fillCurrentClientWithPets();
-                    }
-                }
+                fillCurrentClientWithDbData(statement, searchString);
             }
         });
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(searchQuery)) {
-
-            statement.setString(1, searchString);
-
-            try (final ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()) {
-                    this.currentClient = new Client(resultSet.getString("name"), resultSet.getString("client_id"));
-                    fillCurrentClientWithPets();
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-
     }
 
     /**
@@ -278,7 +207,6 @@ public class JdbcClinic implements PetClinic {
     @Override
     public void removeCurrentClient() {
         removeCurrentClientPets();
-//        executeUpdateForPreparedStatement(SQL_REMOVE_CLIENT, this.currentClient.getId());
         executePreparedStatement(SQL_REMOVE_CLIENT, new Command() {
             @Override
             public void execute(PreparedStatement statement) throws SQLException {
@@ -287,14 +215,6 @@ public class JdbcClinic implements PetClinic {
                 currentClient = null;
             }
         });
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(SQL_REMOVE_CLIENT)) {
-            statement.setString(1, this.currentClient.getId());
-            statement.executeUpdate();
-            this.currentClient = null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-//        this.currentClient = null;
     }
 
     /**
@@ -303,7 +223,6 @@ public class JdbcClinic implements PetClinic {
      */
     @Override
     public void renameCurrentClient(final String newName) {
-//        executeUpdateForPreparedStatement(SQL_RENAME_CLIENT, newName, this.currentClient.getId());
         executePreparedStatement(SQL_RENAME_CLIENT, new Command() {
             @Override
             public void execute(PreparedStatement statement) throws SQLException {
@@ -313,17 +232,6 @@ public class JdbcClinic implements PetClinic {
                 currentClient.setFullName(newName);
             }
         });
-
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(SQL_RENAME_CLIENT)) {
-            statement.setString(1, newName);
-            statement.setString(2, this.currentClient.getId());
-            statement.executeUpdate();
-            this.currentClient.setFullName(newName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-
-//        this.currentClient.setFullName(newName);
     }
 
     /**
@@ -364,10 +272,57 @@ public class JdbcClinic implements PetClinic {
     }
 
 
+    /**
+     * Добавление найденных клиентов
+     * @param resultSet Строки таблицы с клиентами
+     * @param found Список для добавления
+     * @throws SQLException
+     */
+    private void addFoundClients(ResultSet resultSet, List<Client> found) throws SQLException {
+        while (resultSet.next()) {
+            Client clientTmp = new Client(resultSet.getString("name"), resultSet.getString("client_id"));
+            fillClientWithEmptyPets(clientTmp);
+            found.add(clientTmp);
+        }
+    }
+
+    /**
+     * Заполнить текущего клиента данными из базы
+     * @param statement PreparedStatement для поиска клиента
+     * @param searchString Строка поиска клиента
+     * @throws SQLException
+     */
+    private void fillCurrentClientWithDbData(PreparedStatement statement, String searchString) throws SQLException {
+        statement.setString(1, searchString);
+
+        try (final ResultSet resultSet = statement.executeQuery()){
+            if (resultSet.next()) {
+                this.currentClient = new Client(resultSet.getString("name"), resultSet.getString("client_id"));
+                fillCurrentClientWithPets();
+            }
+        }
+    }
+
+    /**
+     * Интерфейс Команда, чтобы вынести повторяющийся код:
+     *
+     * try (final PreparedStatement statement = this.connection.prepareStatement(SqlQuery)) {
+     *      ----Отличающийся код----
+     * } catch (SQLException e) {
+     *     e.printStackTrace();
+     * }
+     *
+     */
     interface Command {
         void execute(PreparedStatement statement) throws SQLException;
     }
 
+    /**
+     * Выполнить PreparedStatement.
+     * Использует интерфейс Команда для разделения повторяющейся и отличающейся части кода
+     * @param SqlQuery SQL-запрос
+     * @param command Реализация интерфейса Команда
+     */
     private void executePreparedStatement(String SqlQuery, Command command) {
         try (final PreparedStatement statement = this.connection.prepareStatement(SqlQuery)) {
             command.execute(statement);
@@ -375,23 +330,6 @@ public class JdbcClinic implements PetClinic {
             e.printStackTrace();
         }
     }
-
-
-    /**
-     * Выполнить update для указанного SQL-запроса
-     * @param SqlQuery Строка для PreparedStatement
-     * @param params Параметры PreparedStatement
-     */
-/*    private void executeUpdateForPreparedStatement(String SqlQuery, String... params) {
-        try (final PreparedStatement statement = this.connection.prepareStatement(SqlQuery)) {
-            for (int i = 1; i < params.length + 1; i++) {
-                statement.setString(i, params[i - 1]);
-            }
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     /**
      * Заполнение клиента животными-пустышками.
@@ -402,33 +340,28 @@ public class JdbcClinic implements PetClinic {
         executePreparedStatement(SQL_CLIENT_PETS_COUNT, new Command() {
             @Override
             public void execute(PreparedStatement statement) throws SQLException {
-                statement.setString(1, client.getId());
-
-                try (final ResultSet resultSet = statement.executeQuery()){
-                    if (resultSet.next()) {
-                        int petsNumber = resultSet.getInt("count");
-                        for (int i = 0; i < petsNumber; i++) {
-                            client.addPet(new SomePet(Integer.toString(i)));
-                        }
-                    }
-                }
+                addEmptyPets(statement, client);
             }
         });
-/*        try (final PreparedStatement statement = this.connection.prepareStatement(SQL_CLIENT_PETS_COUNT)) {
-            statement.setString(1, client.getId());
+    }
 
-            try (final ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()) {
-                    int petsNumber = resultSet.getInt("count");
-                    for (int i = 0; i < petsNumber; i++) {
-                        client.addPet(new SomePet(Integer.toString(i)));
-                    }
+    /**
+     * Заполнить клиента нужным количеством пустых животных
+     * @param statement PreparedStatement для получения количества животных из базы данных
+     * @param client Клиент
+     * @throws SQLException
+     */
+    private void addEmptyPets(PreparedStatement statement, Client client) throws SQLException {
+        statement.setString(1, client.getId());
+
+        try (final ResultSet resultSet = statement.executeQuery()){
+            if (resultSet.next()) {
+                int petsNumber = resultSet.getInt("count");
+                for (int i = 0; i < petsNumber; i++) {
+                    client.addPet(new SomePet(Integer.toString(i)));
                 }
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+        }
     }
 
     /**
@@ -462,32 +395,30 @@ public class JdbcClinic implements PetClinic {
      */
     private void fillCurrentClientWithPets() {
         if (this.currentClient != null) {
+
             executePreparedStatement(SQL_CLIENT_PETS, new Command() {
                 @Override
                 public void execute(PreparedStatement statement) throws SQLException {
-                    statement.setString(1, currentClient.getId());
-
-                    try (final ResultSet resultSet = statement.executeQuery()){
-                        while (resultSet.next())
-                            currentClient.addPet(PetFactory.createPet(
-                                    PetType.getPetTypeByString(resultSet.getString("type_id")),
-                                    resultSet.getString("name")));
-                    }
+                    addPets(statement);
                 }
             });
-/*            try (final PreparedStatement statement = this.connection.prepareStatement(SQL_CLIENT_PETS)) {
-                statement.setString(1, this.currentClient.getId());
 
-                try (final ResultSet resultSet = statement.executeQuery()){
-                    while (resultSet.next())
-                        this.currentClient.addPet(PetFactory.createPet(
-                                PetType.getPetTypeByString(resultSet.getString("type_id")),
-                                resultSet.getString("name")));
-                }
+        }
+    }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }*/
+    /**
+     * Заполнить текущего клиента животными из statement
+     * @param statement PreparedStatement для получения животных из базы данных
+     * @throws SQLException
+     */
+    private void addPets(PreparedStatement statement) throws SQLException {
+        statement.setString(1, currentClient.getId());
+
+        try (final ResultSet resultSet = statement.executeQuery()){
+            while (resultSet.next())
+                this.currentClient.addPet(PetFactory.createPet(
+                        PetType.getPetTypeByString(resultSet.getString("type_id")),
+                        resultSet.getString("name")));
         }
     }
 
@@ -524,8 +455,6 @@ public class JdbcClinic implements PetClinic {
      * Удаление всех животных текущего клиента
      */
     private void removeCurrentClientPets() {
-//        executeUpdateForPreparedStatement(SQL_REMOVE_ALL_PETS_OF_CLIENT, this.currentClient.getId());
-
         executePreparedStatement(SQL_REMOVE_ALL_PETS_OF_CLIENT, new Command() {
             @Override
             public void execute(PreparedStatement statement) throws SQLException {
@@ -533,14 +462,6 @@ public class JdbcClinic implements PetClinic {
                 statement.executeUpdate();
             }
         });
-/*
-        try (final PreparedStatement statement = this.connection.prepareStatement(SQL_REMOVE_ALL_PETS_OF_CLIENT)) {
-            statement.setString(1, this.currentClient.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-*/
     }
 
 }
