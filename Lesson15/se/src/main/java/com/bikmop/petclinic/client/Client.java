@@ -52,6 +52,36 @@ public class Client {
 
 
     /**
+     * Переопределение equals()
+     * @param o Объект для сравнения
+     * @return Равенство по equals
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (fullName != null ? !fullName.equals(client.fullName) : client.fullName != null) return false;
+        if (!id.equals(client.id)) return false;
+        return !(pets != null ? !pets.equals(client.pets) : client.pets != null);
+
+    }
+
+    /**
+     * Переопределение hashCode() для клиента
+     * @return hashCode клиента
+     */
+    @Override
+    public int hashCode() {
+        int result = fullName != null ? fullName.hashCode() : 0;
+        result = 31 * result + id.hashCode();
+        result = 31 * result + (pets != null ? pets.hashCode() : 0);
+        return result;
+    }
+
+    /**
      * Получить идентификационный номер клиента
      * @return идентификационный номер
      */

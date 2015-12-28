@@ -83,8 +83,8 @@
                 <form action="${pageContext.servletContext.contextPath}/client/edit" method='POST'>
                     <div id="addClientParams">
                         Тип: <select name="petType">
-                                <option value='7'>Другое
-                                <option value='1'>Кошка
+                                <option value='100'>Другое
+                                <option value='1'>Кот
                                 <option value='2'>Собака
                                 <option value='3'>Рыбка
                                 <option value='4'>Птица

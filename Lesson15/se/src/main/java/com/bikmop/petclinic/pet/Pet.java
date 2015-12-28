@@ -21,6 +21,32 @@ public abstract class Pet {
         this.name = name;
     }
 
+
+    /**
+     * Переопределение equals()
+     * @param o Объект для сравнения
+     * @return Равенство по equals
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pet pet = (Pet) o;
+
+        return name.equals(pet.name);
+
+    }
+
+    /**
+     * Переопределение hashCode()
+     * @return hashCode
+     */
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
     /**
      * Получить имя животного
      * @return Имя животного

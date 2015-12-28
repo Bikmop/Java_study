@@ -8,7 +8,7 @@ public class Cat extends Pet {
      * Строка типа животного
      */
     private final static String STRING_TYPE_OF_PET = "Cat";
-    private final static String RU_STRING_TYPE_OF_PET = "Кошка";
+    private final static String RU_STRING_TYPE_OF_PET = "Кот";
 
     /**
      * Конструктор

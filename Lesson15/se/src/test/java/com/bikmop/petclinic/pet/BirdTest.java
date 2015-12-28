@@ -12,4 +12,10 @@ public class BirdTest {
         assertEquals("Bird", bird.getStringPetType());
     }
 
+    @Test
+    public void testRuGetPetType() throws Exception {
+        Bird bird = new Bird("Birdie");
+        assertEquals("Птица", bird.getRuStringPetType());
+    }
+
 }

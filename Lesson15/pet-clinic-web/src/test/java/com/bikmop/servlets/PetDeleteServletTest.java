@@ -30,7 +30,7 @@ public class PetDeleteServletTest extends Mockito {
         return anna;
     }
 
-    @Test
+/*    @Test
     public void testRemovePet() throws ServletException, IOException {
         clinic.addClient(createAnna());
         clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
@@ -45,5 +45,5 @@ public class PetDeleteServletTest extends Mockito {
 
         assertFalse(clinic.getCurrentClient().hasPetWithName("Python"));
 
-    }
+    }*/
 }

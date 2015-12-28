@@ -1,7 +1,6 @@
 package com.bikmop.servlets;
 
 import com.bikmop.petclinic.client.Client;
-import com.bikmop.petclinic.pet.*;
 import com.bikmop.store.ClinicSingleton;
 
 import javax.servlet.RequestDispatcher;
@@ -55,6 +54,15 @@ public class ClinicViewServlet extends HttpServlet {
         fillPreviousAttributes(req);
 
         doGet(req, resp);
+    }
+
+    /**
+     * Освобождение ресурсов
+     */
+    @Override
+    public void destroy() {
+        super.destroy();
+        CLINIC.close();
     }
 
 

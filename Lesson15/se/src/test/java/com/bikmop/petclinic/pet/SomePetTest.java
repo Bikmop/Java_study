@@ -11,4 +11,11 @@ public class SomePetTest {
         SomePet giraffe = new SomePet("Giraffe");
         assertEquals("Pet", giraffe.getStringPetType());
     }
+
+    @Test
+    public void testGetRuPetType() throws Exception {
+        SomePet giraffe = new SomePet("Giraffe");
+        assertEquals("Животное", giraffe.getRuStringPetType());
+    }
+
 }

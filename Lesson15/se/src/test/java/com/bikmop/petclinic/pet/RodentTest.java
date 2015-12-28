@@ -11,4 +11,11 @@ public class RodentTest {
         Rodent rodent = new Rodent("Mousy");
         assertEquals("Rodent", rodent.getStringPetType());
     }
+
+    @Test
+    public void testGetRuPetType() throws Exception {
+        Rodent rodent = new Rodent("Mousy");
+        assertEquals("Грызун", rodent.getRuStringPetType());
+    }
+
 }

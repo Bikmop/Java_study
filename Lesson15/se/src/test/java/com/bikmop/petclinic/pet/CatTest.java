@@ -12,4 +12,10 @@ public class CatTest {
         assertEquals("Cat", cat.getStringPetType());
     }
 
+    @Test
+    public void testGetRuPetType() throws Exception {
+        Cat cat = new Cat("Kitty");
+        assertEquals("Кот", cat.getRuStringPetType());
+    }
+
 }

@@ -12,4 +12,10 @@ public class FishTest {
         assertEquals("Fish", fish.getStringPetType());
     }
 
+    @Test
+    public void testGetRuPetType() throws Exception {
+        Fish fish = new Fish("Fishy");
+        assertEquals("Рыбка", fish.getRuStringPetType());
+    }
+
 }

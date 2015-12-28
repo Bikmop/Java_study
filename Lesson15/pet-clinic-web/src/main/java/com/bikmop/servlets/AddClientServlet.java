@@ -52,6 +52,15 @@ public class AddClientServlet extends HttpServlet {
         processAddClient(req, resp);
     }
 
+    /**
+     * Освобождение ресурсов
+     */
+    @Override
+    public void destroy() {
+        super.destroy();
+        CLINIC.close();
+    }
+
 
     /**
      * Обработка кнопки добавления клиента в зависимости от корректности Id

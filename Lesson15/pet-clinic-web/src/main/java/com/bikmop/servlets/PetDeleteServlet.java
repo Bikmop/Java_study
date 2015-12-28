@@ -35,11 +35,21 @@ public class PetDeleteServlet extends HttpServlet {
     }
 
     /**
+     * Освобождение ресурсов
+     */
+    @Override
+    public void destroy() {
+        super.destroy();
+        CLINIC.close();
+    }
+
+
+    /**
      * Удаление животного у клиента клиники
      * @param req Запрос
      */
     private void removePet(HttpServletRequest req) {
-        CLINIC.getCurrentClient().removePetByName(req.getParameter("name"));
+        CLINIC.removePetFromCurrentClient(req.getParameter("name"));
     }
 
     /**

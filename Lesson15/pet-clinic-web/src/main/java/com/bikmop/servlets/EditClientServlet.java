@@ -55,6 +55,15 @@ public class EditClientServlet extends HttpServlet {
 
     }
 
+    /**
+     * Освобождение ресурсов
+     */
+    @Override
+    public void destroy() {
+        super.destroy();
+        CLINIC.close();
+    }
+
 
     /**
      * Установка клиента для редактирования
@@ -101,7 +110,7 @@ public class EditClientServlet extends HttpServlet {
             String name = req.getParameter("name");
 
             if (!CLINIC.getCurrentClient().getFullName().equals(name)) {
-                CLINIC.getCurrentClient().setFullName(name);
+                CLINIC.renameCurrentClient(name);
                 req.setAttribute("changes", CLIENT_NAME_CHANGED);
             }
         }
@@ -116,8 +125,7 @@ public class EditClientServlet extends HttpServlet {
             String petName = req.getParameter("petName");
 
             if (!"".equals(petName)) {
-                PetType petType = PetType.getPetTypeByString(req.getParameter("petType"));
-                CLINIC.getCurrentClient().addPet(PetFactory.createPet(petType, petName));
+                CLINIC.addPetToCurrentClient(req.getParameter("petType"), petName);
             }
         }
     }
