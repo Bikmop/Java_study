@@ -3,6 +3,7 @@ package com.bikmop.store;
 import com.bikmop.petclinic.client.Client;
 import com.bikmop.petclinic.pet.Dog;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 

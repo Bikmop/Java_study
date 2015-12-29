@@ -21,75 +21,64 @@ import static org.junit.Assert.*;
 public class ClientCRUDServletTest extends Mockito {
     final ClinicSingleton clinic = ClinicSingleton.getInstance();
 
-    private Client createAnna() {
-        Client anna = new Client("Anna Ivanova", "XX 33335789");
-        anna.addPet(new Bird("Kesha"));
-        anna.addPet(new Rodent("Mickey"));
-        anna.addPet(new Reptile("Python"));
-        anna.addPet(new SomePet("Snail"));
-
-        return anna;
-    }
-
-
-/*// EDIT:
+// EDIT:
     @Test
     public void testEditClientUpdate() throws ServletException, IOException {
-        clinic.addClient(createAnna());
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-        when(request.getParameter("name")).thenReturn("Anna Smith");
+        when(request.getParameter("name")).thenReturn("_TestName02");
         when(request.getParameter("update")).thenReturn("");
         when(request.getRequestDispatcher("/view/client/EditClient.jsp")).thenReturn(dispatcher);
 
-        assertFalse(clinic.findClients(Client.SearchType.NAME_FULL, "Anna Ivanova").isEmpty());
-        assertTrue(clinic.findClients(Client.SearchType.NAME_FULL, "Anna Smith").isEmpty());
-        assertEquals("Anna Ivanova", clinic.getCurrentClient().getFullName());
+        assertFalse(clinic.findClients(Client.SearchType.NAME_FULL, "_TestName01").isEmpty());
+        assertTrue(clinic.findClients(Client.SearchType.NAME_FULL, "_TestName02").isEmpty());
+        assertEquals("_TestName01", clinic.getCurrentClient().getFullName());
 
         new EditClientServlet().doPost(request, response);
         verify(request, atLeast(1)).getParameter("name");
         verify(request, atLeast(1)).getParameter("update");
         verify(dispatcher).forward(request, response);
 
-        assertFalse(clinic.findClients(Client.SearchType.NAME_FULL, "Anna Smith").isEmpty());
-        assertTrue(clinic.findClients(Client.SearchType.NAME_FULL, "Anna Ivanova").isEmpty());
-        assertEquals("Anna Smith", clinic.getCurrentClient().getFullName());
+        assertFalse(clinic.findClients(Client.SearchType.NAME_FULL, "_TestName02").isEmpty());
+        assertTrue(clinic.findClients(Client.SearchType.NAME_FULL, "_TestName01").isEmpty());
+        assertEquals("_TestName02", clinic.getCurrentClient().getFullName());
 
         clinic.removeCurrentClient();
     }
 
     @Test
     public void testEditClientUpdateTheSameName() throws ServletException, IOException {
-        clinic.addClient(createAnna());
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-        when(request.getParameter("name")).thenReturn("Anna Ivanova");
+        when(request.getParameter("name")).thenReturn("_TestName01");
         when(request.getParameter("update")).thenReturn("");
         when(request.getRequestDispatcher("/view/client/EditClient.jsp")).thenReturn(dispatcher);
 
-        assertEquals(1, clinic.findClients(Client.SearchType.NAME_FULL, "Anna Ivanova").size());
-        assertEquals("Anna Ivanova", clinic.getCurrentClient().getFullName());
+        assertEquals(1, clinic.findClients(Client.SearchType.NAME_FULL, "_TestName01").size());
+        assertEquals("_TestName01", clinic.getCurrentClient().getFullName());
 
         new EditClientServlet().doPost(request, response);
         verify(request, atLeast(1)).getParameter("name");
         verify(request, atLeast(1)).getParameter("update");
         verify(dispatcher).forward(request, response);
 
-        assertEquals(1, clinic.findClients(Client.SearchType.NAME_FULL, "Anna Ivanova").size());
+        assertEquals(1, clinic.findClients(Client.SearchType.NAME_FULL, "_TestName01").size());
 
         clinic.removeCurrentClient();
     }
 
     @Test
     public void testEditClientRemove() throws ServletException, IOException {
-        clinic.addClient(createAnna());
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
@@ -97,30 +86,30 @@ public class ClientCRUDServletTest extends Mockito {
         when(request.getParameter("remove")).thenReturn("");
         when(request.getRequestDispatcher("/view/clinic/ClinicView.jsp")).thenReturn(dispatcher);
 
-        assertFalse(clinic.findClients(Client.SearchType.NAME_FULL, "Anna Ivanova").isEmpty());
-        assertEquals("Anna Ivanova", clinic.getCurrentClient().getFullName());
+        assertFalse(clinic.findClients(Client.SearchType.NAME_FULL, "_TestName01").isEmpty());
+        assertEquals("_TestName01", clinic.getCurrentClient().getFullName());
 
         new EditClientServlet().doPost(request, response);
         verify(request, atLeast(1)).getParameter("remove");
 
-        assertTrue(clinic.findClients(Client.SearchType.NAME_FULL, "Anna Ivanova").isEmpty());
+        assertTrue(clinic.findClients(Client.SearchType.NAME_FULL, "_TestName01").isEmpty());
         assertTrue(clinic.getCurrentClient() == null);
     }
 
     @Test
     public void testEditClientAddPet() throws ServletException, IOException {
-        clinic.addClient(createAnna());
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-        when(request.getParameter("petName")).thenReturn("Fish");
+        when(request.getParameter("petName")).thenReturn("_TestFish");
         when(request.getParameter("petType")).thenReturn("3");
         when(request.getParameter("addPet")).thenReturn("");
         when(request.getRequestDispatcher("/view/client/EditClient.jsp")).thenReturn(dispatcher);
 
-        assertFalse(clinic.getCurrentClient().hasPetWithName("Fish"));
+        assertFalse(clinic.getCurrentClient().hasPetWithName("_TestFish"));
 
         new EditClientServlet().doPost(request, response);
         verify(request, atLeast(1)).getParameter("petName");
@@ -128,15 +117,15 @@ public class ClientCRUDServletTest extends Mockito {
         verify(request, atLeast(1)).getParameter("addPet");
         verify(dispatcher).forward(request, response);
 
-        assertTrue(clinic.getCurrentClient().hasPetWithName("Fish"));
+        assertTrue(clinic.getCurrentClient().hasPetWithName("_TestFish"));
 
         clinic.removeCurrentClient();
     }
 
     @Test
     public void testEditClientAddPetEmptyName() throws ServletException, IOException {
-        clinic.addClient(createAnna());
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
@@ -160,18 +149,18 @@ public class ClientCRUDServletTest extends Mockito {
 
     @Test
     public void testEditClientById() throws ServletException, IOException {
-        clinic.addClient(createAnna());
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-        when(request.getParameter("id")).thenReturn("XX 33335789");
+        when(request.getParameter("id")).thenReturn("_TestId");
         when(request.getRequestDispatcher("/view/client/EditClient.jsp")).thenReturn(dispatcher);
 
         new EditClientServlet().doGet(request, response);
         verify(dispatcher).forward(request, response);
 
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
         clinic.removeCurrentClient();
     }
 
@@ -182,13 +171,12 @@ public class ClientCRUDServletTest extends Mockito {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
+        int initialSize = clinic.getClients().size();
 
-        when(request.getParameter("name")).thenReturn("Name Test");
-        when(request.getParameter("id")).thenReturn("XX 0000000");
+        when(request.getParameter("name")).thenReturn("_TestName");
+        when(request.getParameter("id")).thenReturn("_TestId");
         when(request.getParameter("add")).thenReturn("");
         when(request.getRequestDispatcher("/client/edit")).thenReturn(dispatcher);
-
-        assertTrue(clinic.getClients().isEmpty());
 
         new AddClientServlet().doPost(request, response);
 
@@ -196,9 +184,11 @@ public class ClientCRUDServletTest extends Mockito {
         verify(request, atLeast(1)).getParameter("id");
         verify(request, atLeast(1)).getParameter("add");
         verify(dispatcher).forward(request, response);
-        assertFalse(clinic.getClients().isEmpty());
 
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 0000000");
+        assertEquals(initialSize + 1, clinic.getClients().size());
+
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
+        assertEquals("_TestName", clinic.getCurrentClient().getFullName());
         clinic.removeCurrentClient();
     }
 
@@ -207,45 +197,51 @@ public class ClientCRUDServletTest extends Mockito {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
+        int initialSize = clinic.getClients().size();
 
-        when(request.getParameter("name")).thenReturn("Name Test");
+        when(request.getParameter("name")).thenReturn("_TestName");
         when(request.getParameter("id")).thenReturn("");
         when(request.getParameter("add")).thenReturn("");
         when(request.getRequestDispatcher("/view/client/AddClient.jsp")).thenReturn(dispatcher);
-
-        assertTrue(clinic.getClients().isEmpty());
 
         new AddClientServlet().doPost(request, response);
 
         verify(request, atLeast(1)).getParameter("name");
         verify(request, atLeast(1)).getParameter("id");
         verify(request, atLeast(1)).getParameter("add");
-        assertTrue(clinic.getClients().isEmpty());
+
+        assertEquals(initialSize, clinic.getClients().size());
+
+        clinic.selectFirstMatchingClient(Client.SearchType.NAME_FULL, "_TestName");
+        assertNull(clinic.getCurrentClient());
     }
 
     @Test
     public void testAddClientExistingId() throws ServletException, IOException {
-        clinic.addClient(createAnna());
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        int initialSize = clinic.getClients().size();
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
 
-        when(request.getParameter("name")).thenReturn("Name Test");
-        when(request.getParameter("id")).thenReturn("XX 33335789");
+        when(request.getParameter("name")).thenReturn("_TestName02");
+        when(request.getParameter("id")).thenReturn("_TestId");
         when(request.getParameter("add")).thenReturn("");
         when(request.getRequestDispatcher("/view/client/AddClient.jsp")).thenReturn(dispatcher);
-
-        assertEquals(1, clinic.getClients().size());
 
         new AddClientServlet().doPost(request, response);
 
         verify(request, atLeast(1)).getParameter("name");
         verify(request, atLeast(1)).getParameter("id");
         verify(request, atLeast(1)).getParameter("add");
-        assertEquals(1, clinic.getClients().size());
 
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        assertEquals(initialSize, clinic.getClients().size());
+
+        clinic.selectFirstMatchingClient(Client.SearchType.NAME_FULL, "_TestName02");
+        assertNull(clinic.getCurrentClient());
+
+        clinic.selectFirstMatchingClient(Client.SearchType.NAME_FULL, "_TestName01");
         clinic.removeCurrentClient();
     }
 
@@ -299,18 +295,20 @@ public class ClientCRUDServletTest extends Mockito {
 
     @Test
     public void testClinicViewSearchWithAllParameters() throws ServletException, IOException {
-        clinic.addClient(createAnna());
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
+        clinic.addPetToCurrentClient("100", "_TestPet");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
 
         when(request.getParameter("search")).thenReturn("");
-        when(request.getParameter("name")).thenReturn("Anna Ivanova");
+        when(request.getParameter("name")).thenReturn("_TestName01");
         when(request.getParameter("nameFull")).thenReturn("");
-        when(request.getParameter("id")).thenReturn("XX 33335789");
+        when(request.getParameter("id")).thenReturn("_TestId");
         when(request.getParameter("idFull")).thenReturn("");
-        when(request.getParameter("petName")).thenReturn("Python");
+        when(request.getParameter("petName")).thenReturn("_TestPet");
         when(request.getRequestDispatcher("/view/clinic/ClinicView.jsp")).thenReturn(dispatcher);
 
         new ClinicViewServlet().doPost(request, response);
@@ -323,21 +321,22 @@ public class ClientCRUDServletTest extends Mockito {
         verify(request, atLeast(1)).getParameter("petName");
         verify(dispatcher).forward(request, response);
 
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
         clinic.removeCurrentClient();
     }
 
     @Test
     public void testClinicViewPartSearch() throws ServletException, IOException {
-        clinic.addClient(createAnna());
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
+        clinic.addPetToCurrentClient("100", "_TestPet");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
 
         when(request.getParameter("search")).thenReturn("");
-        when(request.getParameter("name")).thenReturn("anna");
-        when(request.getParameter("id")).thenReturn("33335789");
+        when(request.getParameter("name")).thenReturn("test");
+        when(request.getParameter("id")).thenReturn("estid");
         when(request.getRequestDispatcher("/view/clinic/ClinicView.jsp")).thenReturn(dispatcher);
 
         new ClinicViewServlet().doPost(request, response);
@@ -347,24 +346,25 @@ public class ClientCRUDServletTest extends Mockito {
         verify(request, atLeast(1)).getParameter("id");
         verify(dispatcher).forward(request, response);
 
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
         clinic.removeCurrentClient();
     }
 
     @Test
     public void testClinicViewClear() throws ServletException, IOException {
-        clinic.addClient(createAnna());
+        clinic.addClient(new Client("_TestName01", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
+        clinic.addPetToCurrentClient("100", "_TestPet");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
 
         when(request.getParameter("clear")).thenReturn("");
-        when(request.getParameter("name")).thenReturn("Anna Ivanova");
+        when(request.getParameter("name")).thenReturn("_TestName01");
         when(request.getParameter("nameFull")).thenReturn("");
-        when(request.getParameter("id")).thenReturn("XX 33335789");
+        when(request.getParameter("id")).thenReturn("_TestId");
         when(request.getParameter("idFull")).thenReturn("");
-        when(request.getParameter("petName")).thenReturn("Python");
+        when(request.getParameter("petName")).thenReturn("_TestPet");
         when(request.getRequestDispatcher("/view/clinic/ClinicView.jsp")).thenReturn(dispatcher);
 
         new ClinicViewServlet().doPost(request, response);
@@ -377,13 +377,7 @@ public class ClientCRUDServletTest extends Mockito {
         verify(request, times(0)).getParameter("petName");
         verify(dispatcher).forward(request, response);
 
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
         clinic.removeCurrentClient();
-    }*/
-
-
-
-
-
+    }
 
 }

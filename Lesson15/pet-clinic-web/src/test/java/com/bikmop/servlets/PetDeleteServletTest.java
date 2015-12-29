@@ -20,30 +20,25 @@ import static org.junit.Assert.*;
 public class PetDeleteServletTest extends Mockito {
     final ClinicSingleton clinic = ClinicSingleton.getInstance();
 
-    private Client createAnna() {
-        Client anna = new Client("Anna Ivanova", "XX 33335789");
-        anna.addPet(new Bird("Kesha"));
-        anna.addPet(new Rodent("Mickey"));
-        anna.addPet(new Reptile("Python"));
-        anna.addPet(new SomePet("Snail"));
-
-        return anna;
-    }
-
-/*    @Test
+    @Test
     public void testRemovePet() throws ServletException, IOException {
-        clinic.addClient(createAnna());
-        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "XX 33335789");
+        clinic.addClient(new Client("_TestName", "_TestId"));
+        clinic.selectFirstMatchingClient(Client.SearchType.ID_FULL, "_TestId");
+        assertFalse(clinic.getCurrentClient().hasPetWithName("_TestBird"));
+        clinic.addPetToCurrentClient("4", "_TestBird");
+        clinic.addPetToCurrentClient("6", "_TestRodent");
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
-        when(request.getParameter("name")).thenReturn("Python");
+        when(request.getParameter("name")).thenReturn("_TestBird");
 
-        assertTrue(clinic.getCurrentClient().hasPetWithName("Python"));
+        assertTrue(clinic.getCurrentClient().hasPetWithName("_TestBird"));
 
-        new PetDeleteServlet().doGet(request, response);
+        PetDeleteServlet petDeleteServlet = new PetDeleteServlet();
+        petDeleteServlet.doGet(request, response);
         verify(request, atLeast(1)).getParameter("name");
 
-        assertFalse(clinic.getCurrentClient().hasPetWithName("Python"));
+        assertFalse(clinic.getCurrentClient().hasPetWithName("_TestBird"));
 
-    }*/
+        clinic.removeCurrentClient();
+    }
 }
