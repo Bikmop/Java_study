@@ -31,5 +31,16 @@
 - Коллекции. Equals. hashCode
 <p>[Выполненное задание - "Провести эксперимент с коллекциями ArrayList, HashSet, HashMap с разным перекрытием equals, hashCode."](https://github.com/Bikmop/Java_study/tree/master/Lesson11)</p>
 
+---------------------------------
+Занятие 12.
+- Многопоточность.
+<p>[Выполненное задание](https://github.com/Bikmop/Java_study/blob/master/PetClinic_2/src/test/java/com/bikmop/petclinic/client/ConcurrentClientTest.java)</p>
+
+---------------------------------
+Занятие 14.
+- Клиент-сервер. 
+- Протоколы передачи.
+<p>[Выполненное задание]()</p>
+
 
 
