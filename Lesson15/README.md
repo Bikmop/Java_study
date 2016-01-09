@@ -3,8 +3,10 @@ Web pet clinic. Lesson15 + Lesson16 + Lesson17 + Lesson18 + Lesson19
 
 Веб-клиника домашних животных.
 ------------------------------------
-По функциям аналогична консольной клинике.
+По функциональности аналогична [консольной клинике](https://github.com/Bikmop/Java_study/tree/master/PetClinic_2).
 
+Lesson15:
+------------------------------------
 Обзор клиники:
 ![CC0](https://github.com/Bikmop/Java_study/blob/master/Lesson15/DemoInterface/15_Clinic.png)
 
