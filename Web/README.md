@@ -17,6 +17,4 @@ Web pet clinic. Lesson14
 <p>05:</p>
 ![CC0](https://github.com/Bikmop/Java_study/blob/master/Web/InterfaceExamples/05.png)
 <p>06:</p>
-![CC0](https://github.com/Bikmop/Java_study/blob/master/Web/InterfaceExamples/06.png)
-<p>07:</p>
 ![CC0](https://github.com/Bikmop/Java_study/blob/master/Web/InterfaceExamples/07.png)
